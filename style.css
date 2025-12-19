@@ -358,24 +358,38 @@ h2 em {
     margin-bottom: 6vw;
 }
 
-.footer .logo-main {
+.footer-brand {
+    max-width: 300px;
+}
+
+.footer-brand .logo-main {
     color: var(--bone);
+    margin-bottom: 1rem;
+    display: block;
 }
 
-.footer-nav {
+.footer-brand p {
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+}
+
+.social-links {
     display: flex;
-    gap: 3rem;
+    gap: 1.5rem;
 }
 
-.footer-nav a {
+.social-links a {
     text-decoration: none;
     color: var(--bone);
-    font-size: 0.8rem;
-    opacity: 0.6;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
     transition: 0.3s;
 }
 
-.footer-nav a:hover {
+.social-links a:hover {
     opacity: 1;
 }
 
@@ -384,6 +398,209 @@ h2 em {
     border-top: 1px solid rgba(245, 245, 240, 0.05);
     font-size: 0.7rem;
     opacity: 0.4;
+    letter-spacing: 0.1em;
+}
+
+.footer-bottom-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badges {
+    display: flex;
+    gap: 2rem;
+}
+
+.badges span {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Header Phone */
+.nav-phone {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--near-black);
+}
+
+/* Pillars */
+.pillars {
+    padding: 8vw 0;
+    background-color: var(--near-black);
+    color: var(--bone);
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+.pillar h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--gold-accent);
+}
+
+.pillar p {
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 12vw 0;
+    text-align: center;
+    background-color: var(--bone);
+}
+
+.testimonial-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.quote-mark {
+    font-family: var(--font-heading);
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--gold-accent);
+    display: block;
+    margin-bottom: -2rem;
+    opacity: 0.3;
+}
+
+.testimonial-text {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 3rem;
+    color: var(--near-black);
+}
+
+.testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.author-name {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+}
+
+.author-location {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    letter-spacing: 0.1em;
+}
+
+/* Booking Enhancements */
+.booking-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-num {
+    font-size: 2.5rem;
+    font-family: var(--font-heading);
+    color: var(--blue-accent);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+}
+
+.form-notice {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    margin-top: 1.5rem;
+}
+
+.elite-form textarea {
+    width: 100%;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+    font-size: 1rem;
+    resize: none;
+}
+
+.elite-form textarea:focus {
+    outline: none;
+    border-bottom-color: var(--near-black);
+}
+
+/* Hero Trust */
+.hero-trust-mini {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.google-stars {
+    color: #FFD700;
+    letter-spacing: 0.1em;
+}
+
+.trust-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+/* Footer Nav Update */
+.footer-nav {
+    display: flex;
+    gap: 6rem;
+}
+
+.nav-col h6 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    color: var(--gold-accent);
+}
+
+.nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.footer-bottom-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badges {
+    display: flex;
+    gap: 2rem;
+}
+
+.badges span {
+    font-size: 0.6rem;
     letter-spacing: 0.1em;
 }
 
@@ -404,11 +621,32 @@ h2 em {
         order: -1;
     }
 
+    .pillars-grid,
     .services-grid {
         grid-template-columns: 1fr;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+    }
+
+    .testimonial-text {
+        font-size: 1.8rem;
+    }
+
+    .footer-grid {
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .footer-nav {
+        gap: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-bottom-flex {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
     }
 }

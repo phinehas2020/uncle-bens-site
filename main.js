@@ -32,7 +32,7 @@ const initScrollReveals = () => {
     }, observerOptions);
 
     // Target elements
-    const revealTargets = document.querySelectorAll('h1, h2, .service-card, .hero-image-wrapper, .booking-form-area');
+    const revealTargets = document.querySelectorAll('h1, h2, .service-card, .hero-image-wrapper, .booking-form-area, .pillar, .testimonial-content');
 
     revealTargets.forEach((el, index) => {
         el.style.opacity = '0';
