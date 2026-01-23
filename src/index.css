@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* ========================================
+   QUALITY MOVING & STORAGE - DESIGN SYSTEM
+   Premium Austin Moving Company
+   ======================================== */
+
+@theme {
+  /* Color Palette - Refined, warm neutrals with strategic accents */
+  --color-bone: #F5F5F0;
+  --color-cream: #FAFAF7;
+  --color-charcoal: #1C1C1C;
+  --color-slate: #2D2D2D;
+  --color-warm-gray: #737373;
+  --color-light-gray: #A3A3A3;
+  --color-border: #E5E5E0;
+
+  /* Accent - Deep navy for authority and trust */
+  --color-navy: #1E3A5F;
+  --color-navy-light: #2A4A73;
+
+  /* Secondary accent - Warm amber for premium feel */
+  --color-amber: #B8860B;
+  --color-amber-muted: #D4A946;
+
+  /* Font families */
+  --font-family-display: 'Inter', system-ui, sans-serif;
+  --font-family-body: 'Inter', system-ui, sans-serif;
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-above: 10;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-bone);
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--color-navy);
+  color: var(--color-bone);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

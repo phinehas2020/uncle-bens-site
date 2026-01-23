@@ -1,0 +1,11 @@
+# Quality Moving & Storage - Robots.txt
+# https://qualitymoving.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://qualitymoving.com/sitemap.xml
+
+# Disallow admin/private areas (none currently)
+# Disallow: /admin/
