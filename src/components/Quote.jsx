@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './Button';
+import { site } from '../data/site';
 
 export function Quote() {
     const [formState, setFormState] = useState('idle'); // idle, submitting, success
@@ -13,6 +14,17 @@ export function Quote() {
         service: '',
         details: '',
     });
+    const isDirty = Object.values(formData).some((value) => String(value).trim() !== '');
+
+    useEffect(() => {
+        if (!isDirty) return undefined;
+        const handleBeforeUnload = (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +52,7 @@ export function Quote() {
     };
 
     const inputClasses =
-        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-navy transition-colors duration-150';
+        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:border-navy transition-colors duration-150';
 
     return (
         <section id="quote" className="py-24 lg:py-32 bg-cream">
@@ -52,7 +64,7 @@ export function Quote() {
                             Free Quote
                         </span>
                         <h2 className="text-balance text-3xl lg:text-4xl font-bold text-charcoal mb-6">
-                            Get your free guaranteed quote
+                            Get Your Free Guaranteed Quote
                         </h2>
                         <p className="text-pretty text-warm-gray text-lg leading-relaxed mb-8">
                             We deliver free on-site or online quotes and we stand by them. A guaranteed quote means you do not have to worry about hidden or last-minute charges. Contact us today for your own free guaranteed moving quote.
@@ -76,13 +88,13 @@ export function Quote() {
                                 Prefer to talk? Call us directly:
                             </p>
                             <a
-                                href="tel:5123009543"
+                                href={`tel:${site.phone.digits}`}
                                 className="text-2xl font-bold text-charcoal hover:text-navy transition-colors"
                             >
-                                (512) 300-9543
+                                {site.phone.display}
                             </a>
                             <p className="text-sm text-warm-gray mt-2">
-                                Mon-Sat, 9am-5pm
+                                {site.hours.summary}
                             </p>
                         </div>
                     </div>
@@ -90,9 +102,9 @@ export function Quote() {
                     {/* Form */}
                     <div className="bg-bone p-8 lg:p-10 border border-border">
                         {formState === 'success' ? (
-                            <div className="text-center py-12">
+                            <div className="text-center py-12" role="status" aria-live="polite">
                                 <div className="size-16 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg
+                                    <svg aria-hidden="true"
                                         className="size-8 text-navy"
                                         fill="none"
                                         stroke="currentColor"
@@ -126,7 +138,8 @@ export function Quote() {
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        placeholder="Full Name"
+                                        placeholder="Full name…"
+                                        autoComplete="name"
                                         required
                                         className={inputClasses}
                                     />
@@ -144,7 +157,9 @@ export function Quote() {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="Email Address"
+                                            placeholder="name@example.com…"
+                                            autoComplete="email"
+                                            spellCheck={false}
                                             required
                                             className={inputClasses}
                                         />
@@ -159,7 +174,9 @@ export function Quote() {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            placeholder="Phone Number"
+                                            placeholder="555-123-4567…"
+                                            autoComplete="tel"
+                                            inputMode="tel"
                                             required
                                             className={inputClasses}
                                         />
@@ -178,7 +195,9 @@ export function Quote() {
                                             name="fromZip"
                                             value={formData.fromZip}
                                             onChange={handleChange}
-                                            placeholder="Moving From (City/Zip)"
+                                            placeholder="Moving from (city or ZIP)…"
+                                            autoComplete="postal-code"
+                                            inputMode="numeric"
                                             required
                                             className={inputClasses}
                                         />
@@ -193,7 +212,9 @@ export function Quote() {
                                             name="toZip"
                                             onChange={handleChange}
                                             value={formData.toZip}
-                                            placeholder="Moving To (City/Zip)"
+                                            placeholder="Moving to (city or ZIP)…"
+                                            autoComplete="postal-code"
+                                            inputMode="numeric"
                                             required
                                             className={inputClasses}
                                         />
@@ -206,29 +227,31 @@ export function Quote() {
                                         <label htmlFor="moveDate" className="sr-only">
                                             Preferred Move Date
                                         </label>
-                                        <input
-                                            type="date"
-                                            id="moveDate"
-                                            name="moveDate"
-                                            value={formData.moveDate}
-                                            onChange={handleChange}
-                                            className={inputClasses}
-                                        />
+                                    <input
+                                        type="date"
+                                        id="moveDate"
+                                        name="moveDate"
+                                        value={formData.moveDate}
+                                        onChange={handleChange}
+                                        autoComplete="off"
+                                        className={inputClasses}
+                                    />
                                     </div>
                                     <div>
                                         <label htmlFor="service" className="sr-only">
                                             Service Type
                                         </label>
-                                        <select
-                                            id="service"
-                                            name="service"
-                                            value={formData.service}
-                                            onChange={handleChange}
-                                            required
-                                            className={inputClasses}
-                                        >
+                                    <select
+                                        id="service"
+                                        name="service"
+                                        value={formData.service}
+                                        onChange={handleChange}
+                                        autoComplete="off"
+                                        required
+                                        className={inputClasses}
+                                    >
                                             <option value="" disabled>
-                                                Select Service
+                                                Select Service…
                                             </option>
                                             <option value="residential">Residential Moving</option>
                                             <option value="commercial">Commercial Moving</option>
@@ -249,7 +272,8 @@ export function Quote() {
                                         name="details"
                                         value={formData.details}
                                         onChange={handleChange}
-                                        placeholder="Tell us about your move (home size, special items, etc.)"
+                                        placeholder="Tell us about your move (home size, special items, etc.)…"
+                                        autoComplete="off"
                                         rows={4}
                                         className={`${inputClasses} resize-none`}
                                     />
@@ -263,7 +287,7 @@ export function Quote() {
                                     disabled={formState === 'submitting'}
                                 >
                                     {formState === 'submitting'
-                                        ? 'Sending...'
+                                        ? 'Sending…'
                                         : 'Get My Free Quote'}
                                 </Button>
 

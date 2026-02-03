@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import { site } from '../data/site';
 
 const navLinks = [
     { to: '/services', label: 'Services' },
@@ -36,12 +37,18 @@ export function Header() {
     return (
         <header
             className={cn(
-                'fixed top-0 left-0 right-0 z-header transition-all duration-200',
+                'fixed top-0 left-0 right-0 z-header transition-colors transition-shadow duration-200',
                 isTransparent
                     ? 'bg-transparent'
                     : 'bg-bone/95 backdrop-blur-sm border-b border-border shadow-sm'
             )}
         >
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-6 focus:z-header focus:rounded focus:bg-bone focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-charcoal focus:shadow"
+            >
+                Skip to main content
+            </a>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <nav className="flex items-center justify-between h-20">
                     {/* Logo */}
@@ -78,13 +85,13 @@ export function Header() {
                             </Link>
                         ))}
                         <a
-                            href="tel:5123009543"
+                            href={`tel:${site.phone.digits}`}
                             className={cn(
                                 'text-sm font-semibold tracking-wide transition-colors duration-150',
                                 isTransparent ? 'text-bone' : 'text-charcoal'
                             )}
                         >
-                            (512) 300-9543
+                            {site.phone.display}
                         </a>
                         <Link
                             to="/quote"
@@ -103,7 +110,7 @@ export function Header() {
                         )}
                         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                     >
-                        <svg
+                        <svg aria-hidden="true"
                             className="size-6"
                             fill="none"
                             stroke="currentColor"
@@ -145,10 +152,10 @@ export function Header() {
                                 </Link>
                             ))}
                             <a
-                                href="tel:5123009543"
+                                href={`tel:${site.phone.digits}`}
                                 className="text-charcoal font-semibold py-2"
                             >
-                                (512) 300-9543
+                                {site.phone.display}
                             </a>
                             <Link
                                 to="/quote"

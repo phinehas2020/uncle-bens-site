@@ -1,25 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SEO } from '../components/SEO';
 import { Button } from '../components/Button';
+import { site, yearsInBusiness } from '../data/site';
+
+const initialFormData = {
+    name: '',
+    email: '',
+    phone: '',
+    fromAddress: '',
+    fromZip: '',
+    toAddress: '',
+    toZip: '',
+    moveDate: '',
+    moveTime: '',
+    homeSize: '',
+    service: '',
+    specialItems: [],
+    details: '',
+    hearAbout: '',
+};
 
 export function QuotePage() {
     const [formState, setFormState] = useState('idle');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        fromAddress: '',
-        fromZip: '',
-        toAddress: '',
-        toZip: '',
-        moveDate: '',
-        moveTime: '',
-        homeSize: '',
-        service: '',
-        specialItems: [],
-        details: '',
-        hearAbout: '',
+    const [formData, setFormData] = useState(initialFormData);
+    const isDirty = Object.values(formData).some((value) => {
+        if (Array.isArray(value)) return value.length > 0;
+        return String(value).trim() !== '';
     });
+
+    useEffect(() => {
+        if (!isDirty) return undefined;
+        const handleBeforeUnload = (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -41,11 +58,12 @@ export function QuotePage() {
 
         setTimeout(() => {
             setFormState('success');
+            setFormData(initialFormData);
         }, 1500);
     };
 
     const inputClasses =
-        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-navy transition-colors duration-150';
+        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:border-navy transition-colors duration-150';
 
     const specialItems = [
         'Piano',
@@ -60,7 +78,7 @@ export function QuotePage() {
         <>
             <SEO
                 title="Get a Free Quote"
-                description="Request a free moving quote from Austin's most trusted movers. Transparent pricing, no hidden fees. We respond within 24 hours with a detailed estimate for your move."
+                description={`Request a free moving quote from Austin's trusted movers with over ${yearsInBusiness} years of experience. Transparent pricing, no hidden fees. We respond within 24 hours with a detailed estimate for your move.`}
                 canonical="/quote"
             />
 
@@ -71,7 +89,7 @@ export function QuotePage() {
                         Free Quote
                     </span>
                     <h1 className="text-balance text-4xl lg:text-5xl font-bold mb-6 max-w-2xl">
-                        Get your free moving estimate
+                        Get Your Free Moving Estimate
                     </h1>
                     <p className="text-pretty text-bone/70 text-lg max-w-xl">
                         Tell us about your move and we'll provide a detailed, transparent
@@ -87,9 +105,9 @@ export function QuotePage() {
                         {/* Form */}
                         <div className="lg:col-span-2">
                             {formState === 'success' ? (
-                                <div className="bg-bone p-12 border border-border text-center">
+                                <div className="bg-bone p-12 border border-border text-center" role="status" aria-live="polite">
                                     <div className="size-20 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-8">
-                                        <svg
+                                        <svg aria-hidden="true"
                                             className="size-10 text-navy"
                                             fill="none"
                                             stroke="currentColor"
@@ -104,22 +122,22 @@ export function QuotePage() {
                                         </svg>
                                     </div>
                                     <h2 className="text-2xl font-bold text-charcoal mb-4">
-                                        Quote request received
+                                        Quote Request Received
                                     </h2>
                                     <p className="text-warm-gray mb-2">
                                         We've received your information and will be in touch within 24 hours.
                                     </p>
                                     <p className="text-warm-gray">
                                         For urgent requests, call us at{' '}
-                                        <a href="tel:5125550199" className="text-navy font-medium">
-                                            (512) 555-0199
+                                        <a href={`tel:${site.phone.digits}`} className="text-navy font-medium">
+                                            {site.phone.display}
                                         </a>
                                     </p>
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="bg-bone p-8 lg:p-10 border border-border">
                                     <h2 className="text-xl font-semibold text-charcoal mb-8">
-                                        Your information
+                                        Your Information
                                     </h2>
 
                                     {/* Contact Info */}
@@ -134,6 +152,7 @@ export function QuotePage() {
                                                 name="name"
                                                 value={formData.name}
                                                 onChange={handleChange}
+                                                autoComplete="name"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -148,6 +167,8 @@ export function QuotePage() {
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleChange}
+                                                autoComplete="email"
+                                                spellCheck={false}
                                                 required
                                                 className={inputClasses}
                                             />
@@ -162,6 +183,8 @@ export function QuotePage() {
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleChange}
+                                                autoComplete="tel"
+                                                inputMode="tel"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -169,7 +192,7 @@ export function QuotePage() {
                                     </div>
 
                                     <h2 className="text-xl font-semibold text-charcoal mb-8">
-                                        Move details
+                                        Move Details
                                     </h2>
 
                                     {/* From Address */}
@@ -184,6 +207,7 @@ export function QuotePage() {
                                                 name="fromAddress"
                                                 value={formData.fromAddress}
                                                 onChange={handleChange}
+                                                autoComplete="street-address"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -198,6 +222,8 @@ export function QuotePage() {
                                                 name="fromZip"
                                                 value={formData.fromZip}
                                                 onChange={handleChange}
+                                                autoComplete="postal-code"
+                                                inputMode="numeric"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -216,6 +242,7 @@ export function QuotePage() {
                                                 name="toAddress"
                                                 value={formData.toAddress}
                                                 onChange={handleChange}
+                                                autoComplete="street-address"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -230,6 +257,8 @@ export function QuotePage() {
                                                 name="toZip"
                                                 value={formData.toZip}
                                                 onChange={handleChange}
+                                                autoComplete="postal-code"
+                                                inputMode="numeric"
                                                 required
                                                 className={inputClasses}
                                             />
@@ -248,6 +277,7 @@ export function QuotePage() {
                                                 name="moveDate"
                                                 value={formData.moveDate}
                                                 onChange={handleChange}
+                                                autoComplete="off"
                                                 className={inputClasses}
                                             />
                                         </div>
@@ -260,9 +290,10 @@ export function QuotePage() {
                                                 name="moveTime"
                                                 value={formData.moveTime}
                                                 onChange={handleChange}
+                                                autoComplete="off"
                                                 className={inputClasses}
                                             >
-                                                <option value="">Select time</option>
+                                                <option value="">Select Time…</option>
                                                 <option value="morning">Morning (8am-12pm)</option>
                                                 <option value="afternoon">Afternoon (12pm-4pm)</option>
                                                 <option value="flexible">Flexible</option>
@@ -277,10 +308,11 @@ export function QuotePage() {
                                                 name="homeSize"
                                                 value={formData.homeSize}
                                                 onChange={handleChange}
+                                                autoComplete="off"
                                                 required
                                                 className={inputClasses}
                                             >
-                                                <option value="">Select size</option>
+                                                <option value="">Select Size…</option>
                                                 <option value="studio">Studio</option>
                                                 <option value="1br">1 Bedroom</option>
                                                 <option value="2br">2 Bedrooms</option>
@@ -296,15 +328,16 @@ export function QuotePage() {
                                         <label htmlFor="service" className="block text-sm font-medium text-charcoal mb-2">
                                             Service Type *
                                         </label>
-                                        <select
-                                            id="service"
-                                            name="service"
-                                            value={formData.service}
-                                            onChange={handleChange}
-                                            required
-                                            className={inputClasses}
-                                        >
-                                            <option value="">Select service</option>
+                                            <select
+                                                id="service"
+                                                name="service"
+                                                value={formData.service}
+                                                onChange={handleChange}
+                                                autoComplete="off"
+                                                required
+                                                className={inputClasses}
+                                            >
+                                                <option value="">Select Service…</option>
                                             <option value="full">Full Service (Packing + Moving)</option>
                                             <option value="moving">Moving Only</option>
                                             <option value="packing">Packing Only</option>
@@ -348,7 +381,8 @@ export function QuotePage() {
                                             value={formData.details}
                                             onChange={handleChange}
                                             rows={4}
-                                            placeholder="Stairs, elevators, parking restrictions, or other details that would help us provide an accurate quote..."
+                                            placeholder="Stairs, elevators, parking restrictions, or other details to help us provide an accurate quote…"
+                                            autoComplete="off"
                                             className={`${inputClasses} resize-none`}
                                         />
                                     </div>
@@ -356,16 +390,17 @@ export function QuotePage() {
                                     {/* How did you hear about us */}
                                     <div className="mb-8">
                                         <label htmlFor="hearAbout" className="block text-sm font-medium text-charcoal mb-2">
-                                            How did you hear about us?
+                                            How Did You Hear About Us?
                                         </label>
                                         <select
                                             id="hearAbout"
                                             name="hearAbout"
                                             value={formData.hearAbout}
                                             onChange={handleChange}
+                                            autoComplete="off"
                                             className={inputClasses}
                                         >
-                                            <option value="">Select one</option>
+                                                <option value="">Select One…</option>
                                             <option value="google">Google Search</option>
                                             <option value="referral">Friend/Family Referral</option>
                                             <option value="yelp">Yelp</option>
@@ -382,7 +417,7 @@ export function QuotePage() {
                                         className="w-full"
                                         disabled={formState === 'submitting'}
                                     >
-                                        {formState === 'submitting' ? 'Submitting...' : 'Submit Quote Request'}
+                                        {formState === 'submitting' ? 'Submitting…' : 'Submit Quote Request'}
                                     </Button>
 
                                     <p className="text-xs text-warm-gray text-center mt-4">
@@ -396,22 +431,22 @@ export function QuotePage() {
                         <div className="space-y-8">
                             {/* Contact Card */}
                             <div className="bg-charcoal text-bone p-8">
-                                <h3 className="text-lg font-semibold mb-4">Prefer to talk?</h3>
+                                <h3 className="text-lg font-semibold mb-4">Prefer to Talk?</h3>
                                 <p className="text-bone/70 text-sm mb-4">
                                     Call us directly for immediate assistance or to schedule an in-home estimate.
                                 </p>
                                 <a
-                                    href="tel:5125550199"
+                                    href={`tel:${site.phone.digits}`}
                                     className="text-2xl font-bold text-amber hover:text-amber-muted transition-colors"
                                 >
-                                    (512) 555-0199
+                                    {site.phone.display}
                                 </a>
-                                <p className="text-sm text-bone/50 mt-2">Mon-Sat, 8am-6pm CST</p>
+                                <p className="text-sm text-bone/50 mt-2">{site.hours.summary}</p>
                             </div>
 
                             {/* What to Expect */}
                             <div className="bg-bone p-8 border border-border">
-                                <h3 className="text-lg font-semibold text-charcoal mb-4">What to expect</h3>
+                                <h3 className="text-lg font-semibold text-charcoal mb-4">What to Expect</h3>
                                 <ul className="space-y-4">
                                     <li className="flex gap-4">
                                         <span className="text-amber font-bold">1</span>
@@ -441,13 +476,13 @@ export function QuotePage() {
                             <div className="bg-bone p-8 border border-border">
                                 <div className="flex items-center gap-2 mb-4">
                                     <span className="text-amber text-lg">★★★★★</span>
-                                    <span className="text-sm font-medium text-charcoal">5.0 Rating</span>
+                                    <span className="text-sm font-medium text-charcoal">Top-Rated Reviews</span>
                                 </div>
                                 <p className="text-sm text-warm-gray mb-4">
-                                    500+ five-star reviews on Google
+                                    {site.reviewSummary} on Google
                                 </p>
                                 <div className="space-y-2 text-sm text-warm-gray">
-                                    <p>✓ Licensed TX DMV #1234567</p>
+                                    <p>✓ Licensed {site.license}</p>
                                     <p>✓ $1M+ Liability Insurance</p>
                                     <p>✓ Full-time, Background-Checked Crews</p>
                                 </div>

@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { site } from '../data/site';
 
 /**
  * SEO component for managing page meta tags
@@ -10,68 +11,53 @@ export function SEO({
     canonical,
     type = 'website',
     image,
+    imageAlt,
     article,
     noindex = false,
 }) {
-    const siteTitle = 'Quality Moving and Storage';
-    const siteName = 'Quality Moving and Storage';
-    const siteUrl = 'https://qualitymovingaustin.com'; // Replace with actual domain
-    const defaultImage = `${siteUrl}/og-image.jpg`;
-    const phone = '(512) 300-9543';
-
-    const fullTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} | Austin & Round Rock Movers Since 2006`;
+    const siteUrl = site.domain;
+    const defaultImage = `${siteUrl}/og-image.png`;
+    const fullTitle = title
+        ? `${title} | ${site.name}`
+        : `${site.name} | Austin & Round Rock Movers Since ${site.yearFounded}`;
     const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
     const ogImage = image ? `${siteUrl}${image}` : defaultImage;
+    const ogImageAlt = imageAlt || `${site.shortName} moving services in Austin and Round Rock, TX`;
+    const ogImageWidth = 1200;
+    const ogImageHeight = 630;
 
     // Local Business structured data
     const localBusinessSchema = {
         '@context': 'https://schema.org',
         '@type': 'MovingCompany',
-        name: siteName,
-        image: ogImage,
-        '@id': siteUrl,
+        name: site.name,
+        image: [ogImage],
+        '@id': `${siteUrl}/#business`,
         url: siteUrl,
-        telephone: phone,
+        telephone: site.phone.display,
         priceRange: '$$',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: '1101 North Industrial Boulevard',
-            addressLocality: 'Round Rock',
-            addressRegion: 'TX',
-            postalCode: '78681',
-            addressCountry: 'US',
+            streetAddress: site.address.street,
+            addressLocality: site.address.city,
+            addressRegion: site.address.region,
+            postalCode: site.address.postalCode,
+            addressCountry: site.address.country,
         },
         geo: {
             '@type': 'GeoCoordinates',
-            latitude: 30.5083,
-            longitude: -97.6789,
+            latitude: site.geo.latitude,
+            longitude: site.geo.longitude,
         },
-        openingHoursSpecification: [
-            {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                opens: '09:00',
-                closes: '17:00',
-            },
-        ],
-        sameAs: [],
-        aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '5.0',
-            reviewCount: '100',
-        },
-        areaServed: [
-            { '@type': 'City', name: 'Austin' },
-            { '@type': 'City', name: 'Round Rock' },
-            { '@type': 'City', name: 'Cedar Park' },
-            { '@type': 'City', name: 'Georgetown' },
-            { '@type': 'City', name: 'Leander' },
-            { '@type': 'City', name: 'Lakeway' },
-            { '@type': 'City', name: 'Buda' },
-            { '@type': 'City', name: 'Kyle' },
-            { '@type': 'City', name: 'Manor' },
-        ],
+        openingHoursSpecification: site.hours.specification,
+        foundingDate: String(site.yearFounded),
+        areaServed: site.serviceAreas.map((city) => ({ '@type': 'City', name: city })),
     };
+
+    const sameAsLinks = Object.values(site.socials || {}).filter(Boolean);
+    if (sameAsLinks.length) {
+        localBusinessSchema.sameAs = sameAsLinks;
+    }
 
     // Article schema for blog posts
     const articleSchema = article
@@ -83,14 +69,14 @@ export function SEO({
             image: ogImage,
             author: {
                 '@type': 'Organization',
-                name: siteName,
+                name: site.name,
             },
             publisher: {
                 '@type': 'Organization',
-                name: siteName,
+                name: site.name,
                 logo: {
                     '@type': 'ImageObject',
-                    url: `${siteUrl}/logo.png`,
+                    url: `${siteUrl}/logo.svg`,
                 },
             },
             datePublished: article.publishedTime,
@@ -103,8 +89,9 @@ export function SEO({
             {/* Primary Meta Tags */}
             <title>{fullTitle}</title>
             <meta name="description" content={description} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="canonical" href={fullCanonical} />
+            <meta name="author" content={site.name} />
+            <meta name="theme-color" content="#1E3A5F" />
 
             {/* Robots */}
             {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -115,7 +102,10 @@ export function SEO({
             <meta property="og:title" content={fullTitle} />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={ogImage} />
-            <meta property="og:site_name" content={siteName} />
+            <meta property="og:image:alt" content={ogImageAlt} />
+            <meta property="og:image:width" content={String(ogImageWidth)} />
+            <meta property="og:image:height" content={String(ogImageHeight)} />
+            <meta property="og:site_name" content={site.name} />
             <meta property="og:locale" content="en_US" />
 
             {/* Twitter */}
@@ -124,6 +114,7 @@ export function SEO({
             <meta name="twitter:title" content={fullTitle} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={ogImage} />
+            <meta name="twitter:image:alt" content={ogImageAlt} />
 
             {/* Article specific */}
             {article && (

@@ -1,3 +1,5 @@
+import { site } from '../data/site';
+
 const testimonials = [
     {
         quote:
@@ -32,7 +34,7 @@ export function Testimonials() {
                         Customer Reviews
                     </span>
                     <h2 className="text-balance text-3xl lg:text-4xl font-bold text-charcoal mb-4">
-                        What our customers say
+                        What Our Customers Say
                     </h2>
                     <p className="text-pretty text-warm-gray text-lg">
                         Don't just take our word for it. Here's what Austin residents have
@@ -56,7 +58,9 @@ export function Testimonials() {
 
                             {/* Quote */}
                             <blockquote className="text-pretty text-charcoal leading-relaxed mb-6">
-                                "{testimonial.quote}"
+                                <span aria-hidden="true">&ldquo;</span>
+                                {testimonial.quote}
+                                <span aria-hidden="true">&rdquo;</span>
                             </blockquote>
 
                             {/* Author */}
@@ -75,17 +79,16 @@ export function Testimonials() {
                 {/* Google Reviews CTA */}
                 <div className="text-center mt-12">
                     <p className="text-warm-gray mb-4">
-                        <span className="font-semibold text-charcoal">500+</span> 5-star
-                        reviews on Google
+                        <span className="font-semibold text-charcoal">{site.reviewSummary}</span> on Google
                     </p>
                     <a
-                        href="https://www.google.com/search?q=quality+moving+austin+reviews"
+                        href={site.socials.googleReviews}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-navy font-medium hover:underline underline-offset-4"
                     >
-                        Read all reviews on Google
-                        <svg
+                        Read All Reviews on Google
+                        <svg aria-hidden="true"
                             className="size-4"
                             fill="none"
                             stroke="currentColor"

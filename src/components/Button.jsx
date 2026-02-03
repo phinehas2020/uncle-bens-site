@@ -8,11 +8,13 @@ export function Button({
     children,
     variant = 'primary',
     size = 'default',
+    type = 'button',
     className,
     ...props
 }) {
     return (
         <button
+            type={type}
             className={cn(
                 'inline-flex items-center justify-center font-semibold tracking-wide uppercase transition-colors duration-150',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2',

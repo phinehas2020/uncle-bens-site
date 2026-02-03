@@ -39,7 +39,7 @@ export function Services() {
                         What We Do
                     </span>
                     <h2 className="text-balance text-3xl lg:text-4xl font-bold text-charcoal mb-4">
-                        Comprehensive moving services
+                        Comprehensive Moving Services
                     </h2>
                     <p className="text-pretty text-warm-gray text-lg">
                         Every move is unique. We offer flexible services tailored to your
@@ -76,7 +76,7 @@ export function Services() {
                                         key={index}
                                         className="flex items-center gap-3 text-sm text-charcoal"
                                     >
-                                        <svg
+                                        <svg aria-hidden="true"
                                             className="size-4 text-navy shrink-0"
                                             fill="none"
                                             stroke="currentColor"

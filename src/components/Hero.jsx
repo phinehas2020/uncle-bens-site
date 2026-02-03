@@ -1,16 +1,21 @@
 import { ButtonLink } from './Button';
+import { site, yearsInBusiness } from '../data/site';
 
 export function Hero() {
     return (
         <section className="relative min-h-dvh bg-charcoal text-bone flex items-center">
             {/* Background image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                    backgroundImage:
-                        'url(https://images.unsplash.com/photo-1600518464441-9154a4dea21b?q=80&w=2574&auto=format&fit=crop)',
-                }}
-            >
+            <div className="absolute inset-0">
+                <img
+                    src="https://images.unsplash.com/photo-1600518464441-9154a4dea21b?q=80&w=2574&auto=format&fit=crop"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 size-full object-cover"
+                    width="2574"
+                    height="1716"
+                    fetchPriority="high"
+                    decoding="async"
+                />
                 <div className="absolute inset-0 bg-charcoal/75" />
             </div>
 
@@ -24,7 +29,7 @@ export function Hero() {
                         </span>
                         <span className="w-12 h-px bg-amber/50" />
                         <span className="text-xs font-medium tracking-wider text-bone/60">
-                            19 Years of Service
+                            {yearsInBusiness} Years of Service
                         </span>
                     </div>
 
@@ -45,12 +50,12 @@ export function Hero() {
                             Get Your Free Quote
                         </ButtonLink>
                         <ButtonLink
-                            href="tel:5123009543"
+                            href={`tel:${site.phone.digits}`}
                             variant="secondary"
                             size="lg"
                             className="border-bone/30 text-bone hover:bg-bone hover:text-charcoal"
                         >
-                            Call (512) 300-9543
+                            Call {site.phone.display}
                         </ButtonLink>
                     </div>
 
@@ -70,7 +75,7 @@ export function Hero() {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-bone/40">
-                <svg
+                <svg aria-hidden="true"
                     className="size-6"
                     fill="none"
                     stroke="currentColor"

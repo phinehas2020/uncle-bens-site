@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { site, yearsInBusiness } from '../data/site';
 
 const footerLinks = {
     services: [
@@ -13,11 +14,6 @@ const footerLinks = {
         { label: 'Free Quote', to: '/quote' },
     ],
 };
-
-const serviceAreas = [
-    'Austin', 'Round Rock', 'Cedar Park', 'Georgetown', 'Leander',
-    'Lakeway', 'Buda', 'Kyle', 'Manor', 'Pflugerville'
-];
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -37,13 +33,13 @@ export function Footer() {
                             </span>
                         </Link>
                         <p className="text-sm text-bone/60 leading-relaxed mb-6">
-                            Your trusted moving partner in Austin and Central Texas for over 19 years. Licensed, insured, and committed to making your move stress-free.
+                            Your trusted moving partner in Austin and Central Texas for over {yearsInBusiness} years. Licensed, insured, and committed to making your move stress-free.
                         </p>
                         <a
-                            href="tel:5123009543"
+                            href={`tel:${site.phone.digits}`}
                             className="text-lg font-semibold hover:text-amber transition-colors"
                         >
-                            (512) 300-9543
+                            {site.phone.display}
                         </a>
                     </div>
 
@@ -91,16 +87,19 @@ export function Footer() {
                             Contact
                         </h4>
                         <address className="not-italic text-sm text-bone/60 space-y-3">
-                            <p>1101 N Industrial Blvd<br />Round Rock, TX 78681</p>
+                            <p>
+                                {site.address.street}<br />
+                                {site.address.city}, {site.address.region} {site.address.postalCode}
+                            </p>
                             <p>
                                 <a
-                                    href="tel:5123009543"
+                                    href={`tel:${site.phone.digits}`}
                                     className="hover:text-bone transition-colors"
                                 >
-                                    (512) 300-9543
+                                    {site.phone.display}
                                 </a>
                             </p>
-                            <p>Mon-Sat 9am-5pm</p>
+                            <p>{site.hours.summary}</p>
                         </address>
                     </div>
                 </div>
@@ -111,17 +110,17 @@ export function Footer() {
                         Proudly Serving
                     </h4>
                     <p className="text-sm text-bone/50">
-                        {serviceAreas.join(' • ')}
+                        {site.serviceAreas.join(' • ')}
                     </p>
                 </div>
 
                 {/* Bottom */}
                 <div className="border-t border-bone/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-bone/40 text-center md:text-left">
-                        © {currentYear} Quality Moving and Storage. All Rights Reserved. TXDMV #006027218C
+                        © {currentYear} {site.name}. All Rights Reserved. {site.license}
                     </p>
                     <p className="text-xs text-bone/40">
-                        You may reach TXDMV at (888) 368-4689
+                        You may reach TXDMV at {site.tdmvPhone}
                     </p>
                 </div>
             </div>

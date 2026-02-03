@@ -1,5 +1,6 @@
 import { SEO } from '../components/SEO';
 import { ButtonLink } from '../components/Button';
+import { site, yearsInBusiness } from '../data/site';
 
 const services = [
     {
@@ -153,7 +154,7 @@ export function ServicesPage() {
         <>
             <SEO
                 title="Moving Services"
-                description="Professional moving services in Austin and Round Rock, TX. Residential and commercial moving, packing, storage, and specialty item handling. Licensed (TXDMV #006027218C), insured, and trusted for 19 years."
+                description={`Professional moving services in Austin and Round Rock, TX. Residential and commercial moving, packing, storage, and specialty item handling. Licensed (${site.license}), insured, and trusted for over ${yearsInBusiness} years.`}
                 canonical="/services"
             />
 
@@ -164,7 +165,7 @@ export function ServicesPage() {
                         Our Services
                     </span>
                     <h1 className="text-balance text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 max-w-3xl">
-                        Complete moving solutions for Central Texas
+                        Complete Moving Solutions for Central Texas
                     </h1>
                     <p className="text-pretty text-bone/70 text-lg lg:text-xl max-w-2xl leading-relaxed">
                         From local apartment moves to long-distance relocations, we have the experience, equipment, and trained crews to handle your move with care.
@@ -202,7 +203,7 @@ export function ServicesPage() {
                                                     key={i}
                                                     className="flex items-center gap-3 text-charcoal"
                                                 >
-                                                    <svg
+                                                    <svg aria-hidden="true"
                                                         className="size-5 text-navy shrink-0"
                                                         fill="none"
                                                         stroke="currentColor"
@@ -238,6 +239,8 @@ export function ServicesPage() {
                                             src={service.image}
                                             alt={service.title}
                                             className="w-full h-full object-cover"
+                                            width="800"
+                                            height="600"
                                             loading="lazy"
                                         />
                                     </div>
@@ -252,7 +255,7 @@ export function ServicesPage() {
             <section className="py-20 lg:py-28 bg-cream">
                 <div className="mx-auto max-w-3xl px-6 lg:px-8">
                     <h2 className="text-balance text-3xl lg:text-4xl font-bold text-charcoal mb-12 text-center">
-                        Frequently asked questions
+                        Frequently Asked Questions
                     </h2>
 
                     <dl className="space-y-8">
@@ -274,7 +277,7 @@ export function ServicesPage() {
             <section className="py-20 lg:py-28 bg-navy text-bone text-center">
                 <div className="mx-auto max-w-3xl px-6 lg:px-8">
                     <h2 className="text-balance text-3xl lg:text-4xl font-bold mb-6">
-                        Ready to get started?
+                        Ready to Get Started?
                     </h2>
                     <p className="text-bone/70 text-lg mb-8">
                         Contact us today for your own free guaranteed moving quote.

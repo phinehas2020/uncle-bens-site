@@ -24,8 +24,8 @@
   --color-amber-muted: #D4A946;
 
   /* Font families */
-  --font-family-display: 'Inter', system-ui, sans-serif;
-  --font-family-body: 'Inter', system-ui, sans-serif;
+  --font-family-display: 'Fraunces', 'Times New Roman', serif;
+  --font-family-body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
 
   /* Z-index scale */
   --z-base: 0;
@@ -48,6 +48,26 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(30, 58, 95, 0.2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 /* Typography utilities */

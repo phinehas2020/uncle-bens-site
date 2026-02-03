@@ -4,12 +4,13 @@ import { Services } from '../components/Services';
 import { About } from '../components/About';
 import { Testimonials } from '../components/Testimonials';
 import { Quote } from '../components/Quote';
+import { site, yearsInBusiness } from '../data/site';
 
 export function HomePage() {
     return (
         <>
             <SEO
-                description="Quality Moving and Storage - your trusted moving partner in Austin and Round Rock, TX for 19 years. Professional residential and commercial moving, packing, and storage. Free guaranteed quotes. TXDMV #006027218C. Call (512) 300-9543."
+                description={`${site.name} - your trusted moving partner in Austin and Round Rock, TX for over ${yearsInBusiness} years. Professional residential and commercial moving, packing, and storage. Free guaranteed quotes. ${site.license}. Call ${site.phone.display}.`}
                 canonical="/"
             />
             <Hero />
