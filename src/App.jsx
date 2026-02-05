@@ -25,7 +25,7 @@ function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="flex flex-col min-h-dvh">
+        <div className="site-shell flex min-h-dvh flex-col">
           <Header />
           <main id="main-content" className="flex-1">
             <Routes>

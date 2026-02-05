@@ -1,94 +1,69 @@
 import { ButtonLink } from './Button';
-import { site, yearsInBusiness } from '../data/site';
+import { heroStats, site } from '../data/site';
 
 export function Hero() {
-    return (
-        <section className="relative min-h-dvh bg-charcoal text-bone flex items-center">
-            {/* Background image */}
-            <div className="absolute inset-0">
-                <img
-                    src="https://images.unsplash.com/photo-1600518464441-9154a4dea21b?q=80&w=2574&auto=format&fit=crop"
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 size-full object-cover"
-                    width="2574"
-                    height="1716"
-                    fetchPriority="high"
-                    decoding="async"
-                />
-                <div className="absolute inset-0 bg-charcoal/75" />
-            </div>
+  return (
+    <section className="texture-lines section-space relative overflow-hidden pt-20">
+      <div className="layout-container hero-grid">
+        <div className="space-y-7">
+          <p className="eyebrow animated-rise" data-delay="1">
+            Austin • Round Rock • Central Texas
+          </p>
 
-            {/* Content */}
-            <div className="relative z-above mx-auto max-w-7xl px-6 lg:px-8 py-32 lg:py-40">
-                <div className="max-w-3xl">
-                    {/* Eyebrow */}
-                    <div className="flex items-center gap-4 mb-6">
-                        <span className="text-xs font-semibold tracking-[0.25em] text-amber uppercase">
-                            Round Rock & Austin, TX
-                        </span>
-                        <span className="w-12 h-px bg-amber/50" />
-                        <span className="text-xs font-medium tracking-wider text-bone/60">
-                            {yearsInBusiness} Years of Service
-                        </span>
-                    </div>
+          <h1 className="display-title animated-rise" data-delay="2">
+            Not just moved.
+            <span className="gold-gradient block">Elevated.</span>
+          </h1>
 
-                    {/* Headline */}
-                    <h1 className="text-balance text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
-                        Move with
-                        <span className="block text-amber">Ease</span>
-                    </h1>
+          <p
+            className="section-copy animated-rise max-w-2xl text-[clamp(1.02rem,0.96rem+0.35vw,1.3rem)]"
+            data-delay="3"
+          >
+            We design calm, precise relocation experiences for families and teams
+            who care about details, timing, and trust.
+          </p>
 
-                    {/* Subheadline */}
-                    <p className="text-pretty text-lg lg:text-xl text-bone/70 max-w-xl mb-10 leading-relaxed">
-                        Trusted and experienced moving professionals serving Austin, Round Rock, and Central Texas. We make your move stress-free and efficient.
-                    </p>
+          <div className="animated-rise flex flex-wrap gap-3" data-delay="4">
+            <ButtonLink size="lg" to="/quote" variant="primary">
+              Build My Move Plan
+            </ButtonLink>
+            <ButtonLink href={`tel:${site.phone.digits}`} size="lg" variant="secondary">
+              Call {site.phone.display}
+            </ButtonLink>
+          </div>
+        </div>
 
-                    {/* CTA Group */}
-                    <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                        <ButtonLink to="/quote" size="lg">
-                            Get Your Free Quote
-                        </ButtonLink>
-                        <ButtonLink
-                            href={`tel:${site.phone.digits}`}
-                            variant="secondary"
-                            size="lg"
-                            className="border-bone/30 text-bone hover:bg-bone hover:text-charcoal"
-                        >
-                            Call {site.phone.display}
-                        </ButtonLink>
-                    </div>
+        <div className="glass-panel animated-rise relative overflow-hidden p-6 sm:p-8" data-delay="4">
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(216,178,106,0.2),transparent_45%),radial-gradient(circle_at_86%_72%,rgba(106,140,255,0.3),transparent_48%)]" />
 
-                    {/* Trust Indicators */}
-                    <div className="flex flex-wrap items-center gap-6 lg:gap-8 text-sm">
-                        <div className="flex items-center gap-2">
-                            <span className="text-amber text-lg">★★★★★</span>
-                            <span className="text-bone/60">5-Star Reviews</span>
-                        </div>
-                        <span className="hidden sm:block w-px h-4 bg-bone/20" />
-                        <span className="text-bone/60">Licensed & Insured</span>
-                        <span className="hidden sm:block w-px h-4 bg-bone/20" />
-                        <span className="text-bone/60">TXDMV #006027218C</span>
-                    </div>
-                </div>
-            </div>
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-gold/95">
+            Signature Performance
+          </p>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-bone/40">
-                <svg aria-hidden="true"
-                    className="size-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                    />
-                </svg>
-            </div>
-        </section>
-    );
+          <div className="grid grid-cols-2 gap-3">
+            {heroStats.map((stat) => (
+              <div className="surface-card p-4 sm:p-5" key={stat.label}>
+                <p className="font-family-display text-4xl leading-none text-white sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-xs uppercase tracking-[0.15em] text-cloud/80">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-gold/25 bg-night/75 p-4 text-sm text-cloud/92">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-gold-soft">
+              Concierge Quote Promise
+            </p>
+            <p className="mt-2 leading-relaxed">
+              Get a guaranteed quote with timeline mapping and personalized service
+              recommendations within one business day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

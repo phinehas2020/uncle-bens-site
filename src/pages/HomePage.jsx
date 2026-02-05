@@ -1,23 +1,24 @@
-import { SEO } from '../components/SEO';
-import { Hero } from '../components/Hero';
-import { Services } from '../components/Services';
 import { About } from '../components/About';
-import { Testimonials } from '../components/Testimonials';
+import { Hero } from '../components/Hero';
 import { Quote } from '../components/Quote';
+import { SEO } from '../components/SEO';
+import { Services } from '../components/Services';
+import { Testimonials } from '../components/Testimonials';
 import { site, yearsInBusiness } from '../data/site';
 
 export function HomePage() {
-    return (
-        <>
-            <SEO
-                description={`${site.name} - your trusted moving partner in Austin and Round Rock, TX for over ${yearsInBusiness} years. Professional residential and commercial moving, packing, and storage. Free guaranteed quotes. ${site.license}. Call ${site.phone.display}.`}
-                canonical="/"
-            />
-            <Hero />
-            <Services />
-            <About />
-            <Testimonials />
-            <Quote />
-        </>
-    );
+  return (
+    <>
+      <SEO
+        canonical="/"
+        description={`${site.name} delivers premium moving, packing, and storage services across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes and white-glove crews.`}
+      />
+
+      <Hero />
+      <Services />
+      <About />
+      <Testimonials />
+      <Quote />
+    </>
+  );
 }

@@ -1,304 +1,238 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from './Button';
-import { site } from '../data/site';
+
+const initialState = {
+  name: '',
+  phone: '',
+  email: '',
+  fromCity: '',
+  toCity: '',
+  moveDate: '',
+  service: 'local-moving',
+  message: '',
+};
+
+const serviceOptions = [
+  { value: 'local-moving', label: 'Luxury Local Moving' },
+  { value: 'commercial-moving', label: 'Commercial Relocation' },
+  { value: 'packing', label: 'Packing Services' },
+  { value: 'long-distance', label: 'Long-Distance Moving' },
+  { value: 'storage', label: 'Secure Storage' },
+  { value: 'specialty', label: 'Specialty Item Handling' },
+];
 
 export function Quote() {
-    const [formState, setFormState] = useState('idle'); // idle, submitting, success
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        fromZip: '',
-        toZip: '',
-        moveDate: '',
-        service: '',
-        details: '',
-    });
-    const isDirty = Object.values(formData).some((value) => String(value).trim() !== '');
+  const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
+  const [formData, setFormData] = useState(initialState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-    useEffect(() => {
-        if (!isDirty) return undefined;
-        const handleBeforeUnload = (event) => {
-            event.preventDefault();
-            event.returnValue = '';
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty]);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setFormState('submitting');
+    if (!formEndpoint) {
+      await new Promise((resolve) => {
+        window.setTimeout(resolve, 400);
+      });
+      setIsSubmitted(true);
+      setFormData(initialState);
+      setIsSubmitting(false);
+      return;
+    }
 
-        // Simulate form submission
-        setTimeout(() => {
-            setFormState('success');
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                fromZip: '',
-                toZip: '',
-                moveDate: '',
-                service: '',
-                details: '',
-            });
-        }, 1500);
-    };
+    try {
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'quote',
+          ...formData,
+        }),
+      });
 
-    const inputClasses =
-        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:border-navy transition-colors duration-150';
+      if (!response.ok) {
+        throw new Error('Unable to submit quote request.');
+      }
 
-    return (
-        <section id="quote" className="py-24 lg:py-32 bg-cream">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
-                    {/* Content */}
-                    <div>
-                        <span className="text-xs font-semibold tracking-[0.25em] text-amber uppercase block mb-4">
-                            Free Quote
-                        </span>
-                        <h2 className="text-balance text-3xl lg:text-4xl font-bold text-charcoal mb-6">
-                            Get Your Free Guaranteed Quote
-                        </h2>
-                        <p className="text-pretty text-warm-gray text-lg leading-relaxed mb-8">
-                            We deliver free on-site or online quotes and we stand by them. A guaranteed quote means you do not have to worry about hidden or last-minute charges. Contact us today for your own free guaranteed moving quote.
-                        </p>
+      setIsSubmitted(true);
+      setFormData(initialState);
+    } catch {
+      setSubmitError('Submission failed. Please call us directly for immediate support.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 gap-6">
-                            <div>
-                                <div className="text-3xl font-bold text-navy">Free</div>
-                                <div className="text-sm text-warm-gray">No Obligation Quote</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl font-bold text-navy">Guaranteed</div>
-                                <div className="text-sm text-warm-gray">No Hidden Fees</div>
-                            </div>
-                        </div>
+  return (
+    <section className="section-space-sm">
+      <div className="layout-container">
+        <div className="glass-panel grid gap-7 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr] lg:p-10">
+          <div className="space-y-4">
+            <p className="eyebrow">Get Started</p>
+            <h2 className="section-title">
+              Your move blueprint begins here.
+            </h2>
+            <p className="section-copy">
+              Tell us the essentials and we will return a guaranteed quote with
+              timeline recommendations.
+            </p>
+            <p className="rounded-2xl border border-cobalt/28 bg-night/72 px-4 py-3 text-xs uppercase tracking-[0.14em] text-fog/80">
+              Typical quote turnaround: within one business day
+            </p>
+          </div>
 
-                        {/* Contact info */}
-                        <div className="mt-12 pt-8 border-t border-border">
-                            <p className="text-sm text-warm-gray mb-4">
-                                Prefer to talk? Call us directly:
-                            </p>
-                            <a
-                                href={`tel:${site.phone.digits}`}
-                                className="text-2xl font-bold text-charcoal hover:text-navy transition-colors"
-                            >
-                                {site.phone.display}
-                            </a>
-                            <p className="text-sm text-warm-gray mt-2">
-                                {site.hours.summary}
-                            </p>
-                        </div>
-                    </div>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Full Name
+                </span>
+                <input
+                  className="field"
+                  name="name"
+                  onChange={handleChange}
+                  placeholder="Your name"
+                  required
+                  value={formData.name}
+                />
+              </label>
 
-                    {/* Form */}
-                    <div className="bg-bone p-8 lg:p-10 border border-border">
-                        {formState === 'success' ? (
-                            <div className="text-center py-12" role="status" aria-live="polite">
-                                <div className="size-16 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg aria-hidden="true"
-                                        className="size-8 text-navy"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M5 13l4 4L19 7"
-                                        />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-charcoal mb-2">
-                                    Request Received!
-                                </h3>
-                                <p className="text-warm-gray">
-                                    We will be in touch soon with your guaranteed quote.
-                                </p>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                {/* Name */}
-                                <div>
-                                    <label htmlFor="name" className="sr-only">
-                                        Full Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="Full name…"
-                                        autoComplete="name"
-                                        required
-                                        className={inputClasses}
-                                    />
-                                </div>
-
-                                {/* Email & Phone */}
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="email" className="sr-only">
-                                            Email Address
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            placeholder="name@example.com…"
-                                            autoComplete="email"
-                                            spellCheck={false}
-                                            required
-                                            className={inputClasses}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="phone" className="sr-only">
-                                            Phone Number
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            id="phone"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            placeholder="555-123-4567…"
-                                            autoComplete="tel"
-                                            inputMode="tel"
-                                            required
-                                            className={inputClasses}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* From/To Zip */}
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="fromZip" className="sr-only">
-                                            Moving From (City/Zip)
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="fromZip"
-                                            name="fromZip"
-                                            value={formData.fromZip}
-                                            onChange={handleChange}
-                                            placeholder="Moving from (city or ZIP)…"
-                                            autoComplete="postal-code"
-                                            inputMode="numeric"
-                                            required
-                                            className={inputClasses}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="toZip" className="sr-only">
-                                            Moving To (City/Zip)
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="toZip"
-                                            name="toZip"
-                                            onChange={handleChange}
-                                            value={formData.toZip}
-                                            placeholder="Moving to (city or ZIP)…"
-                                            autoComplete="postal-code"
-                                            inputMode="numeric"
-                                            required
-                                            className={inputClasses}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Move Date & Service */}
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="moveDate" className="sr-only">
-                                            Preferred Move Date
-                                        </label>
-                                    <input
-                                        type="date"
-                                        id="moveDate"
-                                        name="moveDate"
-                                        value={formData.moveDate}
-                                        onChange={handleChange}
-                                        autoComplete="off"
-                                        className={inputClasses}
-                                    />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="service" className="sr-only">
-                                            Service Type
-                                        </label>
-                                    <select
-                                        id="service"
-                                        name="service"
-                                        value={formData.service}
-                                        onChange={handleChange}
-                                        autoComplete="off"
-                                        required
-                                        className={inputClasses}
-                                    >
-                                            <option value="" disabled>
-                                                Select Service…
-                                            </option>
-                                            <option value="residential">Residential Moving</option>
-                                            <option value="commercial">Commercial Moving</option>
-                                            <option value="packing">Packing Services</option>
-                                            <option value="storage">Storage</option>
-                                            <option value="loading">Loading/Unloading Only</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {/* Details */}
-                                <div>
-                                    <label htmlFor="details" className="sr-only">
-                                        Additional Details
-                                    </label>
-                                    <textarea
-                                        id="details"
-                                        name="details"
-                                        value={formData.details}
-                                        onChange={handleChange}
-                                        placeholder="Tell us about your move (home size, special items, etc.)…"
-                                        autoComplete="off"
-                                        rows={4}
-                                        className={`${inputClasses} resize-none`}
-                                    />
-                                </div>
-
-                                {/* Submit */}
-                                <Button
-                                    type="submit"
-                                    size="lg"
-                                    className="w-full"
-                                    disabled={formState === 'submitting'}
-                                >
-                                    {formState === 'submitting'
-                                        ? 'Sending…'
-                                        : 'Get My Free Quote'}
-                                </Button>
-
-                                <p className="text-xs text-warm-gray text-center">
-                                    Your information is secure and never shared.
-                                </p>
-                            </form>
-                        )}
-                    </div>
-                </div>
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Phone
+                </span>
+                <input
+                  className="field"
+                  name="phone"
+                  onChange={handleChange}
+                  placeholder="(512) 555-0101"
+                  required
+                  type="tel"
+                  value={formData.phone}
+                />
+              </label>
             </div>
-        </section>
-    );
+
+            <label className="block">
+              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                Email
+              </span>
+              <input
+                className="field"
+                name="email"
+                onChange={handleChange}
+                placeholder="you@example.com"
+                required
+                type="email"
+                value={formData.email}
+              />
+            </label>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Moving From
+                </span>
+                <input
+                  className="field"
+                  name="fromCity"
+                  onChange={handleChange}
+                  placeholder="Current city"
+                  required
+                  value={formData.fromCity}
+                />
+              </label>
+
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Moving To
+                </span>
+                <input
+                  className="field"
+                  name="toCity"
+                  onChange={handleChange}
+                  placeholder="Destination city"
+                  required
+                  value={formData.toCity}
+                />
+              </label>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Preferred Date
+                </span>
+                <input
+                  className="field"
+                  name="moveDate"
+                  onChange={handleChange}
+                  type="date"
+                  value={formData.moveDate}
+                />
+              </label>
+
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Service Type
+                </span>
+                <select
+                  className="field"
+                  name="service"
+                  onChange={handleChange}
+                  required
+                  value={formData.service}
+                >
+                  {serviceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <label className="block">
+              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                Project Details
+              </span>
+              <textarea
+                className="field min-h-28 resize-y"
+                name="message"
+                onChange={handleChange}
+                placeholder="Tell us size of home/office, key items, access details, or scheduling constraints."
+                value={formData.message}
+              />
+            </label>
+
+            <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
+              Request Guaranteed Quote
+            </Button>
+
+            {isSubmitted && (
+              <p className="rounded-xl border border-gold/28 bg-night/65 px-4 py-3 text-sm text-gold-soft">
+                Thank you. We received your request and will reach out shortly.
+              </p>
+            )}
+
+            {submitError && (
+              <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
+                {submitError}
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 }

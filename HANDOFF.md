@@ -1,13 +1,13 @@
-# Client Handoff — Quality Moving and Storage
+# Client Handoff — Quality Moving & Storage
 
 ## Project summary
 - Framework: React + Vite (SPA)
 - Routing: React Router
-- Styling: Tailwind CSS v4
-- SEO: `react-helmet-async` with JSON-LD LocalBusiness schema
+- Styling: Tailwind CSS v4 + custom design system (`src/index.css`)
+- SEO: `react-helmet-async` with JSON-LD MovingCompany schema
 
 ## Brand & contact
-- Business name: Quality Moving and Storage
+- Business name: Quality Moving & Storage
 - Domain: https://qualitymoving.com
 - Phone: (512) 300-9543
 - Address: 1101 North Industrial Boulevard, Round Rock, TX 78681
@@ -27,7 +27,7 @@
 - Canonical URLs set via `SEO` component and `index.html`
 
 ## Required integrations
-- Forms: Quote and Contact forms are UI-only and simulate submission. Connect to your form handler of choice (Formspree, Netlify Forms, custom API).
+- Forms: Quote and Contact forms support POST to `VITE_FORM_ENDPOINT` (JSON payload). Without endpoint, they run demo success mode.
 - Analytics: Add GA4 or preferred analytics (not installed).
 
 ## Hosting notes

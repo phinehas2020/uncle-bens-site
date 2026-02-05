@@ -1,16 +1,41 @@
-# React + Vite
+# Quality Moving & Storage — Production Web Experience
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Premium React + Vite marketing site for a moving company serving Austin, Round Rock, and Central Texas.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- Vite 7
+- React Router 7
+- Tailwind CSS v4 utilities with custom design tokens
+- `react-helmet-async` for SEO and structured data
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Production build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run build
+npm run preview
+```
+
+## Form integration
+
+Quote and Contact forms can post to an endpoint when configured.
+
+Create `.env` in project root:
+
+```bash
+VITE_FORM_ENDPOINT=https://your-api.example.com/forms
+```
+
+If `VITE_FORM_ENDPOINT` is not set, forms stay functional in demo mode with a local success state.
+
+## SPA hosting requirement
+
+Configure your host to rewrite all non-file routes to `index.html` so routes like `/services` and `/quote` resolve correctly.

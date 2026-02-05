@@ -1,303 +1,210 @@
-import { SEO } from '../components/SEO';
+import { useState } from 'react';
 import { Button } from '../components/Button';
-import { useEffect, useState } from 'react';
+import { SEO } from '../components/SEO';
 import { site } from '../data/site';
 
+const initialState = {
+  name: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+};
+
 export function ContactPage() {
-    const [formState, setFormState] = useState('idle');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-    });
-    const isDirty = Object.values(formData).some((value) => String(value).trim() !== '');
+  const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
+  const [formData, setFormData] = useState(initialState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-    useEffect(() => {
-        if (!isDirty) return undefined;
-        const handleBeforeUnload = (event) => {
-            event.preventDefault();
-            event.returnValue = '';
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty]);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setFormState('submitting');
-        setTimeout(() => {
-            setFormState('success');
-            setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-        }, 1500);
-    };
+    if (!formEndpoint) {
+      await new Promise((resolve) => {
+        window.setTimeout(resolve, 400);
+      });
+      setIsSubmitted(true);
+      setFormData(initialState);
+      setIsSubmitting(false);
+      return;
+    }
 
-    const inputClasses =
-        'w-full px-4 py-3 bg-bone border border-border text-charcoal placeholder:text-warm-gray focus:border-navy transition-colors duration-150';
+    try {
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'contact',
+          ...formData,
+        }),
+      });
 
-    return (
-        <>
-            <SEO
-                title="Contact Us"
-                description={`Contact ${site.name} in ${site.address.city}, ${site.address.region}. Call ${site.phone.display} for a free moving quote. Serving Austin, Round Rock, Georgetown, Cedar Park, and all of Central Texas.`}
-                canonical="/contact"
-            />
+      if (!response.ok) {
+        throw new Error('Unable to send message.');
+      }
 
-            {/* Hero */}
-            <section className="bg-charcoal text-bone pt-32 pb-16 lg:pt-40 lg:pb-20">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <span className="text-xs font-semibold tracking-[0.25em] text-amber uppercase block mb-4">
-                        Contact Us
-                    </span>
-                    <h1 className="text-balance text-4xl lg:text-5xl font-bold mb-6 max-w-2xl">
-                        Get in Touch
-                    </h1>
-                    <p className="text-pretty text-bone/70 text-lg max-w-xl">
-                        Have questions about your move? We are here to help. Reach out by phone, email,
-                        or the contact form below.
-                    </p>
-                </div>
-            </section>
+      setIsSubmitted(true);
+      setFormData(initialState);
+    } catch {
+      setSubmitError('Submission failed. Please call us directly for immediate support.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-            {/* Content */}
-            <section className="py-16 lg:py-24 bg-bone">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="grid lg:grid-cols-2 gap-16">
-                        {/* Contact Info */}
-                        <div>
-                            <h2 className="text-2xl font-bold text-charcoal mb-8">
-                                How to reach us
-                            </h2>
+  return (
+    <>
+      <SEO
+        canonical="/contact"
+        description={`Contact ${site.name} for premium moving, packing, and storage support in Austin, Round Rock, and Central Texas.`}
+        title="Contact"
+      />
 
-                            <div className="space-y-8">
-                                {/* Phone */}
-                                <div className="flex gap-4">
-                                    <div className="size-12 bg-navy/10 rounded-full flex items-center justify-center shrink-0">
-                                        <svg aria-hidden="true" className="size-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-charcoal mb-1">Phone</h3>
-                                        <a
-                                            href={`tel:${site.phone.digits}`}
-                                            className="text-lg text-navy font-medium hover:underline"
-                                        >
-                                            {site.phone.display}
-                                        </a>
-                                        <p className="text-sm text-warm-gray mt-1">{site.hours.summary}</p>
-                                    </div>
-                                </div>
+      <section className="section-space pt-20">
+        <div className="layout-container grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="space-y-5">
+            <p className="eyebrow">Contact</p>
+            <h1 className="section-title">
+              Let’s make your move feel effortless.
+            </h1>
+            <p className="section-copy">
+              Speak with our team about timing, logistics, and premium service
+              options. We are here to guide every detail.
+            </p>
 
-                                {/* Address */}
-                                <div className="flex gap-4">
-                                    <div className="size-12 bg-navy/10 rounded-full flex items-center justify-center shrink-0">
-                                        <svg aria-hidden="true" className="size-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-charcoal mb-1">Office</h3>
-                                        <address className="not-italic text-warm-gray">
-                                            {site.address.street}<br />
-                                            {site.address.city}, {site.address.region} {site.address.postalCode}
-                                        </address>
-                                    </div>
-                                </div>
+            <div className="glass-panel space-y-4 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-soft">
+                Reach us directly
+              </p>
+              <p className="text-sm text-cloud/86">
+                Phone:{' '}
+                <a className="text-gold-soft hover:text-white" href={`tel:${site.phone.digits}`}>
+                  {site.phone.display}
+                </a>
+              </p>
+              <p className="text-sm text-cloud/86">
+                Email:{' '}
+                <a className="text-gold-soft hover:text-white" href={`mailto:${site.email}`}>
+                  {site.email}
+                </a>
+              </p>
+              <p className="text-sm text-cloud/86">Hours: {site.hours.summary}</p>
+              <p className="text-sm text-cloud/86">
+                {site.address.street}
+                <br />
+                {site.address.city}, {site.address.region} {site.address.postalCode}
+              </p>
+            </div>
+          </div>
 
-                                {/* Hours */}
-                                <div className="flex gap-4">
-                                    <div className="size-12 bg-navy/10 rounded-full flex items-center justify-center shrink-0">
-                                        <svg aria-hidden="true" className="size-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-charcoal mb-1">Business Hours</h3>
-                                        <div className="text-warm-gray space-y-1 text-sm">
-                                            {site.hours.display.map((line) => (
-                                                <p key={line}>{line}</p>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
+          <form className="glass-panel space-y-4 p-6 sm:p-8" onSubmit={handleSubmit}>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Name
+                </span>
+                <input
+                  className="field"
+                  name="name"
+                  onChange={handleChange}
+                  placeholder="Your name"
+                  required
+                  value={formData.name}
+                />
+              </label>
 
-                                {/* License */}
-                                <div className="flex gap-4">
-                                    <div className="size-12 bg-navy/10 rounded-full flex items-center justify-center shrink-0">
-                                        <svg aria-hidden="true" className="size-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-charcoal mb-1">Licensed & Insured</h3>
-                                        <p className="text-warm-gray text-sm">{site.license}</p>
-                                        <p className="text-warm-gray text-sm mt-1">
-                                            You may reach TXDMV at {site.tdmvPhone}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+              <label>
+                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                  Phone
+                </span>
+                <input
+                  className="field"
+                  name="phone"
+                  onChange={handleChange}
+                  placeholder="(512) 555-0101"
+                  type="tel"
+                  value={formData.phone}
+                />
+              </label>
+            </div>
 
-                            {/* Service Area */}
-                            <div className="mt-12 pt-8 border-t border-border">
-                                <h3 className="font-semibold text-charcoal mb-4">Service Area</h3>
-                                <p className="text-pretty text-warm-gray mb-4">
-                                    Proudly serving Austin and surrounding communities:
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                    {site.serviceAreas.map((city) => (
-                                        <span
-                                            key={city}
-                                            className="px-3 py-1 bg-cream text-sm text-charcoal rounded-full"
-                                        >
-                                            {city}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+            <label className="block">
+              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                Email
+              </span>
+              <input
+                className="field"
+                name="email"
+                onChange={handleChange}
+                placeholder="you@example.com"
+                required
+                type="email"
+                value={formData.email}
+              />
+            </label>
 
-                        {/* Contact Form */}
-                        <div className="bg-cream p-8 lg:p-10 border border-border">
-                            <h2 className="text-xl font-semibold text-charcoal mb-6">
-                                Send Us a Message
-                            </h2>
+            <label className="block">
+              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                Subject
+              </span>
+              <select
+                className="field"
+                name="subject"
+                onChange={handleChange}
+                required
+                value={formData.subject}
+              >
+                <option value="">Select subject</option>
+                <option value="quote">Quote request</option>
+                <option value="existing">Existing move support</option>
+                <option value="commercial">Commercial inquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
 
-                            {formState === 'success' ? (
-                                <div className="text-center py-12" role="status" aria-live="polite">
-                                    <div className="size-16 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                                        <svg aria-hidden="true"
-                                            className="size-8 text-navy"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-charcoal mb-2">
-                                        Message Sent!
-                                    </h3>
-                                    <p className="text-warm-gray">
-                                        We will get back to you as soon as possible.
-                                    </p>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-charcoal mb-2">
-                                            Name *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            autoComplete="name"
-                                            required
-                                            className={inputClasses}
-                                        />
-                                    </div>
+            <label className="block">
+              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
+                Message
+              </span>
+              <textarea
+                className="field min-h-32 resize-y"
+                name="message"
+                onChange={handleChange}
+                placeholder="How can we help?"
+                required
+                value={formData.message}
+              />
+            </label>
 
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div>
-                                            <label htmlFor="email" className="block text-sm font-medium text-charcoal mb-2">
-                                                Email *
-                                            </label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                autoComplete="email"
-                                                spellCheck={false}
-                                                required
-                                                className={inputClasses}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="phone" className="block text-sm font-medium text-charcoal mb-2">
-                                                Phone
-                                            </label>
-                                            <input
-                                                type="tel"
-                                                id="phone"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleChange}
-                                                autoComplete="tel"
-                                                inputMode="tel"
-                                                className={inputClasses}
-                                            />
-                                        </div>
-                                    </div>
+            <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
+              Send Message
+            </Button>
 
-                                    <div>
-                                        <label htmlFor="subject" className="block text-sm font-medium text-charcoal mb-2">
-                                            Subject *
-                                        </label>
-                                        <select
-                                            id="subject"
-                                            name="subject"
-                                            value={formData.subject}
-                                            onChange={handleChange}
-                                            autoComplete="off"
-                                            required
-                                            className={inputClasses}
-                                        >
-                                            <option value="">Select a Subject…</option>
-                                            <option value="quote">Request a Quote</option>
-                                            <option value="existing">Existing Move Question</option>
-                                            <option value="feedback">Feedback</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
+            {isSubmitted && (
+              <p className="rounded-xl border border-gold/30 bg-night/68 px-4 py-3 text-sm text-gold-soft">
+                Message sent. We will reply shortly.
+              </p>
+            )}
 
-                                    <div>
-                                        <label htmlFor="message" className="block text-sm font-medium text-charcoal mb-2">
-                                            Message *
-                                        </label>
-                                        <textarea
-                                            id="message"
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            autoComplete="off"
-                                            required
-                                            rows={5}
-                                            className={`${inputClasses} resize-none`}
-                                        />
-                                    </div>
-
-                                    <Button
-                                        type="submit"
-                                        size="lg"
-                                        className="w-full"
-                                        disabled={formState === 'submitting'}
-                                    >
-                                        {formState === 'submitting' ? 'Sending…' : 'Send Message'}
-                                    </Button>
-                                </form>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
+            {submitError && (
+              <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
+                {submitError}
+              </p>
+            )}
+          </form>
+        </div>
+      </section>
+    </>
+  );
 }

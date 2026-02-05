@@ -1,129 +1,82 @@
 import { Link } from 'react-router-dom';
-import { site, yearsInBusiness } from '../data/site';
-
-const footerLinks = {
-    services: [
-        { label: 'Residential Moving', to: '/services#residential' },
-        { label: 'Commercial Moving', to: '/services#commercial' },
-        { label: 'Packing Services', to: '/services#packing' },
-        { label: 'Storage Solutions', to: '/services#storage' },
-    ],
-    company: [
-        { label: 'About Us', to: '/about' },
-        { label: 'Contact', to: '/contact' },
-        { label: 'Free Quote', to: '/quote' },
-    ],
-};
+import { navigation, site } from '../data/site';
+import { ButtonLink } from './Button';
 
 export function Footer() {
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
-    return (
-        <footer className="bg-charcoal text-bone">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 lg:py-20">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
-                    {/* Brand */}
-                    <div className="col-span-2 md:col-span-1">
-                        <Link to="/" className="inline-block mb-6">
-                            <span className="text-lg font-bold tracking-[0.12em] block">
-                                QUALITY
-                            </span>
-                            <span className="text-[10px] font-semibold tracking-[0.15em] text-amber uppercase">
-                                Moving and Storage
-                            </span>
-                        </Link>
-                        <p className="text-sm text-bone/60 leading-relaxed mb-6">
-                            Your trusted moving partner in Austin and Central Texas for over {yearsInBusiness} years. Licensed, insured, and committed to making your move stress-free.
-                        </p>
-                        <a
-                            href={`tel:${site.phone.digits}`}
-                            className="text-lg font-semibold hover:text-amber transition-colors"
-                        >
-                            {site.phone.display}
-                        </a>
-                    </div>
+  return (
+    <footer className="relative mt-10 border-t border-cobalt/20 bg-obsidian/75 py-12 backdrop-blur-md">
+      <div className="layout-container">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-4">
+            <p className="eyebrow">Quality Crafted Moves</p>
+            <h2 className="font-family-display text-3xl text-white">
+              Move beautifully.
+            </h2>
+            <p className="text-sm text-cloud/85">
+              {site.tagline}
+            </p>
+            <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="secondary">
+              {site.phone.display}
+            </ButtonLink>
+          </div>
 
-                    {/* Services */}
-                    <div>
-                        <h4 className="text-xs font-semibold tracking-[0.2em] text-amber uppercase mb-4">
-                            Services
-                        </h4>
-                        <ul className="space-y-3">
-                            {footerLinks.services.map((link) => (
-                                <li key={link.label}>
-                                    <Link
-                                        to={link.to}
-                                        className="text-sm text-bone/60 hover:text-bone transition-colors"
-                                    >
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+          <div>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              Navigation
+            </h3>
+            <ul className="space-y-3 text-sm text-cloud">
+              {navigation.map((item) => (
+                <li key={item.to}>
+                  <Link className="transition-colors hover:text-white" to={item.to}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                    {/* Company */}
-                    <div>
-                        <h4 className="text-xs font-semibold tracking-[0.2em] text-amber uppercase mb-4">
-                            Company
-                        </h4>
-                        <ul className="space-y-3">
-                            {footerLinks.company.map((link) => (
-                                <li key={link.label}>
-                                    <Link
-                                        to={link.to}
-                                        className="text-sm text-bone/60 hover:text-bone transition-colors"
-                                    >
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+          <div>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              Contact
+            </h3>
+            <address className="not-italic space-y-3 text-sm text-cloud">
+              <p>
+                {site.address.street}
+                <br />
+                {site.address.city}, {site.address.region} {site.address.postalCode}
+              </p>
+              <p>
+                <a className="transition-colors hover:text-white" href={`mailto:${site.email}`}>
+                  {site.email}
+                </a>
+              </p>
+              <p>{site.hours.summary}</p>
+            </address>
+          </div>
 
-                    {/* Contact */}
-                    <div>
-                        <h4 className="text-xs font-semibold tracking-[0.2em] text-amber uppercase mb-4">
-                            Contact
-                        </h4>
-                        <address className="not-italic text-sm text-bone/60 space-y-3">
-                            <p>
-                                {site.address.street}<br />
-                                {site.address.city}, {site.address.region} {site.address.postalCode}
-                            </p>
-                            <p>
-                                <a
-                                    href={`tel:${site.phone.digits}`}
-                                    className="hover:text-bone transition-colors"
-                                >
-                                    {site.phone.display}
-                                </a>
-                            </p>
-                            <p>{site.hours.summary}</p>
-                        </address>
-                    </div>
-                </div>
+          <div>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              Service Area
+            </h3>
+            <p className="text-sm text-cloud/85">
+              {site.serviceAreas.slice(0, 8).join(' • ')}
+            </p>
+            <p className="mt-4 text-xs uppercase tracking-[0.16em] text-fog/75">
+              {site.reviewSummary}
+            </p>
+          </div>
+        </div>
 
-                {/* Service Areas */}
-                <div className="border-t border-bone/10 mt-12 pt-8">
-                    <h4 className="text-xs font-semibold tracking-[0.2em] text-amber uppercase mb-4">
-                        Proudly Serving
-                    </h4>
-                    <p className="text-sm text-bone/50">
-                        {site.serviceAreas.join(' • ')}
-                    </p>
-                </div>
-
-                {/* Bottom */}
-                <div className="border-t border-bone/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-xs text-bone/40 text-center md:text-left">
-                        © {currentYear} {site.name}. All Rights Reserved. {site.license}
-                    </p>
-                    <p className="text-xs text-bone/40">
-                        You may reach TXDMV at {site.tdmvPhone}
-                    </p>
-                </div>
-            </div>
-        </footer>
-    );
+        <div className="mt-10 flex flex-col gap-3 border-t border-cobalt/20 pt-6 text-xs text-fog/80 md:flex-row md:items-center md:justify-between">
+          <p>
+            © {currentYear} {site.name}. All rights reserved.
+          </p>
+          <p>{site.license}</p>
+          <p>TXDMV Contact: {site.tdmvPhone}</p>
+        </div>
+      </div>
+    </footer>
+  );
 }

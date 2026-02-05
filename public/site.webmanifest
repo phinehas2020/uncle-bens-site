@@ -1,5 +1,5 @@
 {
-  "name": "Quality Moving and Storage",
+  "name": "Quality Moving & Storage",
   "short_name": "Quality Moving",
   "icons": [
     {
@@ -10,7 +10,7 @@
   ],
   "start_url": "/",
   "scope": "/",
-  "theme_color": "#1E3A5F",
-  "background_color": "#F5F5F0",
+  "theme_color": "#07090f",
+  "background_color": "#07090f",
   "display": "standalone"
 }
