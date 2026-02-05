@@ -7,7 +7,8 @@ export function Testimonials() {
         <div className="max-w-3xl space-y-4">
           <p className="eyebrow">Client Voice</p>
           <h2 className="section-title">
-            Trusted by people who demand <span className="gold-gradient">precision.</span>
+            Feedback from recent
+            <span className="gold-gradient"> Central Texas moves.</span>
           </h2>
         </div>
 

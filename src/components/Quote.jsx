@@ -80,14 +80,13 @@ export function Quote() {
           <div className="space-y-4">
             <p className="eyebrow">Get Started</p>
             <h2 className="section-title">
-              Your move blueprint begins here.
+              Start your quote request.
             </h2>
             <p className="section-copy">
-              Tell us the essentials and we will return a guaranteed quote with
-              timeline recommendations.
+              A few details help us estimate your move accurately and respond quickly.
             </p>
             <p className="rounded-2xl border border-cobalt/28 bg-night/72 px-4 py-3 text-xs uppercase tracking-[0.14em] text-fog/80">
-              Typical quote turnaround: within one business day
+              Typical turnaround: within one business day
             </p>
           </div>
 
@@ -210,13 +209,13 @@ export function Quote() {
                 className="field min-h-28 resize-y"
                 name="message"
                 onChange={handleChange}
-                placeholder="Tell us size of home/office, key items, access details, or scheduling constraints."
+                placeholder="Include home size, stairs/elevator access, specialty items, and preferred timing."
                 value={formData.message}
               />
             </label>
 
             <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
-              Request Guaranteed Quote
+              Send Quote Request
             </Button>
 
             {isSubmitted && (

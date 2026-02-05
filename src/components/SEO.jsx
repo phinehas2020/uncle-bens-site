@@ -21,10 +21,10 @@ export function SEO({
   const metaDescription = description || fallbackDescription;
   const fullTitle = title
     ? `${title} | ${site.name}`
-    : `${site.name} | White-Glove Relocation in Central Texas`;
+    : `${site.name} | Trusted Central Texas Movers`;
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
   const ogImage = image ? `${siteUrl}${image}` : defaultImage;
-  const ogImageAlt = imageAlt || `${site.shortName} premium moving services in Central Texas`;
+  const ogImageAlt = imageAlt || `${site.shortName} moving services in Central Texas`;
   const ogImageWidth = 1200;
   const ogImageHeight = 630;
 
@@ -91,7 +91,7 @@ export function SEO({
       <meta content={metaDescription} name="description" />
       <link href={fullCanonical} rel="canonical" />
       <meta content={site.name} name="author" />
-      <meta content="#07090f" name="theme-color" />
+      <meta content="#101214" name="theme-color" />
 
       {noindex && <meta content="noindex, nofollow" name="robots" />}
 

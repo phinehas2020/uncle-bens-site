@@ -8,11 +8,12 @@ export function Services() {
         <div className="max-w-3xl space-y-4">
           <p className="eyebrow">Capabilities</p>
           <h2 className="section-title">
-            Services engineered for <span className="gold-gradient">zero friction.</span>
+            Practical services for
+            <span className="gold-gradient"> real-world moves.</span>
           </h2>
           <p className="section-copy">
-            From sensitive household transitions to complex business relocations,
-            every service is built around planning discipline and execution quality.
+            Whether you are moving an apartment, a family home, or an office,
+            we tailor the plan to your timeline and priorities.
           </p>
         </div>
 
@@ -46,7 +47,7 @@ export function Services() {
         </div>
 
         <ButtonLink size="md" to="/services" variant="secondary">
-          Explore All Services
+          View Full Service Details
         </ButtonLink>
       </div>
     </section>

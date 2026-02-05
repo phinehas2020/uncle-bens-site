@@ -15,11 +15,11 @@ export function QuotePage() {
         <div className="layout-container max-w-4xl space-y-5">
           <p className="eyebrow">Guaranteed Quote</p>
           <h1 className="section-title">
-            Plan your move with total clarity.
+            Tell us what you are moving.
           </h1>
           <p className="section-copy">
-            Share your move details and our team will provide a guaranteed quote,
-            timeline guidance, and service recommendations tailored to your needs.
+            Share the basics and we will send back a clear quote,
+            next-step plan, and recommended service options.
           </p>
         </div>
       </section>

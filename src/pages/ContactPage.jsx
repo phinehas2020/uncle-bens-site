@@ -76,11 +76,11 @@ export function ContactPage() {
           <div className="space-y-5">
             <p className="eyebrow">Contact</p>
             <h1 className="section-title">
-              Let’s make your move feel effortless.
+              Questions before you move?
             </h1>
             <p className="section-copy">
-              Speak with our team about timing, logistics, and premium service
-              options. We are here to guide every detail.
+              Reach out about scheduling, service options, packing help, or
+              specialty items. We are happy to walk you through it.
             </p>
 
             <div className="glass-panel space-y-4 p-5">

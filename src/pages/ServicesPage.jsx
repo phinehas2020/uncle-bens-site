@@ -15,12 +15,12 @@ export function ServicesPage() {
         <div className="layout-container space-y-5">
           <p className="eyebrow">Service Portfolio</p>
           <h1 className="section-title max-w-4xl">
-            Every move type.
-            <span className="gold-gradient">One uncompromising standard.</span>
+            Services built around
+            <span className="gold-gradient"> your actual move.</span>
           </h1>
           <p className="section-copy max-w-3xl">
-            We combine concierge-level care with disciplined logistics to deliver
-            reliable outcomes across homes, offices, and specialty moves.
+            Choose only what you need. We can support full-service moves,
+            labor-only help, packing, storage, or specialty items.
           </p>
         </div>
       </section>
@@ -72,7 +72,7 @@ export function ServicesPage() {
 
           <div className="pt-4">
             <ButtonLink size="lg" to="/quote" variant="primary">
-              Request Your Custom Quote
+              Request A Quote
             </ButtonLink>
           </div>
         </div>

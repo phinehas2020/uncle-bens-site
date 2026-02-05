@@ -16,20 +16,19 @@ export function AboutPage() {
           <div className="space-y-5">
             <p className="eyebrow">Our Story</p>
             <h1 className="section-title max-w-3xl">
-              A Texas team built on discipline,
-              <span className="gold-gradient">care, and consistency.</span>
+              A local team focused on
+              <span className="gold-gradient"> honest, careful moving.</span>
             </h1>
             <p className="section-copy max-w-2xl">
-              {site.name} was founded to replace stressful moving days with
-              structured, premium experiences. We combine hospitality mindset,
-              logistics rigor, and skilled crews to deliver reliable outcomes.
+              {site.name} started in Round Rock with a simple goal:
+              do quality moving work and treat people well.
             </p>
             <p className="section-copy max-w-2xl">
               For more than {yearsInBusiness} years, families and businesses
               across Central Texas have trusted us to protect what matters most.
             </p>
             <ButtonLink size="md" to="/quote" variant="primary">
-              Start Your Move Plan
+              Talk With Our Team
             </ButtonLink>
           </div>
 
@@ -58,13 +57,12 @@ export function AboutPage() {
           <article className="surface-card grid gap-6 overflow-hidden p-6 sm:p-8 lg:grid-cols-[1fr_1fr] lg:p-10">
             <div className="space-y-4">
               <h2 className="font-family-display text-4xl text-white sm:text-5xl">
-                Built for trust,
-                <span className="gold-gradient">not guesswork.</span>
+                What clients can expect
+                <span className="gold-gradient"> on every move.</span>
               </h2>
               <p className="section-copy">
-                Licensed and insured teams. Guaranteed quotes. Clear scheduling.
-                Measured handling protocols. We execute every detail with the same
-                standard, every single time.
+                Licensed and insured crews, transparent quotes, and respectful
+                communication from first call through final placement.
               </p>
             </div>
 

@@ -1,9 +1,9 @@
 export const site = {
   name: 'Quality Moving & Storage',
   shortName: 'Quality Moving',
-  tagline: 'White-glove relocation for homes, teams, and heirlooms.',
+  tagline: 'Careful moving for Central Texas homes and businesses.',
   description:
-    'A premium Central Texas moving company specializing in residential, commercial, packing, and secure storage services.',
+    'A Round Rock moving company helping with home moves, office relocations, packing, storage, and specialty items.',
   domain: 'https://qualitymoving.com',
   email: 'hello@qualitymoving.com',
   phone: {
@@ -46,7 +46,7 @@ export const site = {
   license: 'TXDMV #006027218C',
   tdmvPhone: '(888) 368-4689',
   yearFounded: 2006,
-  reviewSummary: 'Hundreds of five-star reviews',
+  reviewSummary: 'Trusted by families and teams across Central Texas',
   socials: {
     googleReviews: 'https://www.google.com/search?q=quality+moving+austin+reviews',
   },
@@ -75,25 +75,25 @@ export const navigation = [
 ];
 
 export const heroStats = [
-  { value: `${yearsInBusiness}+`, label: 'Years in Texas homes' },
-  { value: '4.9/5', label: 'Average client rating' },
-  { value: '15k+', label: 'Successful moves completed' },
-  { value: '24/7', label: 'Storage security monitoring' },
+  { value: `${yearsInBusiness}+`, label: 'Years serving Central Texas' },
+  { value: '15,000+', label: 'Moves completed' },
+  { value: '4.9/5', label: 'Average review rating' },
+  { value: 'Mon–Sat', label: 'Service availability' },
 ];
 
 export const services = [
   {
     id: 'local-moving',
-    title: 'Luxury Local Moving',
+    title: 'Home Moving',
     summary:
-      'From downtown high-rises to family homes, we execute local moves with elite logistics and calm precision.',
+      'Local moves across Austin, Round Rock, and nearby cities with experienced crews and careful handling.',
     details:
-      'Every move receives a dedicated move captain, floor protection, premium wrapping, and live schedule communication so your day runs exactly to plan.',
+      'We protect floors and doorways, blanket-wrap furniture, and place items where you want them in your new home.',
     highlights: [
-      'Dedicated move captain',
-      'Custom protection for floors and walls',
-      'Real-time arrival windows',
-      'Furniture assembly and placement',
+      'Careful in-home protection',
+      'Clear arrival windows',
+      'Furniture disassembly and setup',
+      'Apartment and house moves',
     ],
     image:
       'https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=1200&q=80',
@@ -102,30 +102,30 @@ export const services = [
     id: 'commercial-moving',
     title: 'Commercial Relocation',
     summary:
-      'Office transitions engineered to minimize downtime and protect business continuity.',
+      'Office and retail moves planned to reduce downtime and keep your team productive.',
     details:
-      'We coordinate with building management, phase departments by priority, and move critical workstations on your timeline—often overnight or on weekends.',
+      'We coordinate with property managers, label assets by team, and schedule work around your operating hours.',
     highlights: [
-      'After-hours and weekend execution',
-      'Department-by-department phasing',
-      'IT and workstation coordination',
-      'Asset labeling and inventory control',
+      'After-hours scheduling available',
+      'Department-by-department planning',
+      'Workstation and IT coordination',
+      'Labeled inventory process',
     ],
     image:
       'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'packing',
-    title: 'Museum-Grade Packing',
+    title: 'Professional Packing',
     summary:
-      'Specialized packing systems for fragile collections, heirlooms, art, and specialty furniture.',
+      'Full packing, partial packing, or fragile-only packing based on what you need help with.',
     details:
-      'Our teams use category-specific materials, room-level inventory tracking, and custom crating when needed to ensure every item travels safely.',
+      'We use quality materials, room labels, and clear inventory notes so unpacking is easier on the other side.',
     highlights: [
-      'Custom crating available',
-      'Room-by-room inventory control',
-      'Fragile and fine-art protocols',
-      'Sustainable packing options',
+      'Full-home or partial packing',
+      'Fragile kitchen and artwork packing',
+      'Room-by-room labels',
+      'Custom crating when needed',
     ],
     image:
       'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
@@ -134,46 +134,46 @@ export const services = [
     id: 'long-distance',
     title: 'Long-Distance Moves',
     summary:
-      'Interstate and cross-state moves with transparent milestones, dedicated trucks, and no confusion.',
+      'Cross-state and interstate moves with one point of contact and a clear timeline.',
     details:
-      'We map your relocation in advance, assign a primary coordinator, and provide predictable windows so your family or team can plan with confidence.',
+      'You get scheduled checkpoints, straightforward communication, and a team that prepares in advance for route and access logistics.',
     highlights: [
-      'Dedicated transport options',
-      'Milestone-based communication',
-      'Guaranteed scheduling windows',
-      'Interstate-compliant documentation',
+      'Single point of contact',
+      'Scheduled communication updates',
+      'Interstate paperwork support',
+      'Planned delivery windows',
     ],
     image:
       'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'storage',
-    title: 'Secure Storage Solutions',
+    title: 'Storage Solutions',
     summary:
-      'Short-term bridge storage and longer-term protection in monitored facilities.',
+      'Short-term and long-term storage options when move-in dates shift or space is tight.',
     details:
-      'Our storage workflow includes barcode tracking, clean wrapped staging, and retrieval scheduling that aligns with your renovation or move-in timeline.',
+      'Items are wrapped, logged, and stored in monitored facilities, then returned on your schedule.',
     highlights: [
-      'Climate-conscious storage options',
-      'Barcode inventory tracking',
-      '24/7 security monitoring',
-      'Flexible retrieval scheduling',
+      'Monitored storage facilities',
+      'Item tracking and labeling',
+      'Flexible retrieval dates',
+      'Bridge storage for renovations',
     ],
     image:
       'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'specialty',
-    title: 'Specialty Item Transport',
+    title: 'Pianos & Specialty Items',
     summary:
-      'Pianos, antiques, oversized mirrors, and high-value pieces handled by trained specialty crews.',
+      'Pianos, antiques, and oversized pieces moved by crews trained for high-risk handling.',
     details:
-      'When your items require advanced rigging or precision handling, our specialty team prepares route plans, protective systems, and exact placement strategies.',
+      'We plan pathways, protect touch points, and use the right equipment for heavy or delicate items.',
     highlights: [
-      'Piano and antique specialists',
-      'Rigging and access planning',
-      'White-glove in-home placement',
-      'Enhanced insurance options',
+      'Piano moving expertise',
+      'Antique and art handling',
+      'Stair and tight-access planning',
+      'Careful final placement',
     ],
     image:
       'https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=1200&q=80',
@@ -182,58 +182,58 @@ export const services = [
 
 export const processSteps = [
   {
-    title: '01 — Precision Discovery',
-    text: 'We assess access points, inventory, timing, and risk factors so the move plan is accurate before move day.',
+    title: '01 — Walkthrough & Estimate',
+    text: 'We review your inventory, home access, timing, and any specialty items before we quote.',
   },
   {
-    title: '02 — Personalized Move Blueprint',
-    text: 'You receive a guaranteed quote, schedule map, and service sequence tailored to your exact situation.',
+    title: '02 — Schedule & Prep',
+    text: 'You receive a written plan with arrival windows, crew details, and packing or storage options.',
   },
   {
-    title: '03 — Flawless Execution',
-    text: 'Your crew arrives prepared, protects every surface, and moves with disciplined speed and detail.',
+    title: '03 — Move Day',
+    text: 'Our team arrives prepared, protects your space, and loads and unloads with clear communication throughout.',
   },
   {
-    title: '04 — Placement & Final Walkthrough',
-    text: 'We stage your space, assemble priority items, and close with a quality walkthrough before sign-off.',
+    title: '04 — Setup & Final Check',
+    text: 'We place furniture where you want it, reassemble key items, and do a final walkthrough before we leave.',
   },
 ];
 
 export const companyValues = [
   {
-    title: 'Craft Over Chaos',
-    text: 'We treat every move like a craft discipline—planned, measured, and cleanly executed.',
+    title: 'Prepared Crews',
+    text: 'Our teams come prepared with the right tools, materials, and plan for your specific move.',
   },
   {
-    title: 'Calm Communication',
-    text: 'You always know what happens next, who is leading your move, and when each phase begins.',
+    title: 'Clear Communication',
+    text: 'You know who is coming, when they will arrive, and what happens next at every stage.',
   },
   {
-    title: 'Accountable Teams',
-    text: 'Licensed, insured, and performance-managed crews that own the result from first call to final placement.',
+    title: 'Careful Handling',
+    text: 'We treat your home and belongings with respect, from first box to final furniture placement.',
   },
 ];
 
 export const milestones = [
   {
     year: String(site.yearFounded),
-    event: 'Founded in Round Rock with a mission to raise the bar for Texas moving standards.',
+    event: 'Opened in Round Rock with a focus on reliable local moving and respectful service.',
   },
   {
     year: '2012',
-    event: 'Expanded service area to include broader Central Texas markets and specialty services.',
+    event: 'Expanded service routes across Central Texas, including Austin and Cedar Park.',
   },
   {
     year: '2018',
-    event: 'Launched dedicated commercial relocation program for multi-team office transitions.',
+    event: 'Built a dedicated commercial moving team for office and retail relocations.',
   },
   {
     year: '2023',
-    event: 'Introduced premium storage workflows with inventory tagging and retrieval scheduling.',
+    event: 'Expanded storage operations with improved inventory tracking and retrieval scheduling.',
   },
   {
     year: String(new Date().getFullYear()),
-    event: `Celebrating ${yearsInBusiness} years of trusted service for families and businesses.`,
+    event: `Now in year ${yearsInBusiness}, continuing to serve families and businesses across Central Texas.`,
   },
 ];
 
@@ -242,19 +242,19 @@ export const testimonials = [
     name: 'Maya G.',
     role: 'Family Relocation • Austin',
     quote:
-      'The smoothest move we have ever had. The team wrapped everything beautifully, communicated constantly, and delivered exactly on schedule.',
+      'Best move we have had. The crew was on time, careful with our furniture, and easy to work with all day.',
   },
   {
     name: 'Jordan R.',
     role: 'Studio Founder • Round Rock',
     quote:
-      'We moved an entire office over one weekend with zero Monday downtime. Their planning quality is unreal.',
+      'They moved our office over the weekend and we were fully running Monday morning. Great planning and execution.',
   },
   {
     name: 'Elena T.',
     role: 'Homeowner • Cedar Park',
     quote:
-      'Their crew handled heirloom furniture and artwork with museum-level care. Premium service from start to finish.',
+      'We had antiques and a piano to move. Everything arrived safely and was placed exactly where we asked.',
   },
 ];
 
@@ -262,21 +262,21 @@ export const faqs = [
   {
     question: 'How far in advance should I book?',
     answer:
-      'For peak periods, we recommend booking 2–4 weeks in advance. We also support urgent schedules whenever capacity allows.',
+      'During busy seasons, 2–4 weeks is ideal. If your schedule is tight, call us and we will do our best to fit you in.',
   },
   {
     question: 'Are your quotes guaranteed?',
     answer:
-      'Yes. After assessment, we provide a guaranteed quote based on the agreed scope, timing, and services selected.',
+      'Yes. After the walkthrough and scope review, we provide a guaranteed quote for the agreed services.',
   },
   {
     question: 'Can you move specialty items like pianos?',
     answer:
-      'Absolutely. We offer dedicated specialty crews for pianos, antiques, fine art, and oversized high-value pieces.',
+      'Yes. We regularly move pianos, antiques, artwork, and other large or delicate items.',
   },
   {
     question: 'Do you offer packing-only services?',
     answer:
-      'Yes. We can provide full-home packing, partial-room packing, or custom packing for fragile inventories only.',
+      'Yes. We offer full packing, partial packing, and fragile-item packing depending on your needs.',
   },
 ];

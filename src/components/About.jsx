@@ -8,18 +8,17 @@ export function About() {
           <div className="space-y-4">
             <p className="eyebrow">Our Standard</p>
             <h2 className="section-title">
-              {yearsInBusiness} years of operational excellence.
+              {yearsInBusiness} years of dependable moving service.
             </h2>
             <p className="section-copy max-w-2xl">
-              We are obsessive about consistency: clear communication, detailed
-              handling protocols, and polished delivery that makes the hardest day
-              of your year feel controlled.
+              We focus on the basics that matter most: showing up prepared,
+              protecting your belongings, and communicating clearly from start to finish.
             </p>
           </div>
 
           <div className="glass-panel space-y-5 p-6 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-soft">
-              Signature Process
+              How We Work
             </p>
             <div className="space-y-4">
               {processSteps.map((step) => (

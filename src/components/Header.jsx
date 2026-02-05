@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { navigation, site } from '../data/site';
 import { ButtonLink } from './Button';
+import { preloadRoute } from '../lib/routeLoader';
 
 function MenuIcon({ open }) {
   return (
@@ -73,6 +74,8 @@ export function Header() {
                   'text-[0.75rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:text-gold-soft',
                   location.pathname === item.to && 'text-gold',
                 )}
+                onFocus={() => preloadRoute(item.to)}
+                onMouseEnter={() => preloadRoute(item.to)}
                 to={item.to}
               >
                 {item.label}
@@ -84,7 +87,13 @@ export function Header() {
             <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="ghost">
               {site.phone.display}
             </ButtonLink>
-            <ButtonLink size="sm" to="/quote" variant="primary">
+            <ButtonLink
+              onFocus={() => preloadRoute('/quote')}
+              onMouseEnter={() => preloadRoute('/quote')}
+              size="sm"
+              to="/quote"
+              variant="primary"
+            >
               Start My Move
             </ButtonLink>
           </div>
@@ -111,6 +120,7 @@ export function Header() {
                   'block rounded-xl border border-transparent px-4 py-3 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:border-cobalt/30 hover:text-white',
                   location.pathname === item.to && 'border-cobalt/35 bg-night/70 text-white',
                 )}
+                onFocus={() => preloadRoute(item.to)}
                 onClick={() => setMobileOpen(false)}
                 to={item.to}
               >
@@ -129,6 +139,7 @@ export function Header() {
               </ButtonLink>
               <ButtonLink
                 onClick={() => setMobileOpen(false)}
+                onFocus={() => preloadRoute('/quote')}
                 size="sm"
                 to="/quote"
                 variant="primary"
