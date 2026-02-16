@@ -1,45 +1,72 @@
+import { ButtonLink } from './Button';
 import { companyValues, processSteps, yearsInBusiness } from '../data/site';
 
 export function About() {
   return (
     <section className="section-space-sm">
-      <div className="layout-container space-y-10">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <div className="space-y-4">
-            <p className="eyebrow">How We Work</p>
-            <h2 className="section-title">
-              {yearsInBusiness} years of move plans that hold up on real move day.
-            </h2>
-            <p className="section-copy max-w-2xl">
-              Our process is straightforward: prep early, communicate constantly,
-              and protect every item like it belongs to our own family.
-            </p>
-          </div>
-
-          <div className="glass-panel space-y-5 p-6 sm:p-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-soft">
-              Move-Day System
-            </p>
-            <div className="space-y-4">
-              {processSteps.map((step) => (
-                <div className="rounded-2xl border border-cobalt/25 bg-night/70 p-4" key={step.title}>
-                  <p className="text-sm font-bold uppercase tracking-[0.12em] text-white">
-                    {step.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-cloud/88">{step.text}</p>
-                </div>
+      <div className="layout-shell about-grid">
+        <article className="space-y-4">
+          <p className="kicker">Operations-based moving</p>
+          <h2 className="section-title">
+            {yearsInBusiness} years of moves that stay on plan.
+          </h2>
+          <p className="section-copy">
+            We use a simple promise: we prepare in advance, protect your property, and
+            keep every step visible so there are no surprises on move day.
+          </p>
+          <div className="space-y-3">
+            <p className="label-copy">Move-day guarantees</p>
+            <ul className="space-y-2">
+              {[
+                'Transparent timelines with clear window updates.',
+                'Protective floor and hallway coverage for every move.',
+                'Clear handoff checklist when the team leaves.',
+              ].map((item) => (
+                <li className="text-sm text-cloud" key={item}>
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
+          </div>
+          <ButtonLink size="md" to="/contact" variant="secondary">
+            Contact our team
+          </ButtonLink>
+        </article>
+
+        <div className="space-y-4">
+          <p className="kicker">Move process</p>
+          <div className="space-y-3">
+            {processSteps.map((step) => (
+              <article className="surface-card" key={step.title}>
+                <p className="label-copy">{step.title}</p>
+                <p className="mt-2 text-sm text-cloud">{step.text}</p>
+              </article>
+            ))}
           </div>
         </div>
+      </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {companyValues.map((value) => (
-            <article className="surface-card p-6" key={value.title}>
-              <h3 className="font-family-display text-3xl text-white">{value.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-cloud/86">{value.text}</p>
-            </article>
-          ))}
+      <div className="layout-shell section-space-sm">
+        <div className="space-y-3">
+          <p className="kicker">What makes us different</p>
+          <div className="value-grid">
+            {companyValues.map((value) => (
+              <article className="service-card" key={value.title}>
+                <img
+                  alt={value.title}
+                  className="service-image"
+                  height="760"
+                  loading="lazy"
+                  src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80"
+                  width="1200"
+                />
+                <div className="service-body">
+                  <p className="text-2xl text-pearl font-family-display">{value.title}</p>
+                  <p className="text-sm text-cloud">{value.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

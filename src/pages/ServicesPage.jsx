@@ -7,50 +7,39 @@ export function ServicesPage() {
     <>
       <SEO
         canonical="/services"
-        description={`Explore premium residential, commercial, packing, long-distance, and storage services from ${site.name} in Central Texas.`}
+        description={`Explore residential, commercial, packing, long-distance, and storage services from ${site.name} in Central Texas.`}
         title="Services"
       />
 
-      <section className="section-space pt-20">
-        <div className="layout-container space-y-5">
-          <p className="eyebrow">Service Portfolio</p>
-          <h1 className="section-title max-w-4xl">
-            Services built around
-            <span className="gold-gradient"> your actual move.</span>
-          </h1>
-          <p className="section-copy max-w-3xl">
-            Choose only what you need. We can support full-service moves,
-            labor-only help, packing, storage, or specialty items.
+      <section className="section-space">
+        <div className="layout-shell space-y-5">
+          <p className="kicker">Service portfolio</p>
+          <h1 className="section-title">Services built for your actual move.</h1>
+          <p className="section-copy">
+            Pick the mix you need. We support full-service moves, labor-only help,
+            packing, storage, and specialty-item handling.
           </p>
         </div>
       </section>
 
-      <section className="section-space-sm pt-0">
-        <div className="layout-container space-y-5">
+      <section className="section-space-sm">
+        <div className="layout-shell space-y-7">
           {services.map((service, index) => (
             <article
-              className="surface-card grid overflow-hidden lg:grid-cols-[1.08fr_0.92fr]"
+              className={`service-detail-card ${index % 2 ? 'reverse' : ''}`}
               id={service.id}
               key={service.id}
             >
-              <div className={`p-6 sm:p-8 lg:p-10 ${index % 2 ? 'lg:order-2' : ''}`}>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold-soft">
-                  Service {String(index + 1).padStart(2, '0')}
-                </p>
-                <h2 className="font-family-display text-4xl text-white sm:text-5xl">
-                  {service.title}
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-cloud/90">
-                  {service.summary}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-fog/88">
-                  {service.details}
-                </p>
+              <div className="service-detail-copy p-6">
+                <p className="label-copy">Service {String(index + 1).padStart(2, '0')}</p>
+                <h2 className="text-3xl sm:text-4xl font-family-display text-pearl">{service.title}</h2>
+                <p className="mt-4 text-base text-cloud">{service.summary}</p>
+                <p className="mt-3 text-sm leading-relaxed text-fog">{service.details}</p>
 
                 <ul className="mt-5 grid gap-2 sm:grid-cols-2">
                   {service.highlights.map((item) => (
                     <li
-                      className="rounded-xl border border-cobalt/24 bg-night/70 px-3 py-2 text-xs uppercase tracking-[0.11em] text-cloud/88"
+                      className="rounded-xl border border-cobalt-soft/35 bg-night/55 px-3 py-2 text-xs uppercase tracking-[0.11em] text-cloud"
                       key={item}
                     >
                       {item}
@@ -59,20 +48,22 @@ export function ServicesPage() {
                 </ul>
               </div>
 
-              <img
-                alt={service.title}
-                className={`h-72 w-full object-cover lg:h-full ${index % 2 ? 'lg:order-1' : ''}`}
-                height="900"
-                loading="lazy"
-                src={service.image}
-                width="1200"
-              />
+              <div className="service-detail-media">
+                <img
+                  alt={service.title}
+                  className="h-full w-full object-cover"
+                  height="900"
+                  loading="lazy"
+                  src={service.image}
+                  width="1200"
+                />
+              </div>
             </article>
           ))}
 
-          <div className="pt-4">
+          <div className="pt-1">
             <ButtonLink size="lg" to="/quote" variant="primary">
-              Request A Quote
+              Request a quote
             </ButtonLink>
           </div>
         </div>

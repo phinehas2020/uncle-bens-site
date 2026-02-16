@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { Button } from '../components/Button';
 import { SEO } from '../components/SEO';
 import { site } from '../data/site';
-
-const initialState = {
-  name: '',
-  email: '',
-  phone: '',
-  subject: '',
-  message: '',
-};
+import { Button } from '../components/Button';
 
 export function ContactPage() {
   const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
+  const initialState = {
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  };
+
   const [formData, setFormData] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -67,53 +67,45 @@ export function ContactPage() {
     <>
       <SEO
         canonical="/contact"
-        description={`Contact ${site.name} for premium moving, packing, and storage support in Austin, Round Rock, and Central Texas.`}
+        description={`Contact ${site.name} for moving, packing, and storage support in Austin, Round Rock, and Central Texas.`}
         title="Contact"
       />
 
-      <section className="section-space pt-20">
-        <div className="layout-container grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="space-y-5">
-            <p className="eyebrow">Contact</p>
-            <h1 className="section-title">
-              Questions before you move?
-            </h1>
+      <section className="section-space">
+        <div className="layout-shell contact-grid">
+          <article className="surface-card p-6">
+            <p className="kicker">Contact</p>
+            <h1 className="section-title">Questions before you move?</h1>
             <p className="section-copy">
-              Reach out about scheduling, service options, packing help, or
-              specialty items. We are happy to walk you through it.
+              Reach us for scheduling support, scope planning, packing help, and specialty items.
             </p>
 
-            <div className="glass-panel space-y-4 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-soft">
-                Reach us directly
-              </p>
-              <p className="text-sm text-cloud/86">
+            <div className="space-y-3 rounded-2xl border border-cobalt-soft/35 bg-night/70 p-4 text-sm">
+              <p>
                 Phone:{' '}
-                <a className="text-gold-soft hover:text-white" href={`tel:${site.phone.digits}`}>
+                <a className="text-cobalt-soft hover:text-white" href={`tel:${site.phone.digits}`}>
                   {site.phone.display}
                 </a>
               </p>
-              <p className="text-sm text-cloud/86">
+              <p>
                 Email:{' '}
-                <a className="text-gold-soft hover:text-white" href={`mailto:${site.email}`}>
+                <a className="text-cobalt-soft hover:text-white" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>
               </p>
-              <p className="text-sm text-cloud/86">Hours: {site.hours.summary}</p>
-              <p className="text-sm text-cloud/86">
+              <p>Hours: {site.hours.summary}</p>
+              <p>
                 {site.address.street}
                 <br />
                 {site.address.city}, {site.address.region} {site.address.postalCode}
               </p>
             </div>
-          </div>
+          </article>
 
-          <form className="glass-panel space-y-4 p-6 sm:p-8" onSubmit={handleSubmit}>
-            <div className="grid gap-3 sm:grid-cols-2">
+          <form className="surface-card p-6" onSubmit={handleSubmit}>
+            <div className="quote-form-grid two-col">
               <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Name
-                </span>
+                <span className="label-copy">Name</span>
                 <input
                   className="field"
                   name="name"
@@ -125,9 +117,7 @@ export function ContactPage() {
               </label>
 
               <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Phone
-                </span>
+                <span className="label-copy">Phone</span>
                 <input
                   className="field"
                   name="phone"
@@ -140,9 +130,7 @@ export function ContactPage() {
             </div>
 
             <label className="block">
-              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                Email
-              </span>
+              <span className="label-copy">Email</span>
               <input
                 className="field"
                 name="email"
@@ -155,9 +143,7 @@ export function ContactPage() {
             </label>
 
             <label className="block">
-              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                Subject
-              </span>
+              <span className="label-copy">Subject</span>
               <select
                 className="field"
                 name="subject"
@@ -174,9 +160,7 @@ export function ContactPage() {
             </label>
 
             <label className="block">
-              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                Message
-              </span>
+              <span className="label-copy">Message</span>
               <textarea
                 className="field min-h-32 resize-y"
                 name="message"

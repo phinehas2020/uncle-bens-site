@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const serviceOptions = [
-  { value: 'local-moving', label: 'Luxury Local Moving' },
+  { value: 'local-moving', label: 'Local Moving' },
   { value: 'commercial-moving', label: 'Commercial Relocation' },
   { value: 'packing', label: 'Packing Services' },
   { value: 'long-distance', label: 'Long-Distance Moving' },
@@ -75,57 +75,48 @@ export function Quote() {
 
   return (
     <section className="section-space-sm">
-      <div className="layout-container">
-        <div className="glass-panel grid gap-7 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr] lg:p-10">
-          <div className="space-y-4">
-            <p className="eyebrow">Get Started</p>
-            <h2 className="section-title">
-              Start your quote request.
-            </h2>
-            <p className="section-copy">
-              A few details help us estimate your move accurately and respond quickly.
-            </p>
-            <p className="rounded-2xl border border-cobalt/28 bg-night/72 px-4 py-3 text-xs uppercase tracking-[0.14em] text-fog/80">
-              Typical turnaround: within one business day
-            </p>
-          </div>
+      <div className="layout-shell quote-shell">
+        <article className="surface-card p-7">
+          <p className="kicker">Get started in minutes</p>
+          <h2 className="section-title">Start your guaranteed quote request.</h2>
+          <p className="section-copy">
+            One form, one timeline, one response path. We reply within one business day.
+          </p>
+          <p className="mt-3 rounded-xl border border-cobalt-soft/30 bg-cobalt-soft/10 px-4 py-3 text-xs uppercase tracking-[0.14em] text-fog/80">
+            We confirm charges before scheduling.
+          </p>
+        </article>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Full Name
-                </span>
-                <input
-                  className="field"
-                  name="name"
-                  onChange={handleChange}
-                  placeholder="Your name"
-                  required
-                  value={formData.name}
-                />
-              </label>
+        <form className="surface-card quote-form p-7" onSubmit={handleSubmit}>
+          <label>
+            <span className="label-copy">Full name</span>
+            <input
+              className="field"
+              name="name"
+              onChange={handleChange}
+              placeholder="Your name"
+              required
+              type="text"
+              value={formData.name}
+            />
+          </label>
 
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Phone
-                </span>
-                <input
-                  className="field"
-                  name="phone"
-                  onChange={handleChange}
-                  placeholder="(512) 555-0101"
-                  required
-                  type="tel"
-                  value={formData.phone}
-                />
-              </label>
-            </div>
+          <div className="quote-form-grid two-col">
+            <label>
+              <span className="label-copy">Phone</span>
+              <input
+                className="field"
+                name="phone"
+                onChange={handleChange}
+                placeholder="(512) 555-0101"
+                required
+                type="tel"
+                value={formData.phone}
+              />
+            </label>
 
-            <label className="block">
-              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                Email
-              </span>
+            <label>
+              <span className="label-copy">Email</span>
               <input
                 className="field"
                 name="email"
@@ -136,101 +127,93 @@ export function Quote() {
                 value={formData.email}
               />
             </label>
+          </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Moving From
-                </span>
-                <input
-                  className="field"
-                  name="fromCity"
-                  onChange={handleChange}
-                  placeholder="Current city"
-                  required
-                  value={formData.fromCity}
-                />
-              </label>
-
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Moving To
-                </span>
-                <input
-                  className="field"
-                  name="toCity"
-                  onChange={handleChange}
-                  placeholder="Destination city"
-                  required
-                  value={formData.toCity}
-                />
-              </label>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Preferred Date
-                </span>
-                <input
-                  className="field"
-                  name="moveDate"
-                  onChange={handleChange}
-                  type="date"
-                  value={formData.moveDate}
-                />
-              </label>
-
-              <label>
-                <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                  Service Type
-                </span>
-                <select
-                  className="field"
-                  name="service"
-                  onChange={handleChange}
-                  required
-                  value={formData.service}
-                >
-                  {serviceOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-
-            <label className="block">
-              <span className="mb-1.5 block text-xs uppercase tracking-[0.14em] text-cloud/78">
-                Project Details
-              </span>
-              <textarea
-                className="field min-h-28 resize-y"
-                name="message"
+          <div className="quote-form-grid two-col">
+            <label>
+              <span className="label-copy">From</span>
+              <input
+                className="field"
+                name="fromCity"
                 onChange={handleChange}
-                placeholder="Include home size, stairs/elevator access, specialty items, and preferred timing."
-                value={formData.message}
+                placeholder="Current city"
+                required
+                value={formData.fromCity}
               />
             </label>
 
+            <label>
+              <span className="label-copy">To</span>
+              <input
+                className="field"
+                name="toCity"
+                onChange={handleChange}
+                placeholder="Destination city"
+                required
+                value={formData.toCity}
+              />
+            </label>
+          </div>
+
+          <div className="quote-form-grid two-col">
+            <label>
+              <span className="label-copy">Preferred move date</span>
+              <input
+                className="field"
+                name="moveDate"
+                onChange={handleChange}
+                type="date"
+                value={formData.moveDate}
+              />
+            </label>
+
+            <label>
+              <span className="label-copy">Service type</span>
+              <select
+                className="field"
+                name="service"
+                onChange={handleChange}
+                required
+                value={formData.service}
+              >
+                {serviceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span className="label-copy">Project details</span>
+            <textarea
+              className="field min-h-28 resize-y"
+              name="message"
+              onChange={handleChange}
+              placeholder="Home size, stairs, elevators, timeline, and specialty items."
+              value={formData.message}
+            />
+          </label>
+
+          <div className="form-actions">
             <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
-              Send Quote Request
+              Send quote request
             </Button>
+          </div>
 
-            {isSubmitted && (
-              <p className="rounded-xl border border-gold/28 bg-night/65 px-4 py-3 text-sm text-gold-soft">
-                Thank you. We received your request and will reach out shortly.
-              </p>
-            )}
+          {isSubmitted && (
+            <p className="rounded-xl border border-gold/28 bg-night/65 px-4 py-3 text-sm text-gold-soft">
+              Thank you. We received your request and will reach out shortly.
+            </p>
+          )}
 
-            {submitError && (
-              <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
-                {submitError}
-              </p>
-            )}
-          </form>
-        </div>
+          {submitError && (
+            <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
+              {submitError}
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );

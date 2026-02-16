@@ -12,7 +12,7 @@ export function HomePage() {
     <>
       <SEO
         canonical="/"
-        description={`${site.name} delivers premium moving, packing, and storage services across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes and white-glove crews.`}
+        description={`${site.name} delivers local and long-distance moving, packing, and storage services across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes and careful crews.`}
       />
 
       <Hero />

@@ -37,9 +37,9 @@ function ScrollToTop() {
 
 function RouteFallback() {
   return (
-    <div className="layout-container section-space-sm">
+    <div className="layout-shell section-space-sm">
       <div className="surface-card p-6">
-        <p className="text-sm uppercase tracking-[0.12em] text-fog/80">Loading page</p>
+        <p className="label-copy">Loading page</p>
       </div>
     </div>
   );

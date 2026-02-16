@@ -6,43 +6,36 @@ export function AustinTopMoversTeaser() {
 
   return (
     <section className="section-space-sm">
-      <div className="layout-container space-y-7">
+      <div className="layout-shell space-y-7">
         <div className="max-w-3xl space-y-3">
-          <p className="eyebrow">Austin Movers Research</p>
-          <h2 className="section-title">
-            Local mover rankings,
-            <span className="gold-gradient"> translated into practical decisions.</span>
-          </h2>
+          <p className="kicker">Mover signal board</p>
+          <h2 className="section-title">Austin movers reduced to clear decisions.</h2>
           <p className="section-copy">
-            We monitor ranking snapshots so you can compare mover quality, communication,
-            and pricing clarity before you commit.
+            We keep top movers to a practical shortlist by pairing rankings with
+            what matters on move day: reliability, responsiveness, and care.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="top-movers-grid">
           {topThree.map((mover) => (
-            <article className="surface-card grid gap-3 p-6" key={mover.name}>
-              <p className="text-xs font-semibold uppercase tracking-[0.13em] text-gold-soft">
-                Rank #{mover.rank}
+            <article className="rank-card" key={mover.name}>
+              <p className="label-copy">Rank #{mover.rank}</p>
+              <h3 className="text-3xl text-pearl font-family-display">{mover.name}</h3>
+              <p className="text-sm uppercase tracking-[0.12em] text-fog">
+                Score {mover.score} / BBB {mover.bbb}
               </p>
-              <h3 className="font-family-display text-3xl text-white">{mover.name}</h3>
-              <p className="text-sm uppercase tracking-[0.12em] text-fog/80">
-                Score {mover.score} • BBB {mover.bbb}
-              </p>
-              <p className="text-sm leading-relaxed text-cloud/90">{mover.note}</p>
-              <p className="text-xs uppercase tracking-[0.12em] text-fog">
-                Avg move window: {mover.avgMoveDuration}
-              </p>
+              <p className="text-sm text-cloud">{mover.note}</p>
+              <p className="text-xs text-fog">Avg move window: {mover.avgMoveDuration}</p>
             </article>
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="hero-cta-row">
           <ButtonLink size="lg" to="/austin-top-movers" variant="primary">
-            Read the Full Austin Movers Comparison
+            Open full ranking analysis
           </ButtonLink>
           <ButtonLink size="lg" to="/quote" variant="secondary">
-            Get a Local Austin Quote
+            Need a local quote
           </ButtonLink>
         </div>
       </div>

@@ -5,6 +5,7 @@ const variantClasses = {
   primary: 'btn btn-primary',
   secondary: 'btn btn-secondary',
   ghost: 'btn btn-ghost',
+  muted: 'btn',
 };
 
 const sizeClasses = {
@@ -24,7 +25,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={cn(variantClasses[variant], sizeClasses[size], className)}
+      className={cn('btn', variantClasses[variant], sizeClasses[size], className)}
       {...props}
     >
       {children}
@@ -41,7 +42,7 @@ export function ButtonLink({
   className,
   ...props
 }) {
-  const classes = cn(variantClasses[variant], sizeClasses[size], className);
+  const classes = cn('btn', variantClasses[variant], sizeClasses[size], className);
 
   if (to) {
     return (
