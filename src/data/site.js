@@ -127,8 +127,7 @@ export const services = [
       'Clear room-by-room labeling',
       'Custom crating when needed',
     ],
-    image:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+    image: '/packing.png',
   },
   {
     id: 'long-distance',
@@ -142,8 +141,7 @@ export const services = [
       'Interstate paperwork support',
       'Clear delivery windows',
     ],
-    image:
-      'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
+    image: '/long-distance.png',
   },
   {
     id: 'storage',
