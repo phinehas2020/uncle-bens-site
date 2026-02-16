@@ -12,12 +12,12 @@ export function HomePage() {
     <>
       <SEO
         canonical="/"
-        description={`${site.name} delivers local and long-distance moving, packing, and storage services across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes and careful crews.`}
+        description={`${site.name} provides local and long-distance moving, packing, and storage across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes.`}
       />
 
       <Hero />
-      <AustinTopMoversTeaser />
       <Services />
+      <AustinTopMoversTeaser />
       <About />
       <Testimonials />
       <Quote />

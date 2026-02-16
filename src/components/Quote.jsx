@@ -74,146 +74,142 @@ export function Quote() {
   };
 
   return (
-    <section className="section-space-sm">
-      <div className="layout-shell quote-shell">
-        <article className="surface-card p-7">
-          <p className="kicker">Get started in minutes</p>
-          <h2 className="section-title">Start your guaranteed quote request.</h2>
-          <p className="section-copy">
-            One form, one timeline, one response path. We reply within one business day.
-          </p>
-          <p className="mt-3 rounded-xl border border-cobalt-soft/30 bg-cobalt-soft/10 px-4 py-3 text-xs uppercase tracking-[0.14em] text-fog/80">
-            We confirm charges before scheduling.
-          </p>
-        </article>
-
-        <form className="surface-card quote-form p-7" onSubmit={handleSubmit}>
-          <label>
-            <span className="label-copy">Full name</span>
-            <input
-              className="field"
-              name="name"
-              onChange={handleChange}
-              placeholder="Your name"
-              required
-              type="text"
-              value={formData.name}
-            />
-          </label>
-
-          <div className="quote-form-grid two-col">
-            <label>
-              <span className="label-copy">Phone</span>
-              <input
-                className="field"
-                name="phone"
-                onChange={handleChange}
-                placeholder="(512) 555-0101"
-                required
-                type="tel"
-                value={formData.phone}
-              />
-            </label>
-
-            <label>
-              <span className="label-copy">Email</span>
-              <input
-                className="field"
-                name="email"
-                onChange={handleChange}
-                placeholder="you@example.com"
-                required
-                type="email"
-                value={formData.email}
-              />
-            </label>
+    <section className="section-gap-sm">
+      <div className="wrap" style={{ maxWidth: 'var(--container-narrow)' }}>
+        <div className="card p-6 space-y-5">
+          <div>
+            <h2 className="heading-lg">Request a quote</h2>
+            <p className="mt-2 text-text-secondary">
+              We reply within one business day with a guaranteed written quote.
+            </p>
           </div>
 
-          <div className="quote-form-grid two-col">
-            <label>
-              <span className="label-copy">From</span>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <label className="block">
+              <span className="field-label">Full name</span>
               <input
                 className="field"
-                name="fromCity"
+                name="name"
                 onChange={handleChange}
-                placeholder="Current city"
+                placeholder="Your name"
                 required
-                value={formData.fromCity}
+                type="text"
+                value={formData.name}
               />
             </label>
 
-            <label>
-              <span className="label-copy">To</span>
-              <input
-                className="field"
-                name="toCity"
+            <div className="grid-2">
+              <label className="block">
+                <span className="field-label">Phone</span>
+                <input
+                  className="field"
+                  name="phone"
+                  onChange={handleChange}
+                  placeholder="(512) 555-0101"
+                  required
+                  type="tel"
+                  value={formData.phone}
+                />
+              </label>
+
+              <label className="block">
+                <span className="field-label">Email</span>
+                <input
+                  className="field"
+                  name="email"
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  required
+                  type="email"
+                  value={formData.email}
+                />
+              </label>
+            </div>
+
+            <div className="grid-2">
+              <label className="block">
+                <span className="field-label">Moving from</span>
+                <input
+                  className="field"
+                  name="fromCity"
+                  onChange={handleChange}
+                  placeholder="Current city"
+                  required
+                  value={formData.fromCity}
+                />
+              </label>
+
+              <label className="block">
+                <span className="field-label">Moving to</span>
+                <input
+                  className="field"
+                  name="toCity"
+                  onChange={handleChange}
+                  placeholder="Destination city"
+                  required
+                  value={formData.toCity}
+                />
+              </label>
+            </div>
+
+            <div className="grid-2">
+              <label className="block">
+                <span className="field-label">Preferred date</span>
+                <input
+                  className="field"
+                  name="moveDate"
+                  onChange={handleChange}
+                  type="date"
+                  value={formData.moveDate}
+                />
+              </label>
+
+              <label className="block">
+                <span className="field-label">Service type</span>
+                <select
+                  className="field"
+                  name="service"
+                  onChange={handleChange}
+                  required
+                  value={formData.service}
+                >
+                  {serviceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <label className="block">
+              <span className="field-label">Details</span>
+              <textarea
+                className="field min-h-24 resize-y"
+                name="message"
                 onChange={handleChange}
-                placeholder="Destination city"
-                required
-                value={formData.toCity}
+                placeholder="Home size, stairs, elevators, special items..."
+                value={formData.message}
               />
             </label>
-          </div>
 
-          <div className="quote-form-grid two-col">
-            <label>
-              <span className="label-copy">Preferred move date</span>
-              <input
-                className="field"
-                name="moveDate"
-                onChange={handleChange}
-                type="date"
-                value={formData.moveDate}
-              />
-            </label>
-
-            <label>
-              <span className="label-copy">Service type</span>
-              <select
-                className="field"
-                name="service"
-                onChange={handleChange}
-                required
-                value={formData.service}
-              >
-                {serviceOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-
-          <label>
-            <span className="label-copy">Project details</span>
-            <textarea
-              className="field min-h-28 resize-y"
-              name="message"
-              onChange={handleChange}
-              placeholder="Home size, stairs, elevators, timeline, and specialty items."
-              value={formData.message}
-            />
-          </label>
-
-          <div className="form-actions">
-            <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
+            <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
               Send quote request
             </Button>
-          </div>
 
-          {isSubmitted && (
-            <p className="rounded-xl border border-gold/28 bg-night/65 px-4 py-3 text-sm text-gold-soft">
-              Thank you. We received your request and will reach out shortly.
-            </p>
-          )}
+            {isSubmitted && (
+              <p className="rounded-md border border-teal/30 bg-teal/5 px-4 py-3 text-sm text-teal">
+                Thank you. We received your request and will reach out shortly.
+              </p>
+            )}
 
-          {submitError && (
-            <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
-              {submitError}
-            </p>
-          )}
-        </form>
+            {submitError && (
+              <p className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {submitError}
+              </p>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   );

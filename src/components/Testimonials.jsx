@@ -2,30 +2,22 @@ import { testimonials } from '../data/site';
 
 export function Testimonials() {
   return (
-    <section className="section-space-sm">
-      <div className="layout-shell">
-        <div className="section-heading">
-          <p className="kicker">Proof from recent moves</p>
-          <h2 className="section-title">Customer outcomes, not just promises.</h2>
-        </div>
+    <section className="section-gap-sm" style={{ background: 'var(--color-bg-warm)' }}>
+      <div className="wrap">
+        <h2 className="heading-lg mb-8">What customers say</h2>
 
-        <div className="section-space-sm">
-          <div className="testimonial-grid">
-            {testimonials.map((item) => (
-              <figure className="surface-card" key={item.name}>
-                <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold-soft">
-                  Verified review
-                </p>
-                <blockquote className="text-[1.02rem] leading-relaxed text-cloud">
-                  “{item.quote}”
-                </blockquote>
-                <figcaption className="mt-6 border-t border-cobalt-soft/30 pt-4">
-                  <p className="font-family-display text-2xl text-pearl">{item.name}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.14em] text-fog">{item.role}</p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+        <div className="grid-3">
+          {testimonials.map((item) => (
+            <figure className="card p-5" key={item.name}>
+              <blockquote className="text-base leading-relaxed text-text-secondary">
+                &ldquo;{item.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-4 border-t border-border pt-4">
+                <p className="font-semibold text-text">{item.name}</p>
+                <p className="mt-0.5 text-sm text-text-muted">{item.role}</p>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>

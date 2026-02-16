@@ -43,15 +43,15 @@ const faqSchema = {
 const quickGuide = [
   {
     title: 'Start with your move scope',
-    text: 'List stair access, parking limits, piano or fragile items, and your timing. Movers who ask this upfront are usually better prepared.',
+    text: 'List stair access, parking limits, piano or fragile items, and your timing.',
   },
   {
     title: 'Compare 2 to 3 shortlisted movers',
-    text: 'Use the same scope notes for every quote and require a line-item breakdown before signing.',
+    text: 'Use the same scope notes for every quote and require a line-item breakdown.',
   },
   {
     title: 'Verify license and insurance',
-    text: 'At least one active Texas license and clear insurance responsibility on all belongings is non-negotiable.',
+    text: 'At least one active Texas license and clear insurance responsibility is non-negotiable.',
   },
 ];
 
@@ -77,128 +77,99 @@ export function AustinTopMoversPage() {
         type="application/ld+json"
       />
 
-      <section className="section-space">
-        <div className="layout-shell space-y-5">
-          <p className="kicker">Austin movers, research-backed</p>
-          <h1 className="section-title">
-            Top movers in Austin:
-            <br />
-            practical rankings and booking checks.
-          </h1>
-          <p className="section-copy">
-            Use this list as your shortlist. We combine ranking snapshots with questions that
-            matter before you commit.
+      <section className="section-gap">
+        <div className="wrap max-w-2xl space-y-4">
+          <h1 className="heading-xl">Top movers in Austin</h1>
+          <p className="body-lg">
+            Rankings from public data to help you shortlist. Use this alongside
+            your own research before committing.
           </p>
-          <p className="text-sm text-fog">Last updated: {updatedAt}</p>
+          <p className="text-sm text-text-muted">Last updated: {updatedAt}</p>
         </div>
       </section>
 
-      <section className="section-space-sm">
-        <div className="layout-shell">
-          <div className="rank-grid">
+      <section className="section-gap-sm">
+        <div className="wrap">
+          <div className="grid-2">
             {austinTopMovers.map((mover) => (
-              <article className="rank-card" key={mover.name}>
-                <p className="label-copy">Rank #{mover.rank}</p>
-                <h2 className="text-3xl text-pearl font-family-display">{mover.name}</h2>
-                <p className="text-sm uppercase tracking-[0.13em] text-fog">
-                  Score {mover.score}/10 • BBB {mover.bbb}
-                </p>
-                <p className="text-sm text-cloud">{mover.note}</p>
-                <p className="text-xs text-fog">Avg move window: {mover.avgMoveDuration}</p>
-              </article>
+              <div className="card p-4" key={mover.name}>
+                <div className="flex items-baseline justify-between gap-3">
+                  <h2 className="text-base font-semibold text-text">
+                    #{mover.rank} {mover.name}
+                  </h2>
+                  <span className="text-sm tabular-nums text-text-muted">{mover.score}/10</span>
+                </div>
+                <p className="mt-1 text-sm text-text-secondary">{mover.note}</p>
+                <div className="mt-2 flex gap-4 text-xs text-text-muted">
+                  <span>BBB: {mover.bbb}</span>
+                  <span>Avg duration: {mover.avgMoveDuration}</span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-space-sm">
-        <div className="layout-shell">
-          <div className="service-detail-card">
-            <div className="service-detail-copy p-6">
-              <p className="kicker">How rankings work</p>
-              <h2 className="text-3xl text-pearl font-family-display">
-                Score methodology is a filter, not the final answer.
-              </h2>
-              <p className="section-copy">
-                Rankings are a useful first pass, especially for review depth and communication quality.
-              </p>
-              <ul className="mt-4 space-y-2">
-                {austinTopMoverResearchSources.map((source) => (
-                  <li
-                    className="rounded-2xl border border-cobalt-soft/35 bg-night/66 px-3 py-2 text-xs uppercase tracking-[0.12em] text-cloud"
-                    key={source.url}
-                  >
-                    {source.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="service-detail-media">
-              <div className="p-6">
-                <p className="kicker">Source list</p>
-                <ol className="space-y-3 text-sm">
-                  {austinTopMoverResearchSources.map((source) => (
-                    <li key={source.url}>
-                      <a
-                        className="text-cloud hover:text-white underline-offset-4 hover:underline"
-                        href={source.url}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {source.title}
-                      </a>
-                      <p className="text-fog mt-1">{source.snapshot}</p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space-sm">
-        <div className="layout-shell">
-          <div className="service-detail-card">
-            <div className="service-detail-copy p-6">
-              <p className="kicker">Selection checklist</p>
-              <h2 className="text-3xl text-pearl font-family-display">What to check before signing.</h2>
-              <div className="steps-grid">
+      <section className="section-gap-sm" style={{ background: 'var(--color-bg-warm)' }}>
+        <div className="wrap">
+          <div className="split">
+            <div className="space-y-4">
+              <h2 className="heading-lg">How to pick a mover</h2>
+              <div className="space-y-3">
                 {austinMoverSelectionChecklist.map((item) => (
                   <div key={item.title}>
-                  <p className="label-copy">{item.title}</p>
-                    <p className="text-sm text-cloud mt-1">{item.detail}</p>
+                    <p className="text-sm font-semibold text-text">{item.title}</p>
+                    <p className="mt-1 text-sm text-text-secondary">{item.detail}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="service-detail-media p-6">
-              <p className="kicker">Quick playbook</p>
-              {quickGuide.map((step) => (
-                <div key={step.title} className="mt-4">
-                    <p className="text-sm font-semibold text-pearl">{step.title}</p>
-                  <p className="text-sm text-cloud mt-1">{step.text}</p>
-                </div>
-              ))}
+
+            <div className="space-y-4">
+              <h3 className="heading-md">Quick playbook</h3>
+              <div className="space-y-3">
+                {quickGuide.map((step) => (
+                  <div className="card p-4" key={step.title}>
+                    <p className="text-sm font-semibold text-text">{step.title}</p>
+                    <p className="mt-1 text-sm text-text-secondary">{step.text}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-2 pt-2">
+                <p className="text-xs font-semibold text-text-muted uppercase tracking-wide">Sources</p>
+                {austinTopMoverResearchSources.map((source) => (
+                  <p key={source.url} className="text-sm">
+                    <a
+                      className="text-teal hover:underline"
+                      href={source.url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {source.title}
+                    </a>
+                    <span className="text-text-muted"> &mdash; {source.snapshot}</span>
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-space-sm">
-        <div className="layout-shell">
-          <p className="kicker">Top FAQs</p>
-          <div className="faq-grid">
+      <section className="section-gap-sm">
+        <div className="wrap space-y-6" style={{ maxWidth: 'var(--container-narrow)' }}>
+          <h2 className="heading-lg">FAQs</h2>
+          <div className="space-y-3">
             {austinMoverFaqs.map((faq) => (
-              <article className="surface-card p-5" key={faq.question}>
-                <h3 className="text-base font-semibold text-pearl">{faq.question}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-cloud/86">{faq.answer}</p>
-              </article>
+              <div className="card p-4" key={faq.question}>
+                <h3 className="text-base font-semibold text-text">{faq.question}</h3>
+                <p className="mt-2 text-sm text-text-secondary">{faq.answer}</p>
+              </div>
             ))}
           </div>
 
-          <div className="hero-cta-row mt-5">
+          <div className="flex flex-wrap gap-3">
             <ButtonLink size="lg" to="/quote" variant="primary">
               Get your Austin quote
             </ButtonLink>

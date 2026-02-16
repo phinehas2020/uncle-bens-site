@@ -21,38 +21,24 @@ function MenuIcon({ open }) {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
   return (
-    <header className={cn('header-shell', scrolled && 'is-scrolled')}>
+    <header className="header-bar">
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-5 focus:z-header focus:rounded-lg focus:bg-night focus:px-3 focus:py-2 focus:text-obsidian"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-header focus:rounded-md focus:bg-bg focus:px-3 focus:py-2 focus:text-text"
         href="#main-content"
       >
         Skip to main content
       </a>
 
-      <div className="layout-shell header-inner">
-        <Link className="brand-shell" onClick={() => setMobileOpen(false)} to="/">
-          <span className="brand-mark" aria-hidden="true">
-            QM
-          </span>
-          <span>
-            <p className="brand-name">{site.name}</p>
-            <p className="brand-sub">Austin, Round Rock, Central Texas</p>
-          </span>
+      <div className="wrap header-inner">
+        <Link className="flex items-center gap-2 text-decoration-none" onClick={() => setMobileOpen(false)} to="/">
+          <span className="text-base font-semibold text-text">{site.name}</span>
         </Link>
 
         <nav>
@@ -83,14 +69,14 @@ export function Header() {
             to="/quote"
             variant="primary"
           >
-            Start My Move
+            Get a Quote
           </ButtonLink>
         </div>
 
         <button
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          className={cn('menu-btn', mobileOpen ? 'text-white' : 'text-cloud')}
+          className="menu-toggle"
           onClick={() => setMobileOpen((prev) => !prev)}
           type="button"
         >
@@ -99,7 +85,7 @@ export function Header() {
       </div>
 
       <div className={cn('mobile-drawer', mobileOpen && 'is-open')}>
-        <div className="layout-shell mobile-nav">
+        <div className="wrap flex flex-col gap-1 pb-3">
           {navigation.map((item) => (
             <Link
               className={cn('mobile-link', location.pathname === item.to && 'is-active')}
@@ -113,14 +99,14 @@ export function Header() {
             </Link>
           ))}
 
-          <div className="footer-cta-row pt-2">
+          <div className="flex flex-wrap gap-2 pt-2">
             <ButtonLink
               href={`tel:${site.phone.digits}`}
               onClick={() => setMobileOpen(false)}
               size="sm"
               variant="ghost"
             >
-              Call Now
+              Call Us
             </ButtonLink>
             <ButtonLink
               onFocus={() => preloadRoute('/quote')}
@@ -129,7 +115,7 @@ export function Header() {
               to="/quote"
               variant="primary"
             >
-              Get Quote
+              Get a Quote
             </ButtonLink>
           </div>
         </div>

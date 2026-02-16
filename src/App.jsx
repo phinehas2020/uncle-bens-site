@@ -24,7 +24,6 @@ const ContactPage = lazy(() =>
   routeLoaders['/contact']().then((module) => ({ default: module.ContactPage })),
 );
 
-// Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -37,10 +36,8 @@ function ScrollToTop() {
 
 function RouteFallback() {
   return (
-    <div className="layout-shell section-space-sm">
-      <div className="surface-card p-6">
-        <p className="label-copy">Loading page</p>
-      </div>
+    <div className="wrap section-gap-sm">
+      <p className="text-sm text-text-muted">Loading...</p>
     </div>
   );
 }
@@ -50,7 +47,7 @@ function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="site-shell flex min-h-dvh flex-col">
+        <div className="flex min-h-dvh flex-col">
           <Header />
           <main id="main-content" className="flex-1">
             <Suspense fallback={<RouteFallback />}>

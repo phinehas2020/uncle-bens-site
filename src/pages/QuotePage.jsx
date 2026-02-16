@@ -11,28 +11,27 @@ export function QuotePage() {
         title="Get Quote"
       />
 
-      <section className="section-space pt-8">
-        <div className="layout-shell max-w-4xl space-y-5">
-          <p className="kicker">Guaranteed quote</p>
-          <h1 className="section-title">Tell us what move you are preparing.</h1>
-          <p className="section-copy">
-            We use your details to estimate faster, avoid surprises, and map your move day timing.
+      <section className="section-gap pt-8">
+        <div className="wrap max-w-2xl space-y-4">
+          <h1 className="heading-xl">Get a quote</h1>
+          <p className="body-lg">
+            Tell us about your move. We use your details to give you an accurate,
+            guaranteed written quote.
           </p>
         </div>
       </section>
 
       <Quote />
 
-      <section className="section-space-sm">
-        <div className="layout-shell space-y-6">
-          <h2 className="section-title">Frequently asked questions</h2>
-
-          <div className="faq-grid">
+      <section className="section-gap-sm">
+        <div className="wrap space-y-6" style={{ maxWidth: 'var(--container-narrow)' }}>
+          <h2 className="heading-lg">Common questions</h2>
+          <div className="space-y-3">
             {faqs.map((faq) => (
-              <article className="surface-card p-5" key={faq.question}>
-                <h3 className="text-base font-semibold text-pearl">{faq.question}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-cloud/86">{faq.answer}</p>
-              </article>
+              <div className="card p-4" key={faq.question}>
+                <h3 className="text-base font-semibold text-text">{faq.question}</h3>
+                <p className="mt-2 text-sm text-text-secondary">{faq.answer}</p>
+              </div>
             ))}
           </div>
         </div>

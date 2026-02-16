@@ -71,122 +71,125 @@ export function ContactPage() {
         title="Contact"
       />
 
-      <section className="section-space">
-        <div className="layout-shell contact-grid">
-          <article className="surface-card p-6">
-            <p className="kicker">Contact</p>
-            <h1 className="section-title">Questions before you move?</h1>
-            <p className="section-copy">
-              Reach us for scheduling support, scope planning, packing help, and specialty items.
-            </p>
+      <section className="section-gap">
+        <div className="wrap">
+          <div className="split">
+            <div className="space-y-5">
+              <h1 className="heading-xl">Contact us</h1>
+              <p className="body-lg">
+                Reach us for scheduling, scope planning, or any questions about your move.
+              </p>
 
-            <div className="space-y-3 rounded-2xl border border-cobalt-soft/35 bg-night/70 p-4 text-sm">
-              <p>
-                Phone:{' '}
-                <a className="text-cobalt-soft hover:text-white" href={`tel:${site.phone.digits}`}>
-                  {site.phone.display}
-                </a>
-              </p>
-              <p>
-                Email:{' '}
-                <a className="text-cobalt-soft hover:text-white" href={`mailto:${site.email}`}>
-                  {site.email}
-                </a>
-              </p>
-              <p>Hours: {site.hours.summary}</p>
-              <p>
-                {site.address.street}
-                <br />
-                {site.address.city}, {site.address.region} {site.address.postalCode}
-              </p>
+              <div className="card p-5 space-y-3 text-sm text-text-secondary">
+                <p>
+                  <span className="font-semibold text-text">Phone: </span>
+                  <a className="text-teal hover:underline" href={`tel:${site.phone.digits}`}>
+                    {site.phone.display}
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold text-text">Email: </span>
+                  <a className="text-teal hover:underline" href={`mailto:${site.email}`}>
+                    {site.email}
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold text-text">Hours: </span>
+                  {site.hours.summary}
+                </p>
+                <p>
+                  <span className="font-semibold text-text">Address: </span>
+                  {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}
+                </p>
+              </div>
             </div>
-          </article>
 
-          <form className="surface-card p-6" onSubmit={handleSubmit}>
-            <div className="quote-form-grid two-col">
-              <label>
-                <span className="label-copy">Name</span>
+            <form className="card p-5 space-y-4" onSubmit={handleSubmit}>
+              <div className="grid-2">
+                <label className="block">
+                  <span className="field-label">Name</span>
+                  <input
+                    className="field"
+                    name="name"
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                    value={formData.name}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="field-label">Phone</span>
+                  <input
+                    className="field"
+                    name="phone"
+                    onChange={handleChange}
+                    placeholder="(512) 555-0101"
+                    type="tel"
+                    value={formData.phone}
+                  />
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="field-label">Email</span>
                 <input
                   className="field"
-                  name="name"
+                  name="email"
                   onChange={handleChange}
-                  placeholder="Your name"
+                  placeholder="you@example.com"
                   required
-                  value={formData.name}
+                  type="email"
+                  value={formData.email}
                 />
               </label>
 
-              <label>
-                <span className="label-copy">Phone</span>
-                <input
+              <label className="block">
+                <span className="field-label">Subject</span>
+                <select
                   className="field"
-                  name="phone"
+                  name="subject"
                   onChange={handleChange}
-                  placeholder="(512) 555-0101"
-                  type="tel"
-                  value={formData.phone}
+                  required
+                  value={formData.subject}
+                >
+                  <option value="">Select a subject</option>
+                  <option value="quote">Quote request</option>
+                  <option value="existing">Existing move support</option>
+                  <option value="commercial">Commercial inquiry</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="field-label">Message</span>
+                <textarea
+                  className="field min-h-28 resize-y"
+                  name="message"
+                  onChange={handleChange}
+                  placeholder="How can we help?"
+                  required
+                  value={formData.message}
                 />
               </label>
-            </div>
 
-            <label className="block">
-              <span className="label-copy">Email</span>
-              <input
-                className="field"
-                name="email"
-                onChange={handleChange}
-                placeholder="you@example.com"
-                required
-                type="email"
-                value={formData.email}
-              />
-            </label>
+              <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
+                Send message
+              </Button>
 
-            <label className="block">
-              <span className="label-copy">Subject</span>
-              <select
-                className="field"
-                name="subject"
-                onChange={handleChange}
-                required
-                value={formData.subject}
-              >
-                <option value="">Select subject</option>
-                <option value="quote">Quote request</option>
-                <option value="existing">Existing move support</option>
-                <option value="commercial">Commercial inquiry</option>
-                <option value="other">Other</option>
-              </select>
-            </label>
+              {isSubmitted && (
+                <p className="rounded-md border border-teal/30 bg-teal/5 px-4 py-3 text-sm text-teal">
+                  Message sent. We will reply shortly.
+                </p>
+              )}
 
-            <label className="block">
-              <span className="label-copy">Message</span>
-              <textarea
-                className="field min-h-32 resize-y"
-                name="message"
-                onChange={handleChange}
-                placeholder="How can we help?"
-                required
-                value={formData.message}
-              />
-            </label>
-
-            <Button className="btn-full" disabled={isSubmitting} size="md" type="submit" variant="primary">
-              Send Message
-            </Button>
-
-            {isSubmitted && (
-              <p className="rounded-xl border border-gold/30 bg-night/68 px-4 py-3 text-sm text-gold-soft">
-                Message sent. We will reply shortly.
-              </p>
-            )}
-
-            {submitError && (
-              <p className="rounded-xl border border-rose-300/35 bg-rose-950/30 px-4 py-3 text-sm text-rose-100">
-                {submitError}
-              </p>
-            )}
-          </form>
+              {submitError && (
+                <p className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {submitError}
+                </p>
+              )}
+            </form>
+          </div>
         </div>
       </section>
     </>

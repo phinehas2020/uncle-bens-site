@@ -7,39 +7,37 @@ export function ServicesPage() {
     <>
       <SEO
         canonical="/services"
-        description={`Explore residential, commercial, packing, long-distance, and storage services from ${site.name} in Central Texas.`}
+        description={`Residential, commercial, packing, long-distance, and storage services from ${site.name} in Central Texas.`}
         title="Services"
       />
 
-      <section className="section-space">
-        <div className="layout-shell space-y-5">
-          <p className="kicker">Service portfolio</p>
-          <h1 className="section-title">Services built for your actual move.</h1>
-          <p className="section-copy">
-            Pick the mix you need. We support full-service moves, labor-only help,
-            packing, storage, and specialty-item handling.
+      <section className="section-gap">
+        <div className="wrap max-w-2xl space-y-4">
+          <h1 className="heading-xl">Our services</h1>
+          <p className="body-lg">
+            Pick the support you need. Full-service moves, labor-only help,
+            packing, storage, and specialty handling.
           </p>
         </div>
       </section>
 
-      <section className="section-space-sm">
-        <div className="layout-shell space-y-7">
+      <section className="section-gap-sm">
+        <div className="wrap space-y-6">
           {services.map((service, index) => (
             <article
               className={`service-detail-card ${index % 2 ? 'reverse' : ''}`}
               id={service.id}
               key={service.id}
             >
-              <div className="service-detail-copy p-6">
-                <p className="label-copy">Service {String(index + 1).padStart(2, '0')}</p>
-                <h2 className="text-3xl sm:text-4xl font-family-display text-pearl">{service.title}</h2>
-                <p className="mt-4 text-base text-cloud">{service.summary}</p>
-                <p className="mt-3 text-sm leading-relaxed text-fog">{service.details}</p>
+              <div className="p-6 space-y-4">
+                <h2 className="heading-lg">{service.title}</h2>
+                <p className="text-text-secondary">{service.summary}</p>
+                <p className="text-sm text-text-muted">{service.details}</p>
 
-                <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+                <ul className="grid gap-2 sm:grid-cols-2">
                   {service.highlights.map((item) => (
                     <li
-                      className="rounded-xl border border-cobalt-soft/35 bg-night/55 px-3 py-2 text-xs uppercase tracking-[0.11em] text-cloud"
+                      className="rounded-md border border-border px-3 py-2 text-sm text-text-secondary"
                       key={item}
                     >
                       {item}
@@ -48,7 +46,7 @@ export function ServicesPage() {
                 </ul>
               </div>
 
-              <div className="service-detail-media">
+              <div>
                 <img
                   alt={service.title}
                   className="h-full w-full object-cover"
@@ -61,7 +59,7 @@ export function ServicesPage() {
             </article>
           ))}
 
-          <div className="pt-1">
+          <div className="pt-2">
             <ButtonLink size="lg" to="/quote" variant="primary">
               Request a quote
             </ButtonLink>

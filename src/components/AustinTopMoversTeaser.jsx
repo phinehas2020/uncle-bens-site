@@ -5,38 +5,38 @@ export function AustinTopMoversTeaser() {
   const topThree = austinTopMovers.slice(0, 3);
 
   return (
-    <section className="section-space-sm">
-      <div className="layout-shell space-y-7">
-        <div className="max-w-3xl space-y-3">
-          <p className="kicker">Mover signal board</p>
-          <h2 className="section-title">Austin movers reduced to clear decisions.</h2>
-          <p className="section-copy">
-            We keep top movers to a practical shortlist by pairing rankings with
-            what matters on move day: reliability, responsiveness, and care.
-          </p>
-        </div>
+    <section className="section-gap-sm">
+      <div className="wrap">
+        <div className="split items-center">
+          <div className="space-y-3">
+            <h2 className="heading-lg">Top-rated Austin movers</h2>
+            <p className="body-lg">
+              We track rankings so you can compare before committing.
+              Here are the top 3 from recent data.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <ButtonLink size="md" to="/austin-top-movers" variant="primary">
+                See full rankings
+              </ButtonLink>
+              <ButtonLink size="md" to="/quote" variant="secondary">
+                Get a quote
+              </ButtonLink>
+            </div>
+          </div>
 
-        <div className="top-movers-grid">
-          {topThree.map((mover) => (
-            <article className="rank-card" key={mover.name}>
-              <p className="label-copy">Rank #{mover.rank}</p>
-              <h3 className="text-3xl text-pearl font-family-display">{mover.name}</h3>
-              <p className="text-sm uppercase tracking-[0.12em] text-fog">
-                Score {mover.score} / BBB {mover.bbb}
-              </p>
-              <p className="text-sm text-cloud">{mover.note}</p>
-              <p className="text-xs text-fog">Avg move window: {mover.avgMoveDuration}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="hero-cta-row">
-          <ButtonLink size="lg" to="/austin-top-movers" variant="primary">
-            Open full ranking analysis
-          </ButtonLink>
-          <ButtonLink size="lg" to="/quote" variant="secondary">
-            Need a local quote
-          </ButtonLink>
+          <div className="space-y-3">
+            {topThree.map((mover) => (
+              <div className="card p-4" key={mover.name}>
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-base font-semibold text-text">
+                    #{mover.rank} {mover.name}
+                  </h3>
+                  <span className="text-sm tabular-nums text-text-muted">{mover.score}/10</span>
+                </div>
+                <p className="mt-1 text-sm text-text-secondary">{mover.note}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

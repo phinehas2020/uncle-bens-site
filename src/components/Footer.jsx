@@ -6,24 +6,23 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-shell">
-      <div className="layout-shell">
+    <footer className="footer-bar">
+      <div className="wrap">
         <div className="footer-grid">
-          <div className="space-y-4">
-            <p className="footer-title">Quality Crafted Moves</p>
-            <h3 className="font-family-display text-3xl text-pearl">Built for real homes and real timelines.</h3>
-            <p className="text-sm text-cloud/85">{site.tagline}</p>
+          <div className="space-y-3">
+            <p className="font-semibold text-text">{site.name}</p>
+            <p className="text-sm text-text-secondary">{site.tagline}</p>
             <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="primary">
               {site.phone.display}
             </ButtonLink>
           </div>
 
           <div>
-            <p className="footer-title">Navigation</p>
-            <ul className="space-y-3 text-sm text-cloud">
+            <p className="footer-heading">Pages</p>
+            <ul className="space-y-2 text-sm text-text-secondary">
               {navigation.map((item) => (
                 <li key={item.to}>
-                  <Link className="hover:text-white transition-colors" to={item.to}>
+                  <Link className="hover:text-text transition-colors" to={item.to}>
                     {item.label}
                   </Link>
                 </li>
@@ -32,15 +31,14 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="footer-title">Contact</p>
-            <address className="not-italic space-y-3 text-sm text-cloud">
+            <p className="footer-heading">Contact</p>
+            <address className="not-italic space-y-2 text-sm text-text-secondary">
               <p>
-                {site.address.street}
-                <br />
+                {site.address.street}<br />
                 {site.address.city}, {site.address.region} {site.address.postalCode}
               </p>
               <p>
-                <a className="hover:text-white transition-colors" href={`mailto:${site.email}`}>
+                <a className="hover:text-text transition-colors" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>
               </p>
@@ -49,18 +47,14 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="footer-title">Service area</p>
-            <p className="text-sm text-cloud/85">{site.serviceAreas.join(' • ')}</p>
-            <p className="mt-4 text-xs uppercase tracking-[0.16em] text-fog">
-              {site.reviewSummary}
-            </p>
+            <p className="footer-heading">Service area</p>
+            <p className="text-sm text-text-secondary">{site.serviceAreas.join(', ')}</p>
           </div>
         </div>
 
-        <div className="footer-bottom text-xs flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <p>© {currentYear} {site.name}. All rights reserved.</p>
-          <p>TXDMV {site.license}</p>
-          <p>TXDMV Contact: {site.tdmvPhone}</p>
+        <div className="footer-bottom flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {currentYear} {site.name}</p>
+          <p>{site.license}</p>
         </div>
       </div>
     </footer>

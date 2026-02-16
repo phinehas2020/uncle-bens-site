@@ -91,7 +91,7 @@ export function SEO({
       <meta content={metaDescription} name="description" />
       <link href={fullCanonical} rel="canonical" />
       <meta content={site.name} name="author" />
-      <meta content="#101214" name="theme-color" />
+      <meta content="#ffffff" name="theme-color" />
 
       {noindex && <meta content="noindex, nofollow" name="robots" />}
 
