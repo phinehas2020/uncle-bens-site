@@ -39,8 +39,8 @@ export function Header() {
       className={cn(
         'sticky top-0 z-header border-b transition-all duration-300',
         scrolled
-          ? 'border-cobalt/30 bg-obsidian/72 backdrop-blur-xl'
-          : 'border-transparent bg-transparent',
+          ? 'border-gold/30 bg-obsidian/88 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl'
+          : 'border-transparent bg-obsidian/36',
       )}
     >
       <a
@@ -53,15 +53,13 @@ export function Header() {
       <div className="layout-container">
         <nav className="flex h-[4.8rem] items-center justify-between">
           <Link className="group flex items-center gap-3" to="/">
-            <div className="grid size-9 place-content-center rounded-full border border-gold/50 bg-night text-xs font-bold text-gold transition-colors group-hover:text-gold-soft">
-              Q
-            </div>
+            <div className="brand-mark transition-transform group-hover:-translate-y-0.5">QM</div>
             <div className="leading-none">
-              <p className="font-family-display text-[1.12rem] font-semibold tracking-[0.08em] text-white">
-                QUALITY
+              <p className="font-family-display text-[1.3rem] font-semibold tracking-[0.03em] text-white">
+                {site.shortName}
               </p>
-              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-cloud/90">
-                Moving & Storage
+              <p className="brand-kicker">
+                Austin • Round Rock • Central Texas
               </p>
             </div>
           </Link>
@@ -71,8 +69,8 @@ export function Header() {
               <Link
                 key={item.to}
                 className={cn(
-                  'text-[0.75rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:text-gold-soft',
-                  location.pathname === item.to && 'text-gold',
+                  'rounded-full px-3 py-1.5 text-[0.74rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-all hover:bg-night/75 hover:text-gold-soft',
+                  location.pathname === item.to && 'bg-night/90 text-gold',
                 )}
                 onFocus={() => preloadRoute(item.to)}
                 onMouseEnter={() => preloadRoute(item.to)}
@@ -101,7 +99,7 @@ export function Header() {
           <button
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className="grid size-10 place-content-center rounded-full border border-cobalt/35 bg-night/80 text-cloud transition-colors hover:text-white lg:hidden"
+            className="grid size-10 place-content-center rounded-xl border border-gold/35 bg-night/85 text-cloud transition-colors hover:text-white lg:hidden"
             onClick={() => setMobileOpen((prev) => !prev)}
             type="button"
           >
@@ -111,14 +109,14 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-cobalt/25 bg-obsidian/95 pb-6 pt-3 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-gold/25 bg-obsidian/96 pb-6 pt-3 backdrop-blur-xl lg:hidden">
           <div className="layout-container space-y-2">
             {navigation.map((item) => (
               <Link
                 key={item.to}
                 className={cn(
-                  'block rounded-xl border border-transparent px-4 py-3 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:border-cobalt/30 hover:text-white',
-                  location.pathname === item.to && 'border-cobalt/35 bg-night/70 text-white',
+                  'block rounded-xl border border-transparent px-4 py-3 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:border-gold/35 hover:text-white',
+                  location.pathname === item.to && 'border-gold/40 bg-night/80 text-white',
                 )}
                 onFocus={() => preloadRoute(item.to)}
                 onClick={() => setMobileOpen(false)}

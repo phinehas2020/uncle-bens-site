@@ -5,16 +5,19 @@ export function Testimonials() {
     <section className="section-space-sm">
       <div className="layout-container space-y-8">
         <div className="max-w-3xl space-y-4">
-          <p className="eyebrow">Client Voice</p>
+          <p className="eyebrow">Client Feedback</p>
           <h2 className="section-title">
-            Feedback from recent
-            <span className="gold-gradient"> Central Texas moves.</span>
+            What recent customers said
+            <span className="gold-gradient"> after move day.</span>
           </h2>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3">
           {testimonials.map((item) => (
-            <figure className="surface-card p-6" key={item.name}>
+            <figure className="surface-card testimonial-card p-6" key={item.name}>
+              <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold-soft/85">
+                Verified review
+              </p>
               <blockquote className="text-[1.02rem] leading-relaxed text-cloud/92">
                 “{item.quote}”
               </blockquote>

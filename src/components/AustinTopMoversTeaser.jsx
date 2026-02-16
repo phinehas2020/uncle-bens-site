@@ -10,12 +10,12 @@ export function AustinTopMoversTeaser() {
         <div className="max-w-3xl space-y-3">
           <p className="eyebrow">Austin Movers Research</p>
           <h2 className="section-title">
-            Where Austin
-            <span className="gold-gradient"> moves get ranked.</span>
+            Local mover rankings,
+            <span className="gold-gradient"> translated into practical decisions.</span>
           </h2>
           <p className="section-copy">
-            We reviewed the latest ranking snapshots for Austin-area movers and found a clear pattern:
-            speed, clear communication, and consistent pricing behavior matter more than ad-heavy branding.
+            We monitor ranking snapshots so you can compare mover quality, communication,
+            and pricing clarity before you commit.
           </p>
         </div>
 
@@ -38,10 +38,10 @@ export function AustinTopMoversTeaser() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <ButtonLink size="lg" to="/austin-top-movers" variant="secondary">
+          <ButtonLink size="lg" to="/austin-top-movers" variant="primary">
             Read the Full Austin Movers Comparison
           </ButtonLink>
-          <ButtonLink size="lg" to="/quote" variant="primary">
+          <ButtonLink size="lg" to="/quote" variant="secondary">
             Get a Local Austin Quote
           </ButtonLink>
         </div>

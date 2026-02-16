@@ -6,20 +6,20 @@ export function Services() {
     <section className="section-space">
       <div className="layout-container space-y-10">
         <div className="max-w-3xl space-y-4">
-          <p className="eyebrow">Capabilities</p>
+          <p className="eyebrow">What We Handle</p>
           <h2 className="section-title">
-            Practical services for
-            <span className="gold-gradient"> real-world moves.</span>
+            Moving services built for
+            <span className="gold-gradient"> real homes and real timelines.</span>
           </h2>
           <p className="section-copy">
-            Whether you are moving an apartment, a family home, or an office,
-            we tailor the plan to your timeline and priorities.
+            Choose full-service support or only the pieces you need.
+            Every move starts with scope, access, and timing so the plan is clear before move day.
           </p>
         </div>
 
         <div className="grid-auto-cards">
-          {services.slice(0, 6).map((service) => (
-            <article className="surface-card overflow-hidden" key={service.id}>
+          {services.slice(0, 6).map((service, index) => (
+            <article className="surface-card service-card overflow-hidden" key={service.id}>
               <img
                 alt={service.title}
                 className="h-52 w-full object-cover"
@@ -29,6 +29,9 @@ export function Services() {
                 width="1200"
               />
               <div className="space-y-4 p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-soft/90">
+                  Service {String(index + 1).padStart(2, '0')}
+                </p>
                 <h3 className="font-family-display text-3xl text-white">
                   {service.title}
                 </h3>
@@ -47,7 +50,7 @@ export function Services() {
         </div>
 
         <ButtonLink size="md" to="/services" variant="secondary">
-          View Full Service Details
+          Explore All Service Details
         </ButtonLink>
       </div>
     </section>

@@ -6,19 +6,19 @@ export function About() {
       <div className="layout-container space-y-10">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div className="space-y-4">
-            <p className="eyebrow">Our Standard</p>
+            <p className="eyebrow">How We Work</p>
             <h2 className="section-title">
-              {yearsInBusiness} years of dependable moving service.
+              {yearsInBusiness} years of move plans that hold up on real move day.
             </h2>
             <p className="section-copy max-w-2xl">
-              We focus on the basics that matter most: showing up prepared,
-              protecting your belongings, and communicating clearly from start to finish.
+              Our process is straightforward: prep early, communicate constantly,
+              and protect every item like it belongs to our own family.
             </p>
           </div>
 
           <div className="glass-panel space-y-5 p-6 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-soft">
-              How We Work
+              Move-Day System
             </p>
             <div className="space-y-4">
               {processSteps.map((step) => (
