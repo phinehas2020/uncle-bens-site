@@ -26,7 +26,7 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 18);
+      setScrolled(window.scrollY > 14);
     };
 
     onScroll();
@@ -38,40 +38,33 @@ export function Header() {
     <header
       className={cn(
         'sticky top-0 z-header border-b transition-all duration-300',
-        scrolled
-          ? 'border-gold/30 bg-obsidian/88 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl'
-          : 'border-transparent bg-obsidian/36',
+        scrolled ? 'border-carbon bg-obsidian/96 shadow-sm backdrop-blur-md' : 'border-transparent bg-obsidian/90',
       )}
     >
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-5 focus:z-header focus:rounded-lg focus:bg-white focus:px-3 focus:py-2 focus:text-obsidian"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-5 focus:z-header focus:rounded-lg focus:bg-night focus:px-3 focus:py-2 focus:text-obsidian"
         href="#main-content"
       >
         Skip to main content
       </a>
 
       <div className="layout-container">
-        <nav className="flex h-[4.8rem] items-center justify-between">
+        <nav className="flex h-[5rem] items-center justify-between gap-4">
           <Link className="group flex items-center gap-3" to="/">
-            <div className="brand-mark transition-transform group-hover:-translate-y-0.5">QM</div>
-            <div className="leading-none">
-              <p className="font-family-display text-[1.3rem] font-semibold tracking-[0.03em] text-white">
+            <div className="brand-mark">QM</div>
+            <div className="leading-tight">
+              <p className="font-family-display text-[1.34rem] font-semibold text-white">
                 {site.shortName}
               </p>
-              <p className="brand-kicker">
-                Austin • Round Rock • Central Texas
-              </p>
+              <p className="brand-kicker">Austin, Round Rock, Central Texas</p>
             </div>
           </Link>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden items-center gap-7 lg:flex">
             {navigation.map((item) => (
               <Link
                 key={item.to}
-                className={cn(
-                  'rounded-full px-3 py-1.5 text-[0.74rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-all hover:bg-night/75 hover:text-gold-soft',
-                  location.pathname === item.to && 'bg-night/90 text-gold',
-                )}
+                className={cn('topline-link', location.pathname === item.to && 'is-active')}
                 onFocus={() => preloadRoute(item.to)}
                 onMouseEnter={() => preloadRoute(item.to)}
                 to={item.to}
@@ -99,7 +92,7 @@ export function Header() {
           <button
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className="grid size-10 place-content-center rounded-xl border border-gold/35 bg-night/85 text-cloud transition-colors hover:text-white lg:hidden"
+            className="grid size-10 place-content-center rounded-lg border border-carbon bg-night text-cloud transition-colors hover:text-white lg:hidden"
             onClick={() => setMobileOpen((prev) => !prev)}
             type="button"
           >
@@ -109,14 +102,14 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-gold/25 bg-obsidian/96 pb-6 pt-3 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-carbon bg-obsidian pb-6 pt-3 lg:hidden">
           <div className="layout-container space-y-2">
             {navigation.map((item) => (
               <Link
                 key={item.to}
                 className={cn(
-                  'block rounded-xl border border-transparent px-4 py-3 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-cloud transition-colors hover:border-gold/35 hover:text-white',
-                  location.pathname === item.to && 'border-gold/40 bg-night/80 text-white',
+                  'block rounded-lg border border-transparent px-4 py-3 text-sm font-semibold text-cloud transition-colors hover:border-carbon hover:bg-night hover:text-white',
+                  location.pathname === item.to && 'border-carbon bg-night text-white',
                 )}
                 onFocus={() => preloadRoute(item.to)}
                 onClick={() => setMobileOpen(false)}
