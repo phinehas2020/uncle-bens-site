@@ -1,4 +1,5 @@
 import { Hero } from '../components/Hero';
+import { TrustStrip } from '../components/TrustStrip';
 import { SEO } from '../components/SEO';
 import { ButtonLink } from '../components/Button';
 import { ServiceCard } from '../components/ServiceCard';
@@ -18,6 +19,7 @@ export function HomePage() {
       />
 
       <Hero />
+      <TrustStrip />
 
       <section className="section">
         <div className="site-container">
