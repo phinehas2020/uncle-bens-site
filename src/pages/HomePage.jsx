@@ -1,4 +1,5 @@
 import { About } from '../components/About';
+import { AustinTopMoversTeaser } from '../components/AustinTopMoversTeaser';
 import { Hero } from '../components/Hero';
 import { Quote } from '../components/Quote';
 import { SEO } from '../components/SEO';
@@ -15,6 +16,7 @@ export function HomePage() {
       />
 
       <Hero />
+      <AustinTopMoversTeaser />
       <Services />
       <About />
       <Testimonials />

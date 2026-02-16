@@ -1,9 +1,9 @@
 export const site = {
   name: 'Quality Moving & Storage',
   shortName: 'Quality Moving',
-  tagline: 'Careful moving for Central Texas homes and businesses.',
+  tagline: 'Careful, transparent moving for Austin and Central Texas homes and businesses.',
   description:
-    'A Round Rock moving company helping with home moves, office relocations, packing, storage, and specialty items.',
+    'A Round Rock moving company helping Austin, Round Rock, and Central Texas customers with home moves, office relocations, packing, storage, and specialty items.',
   domain: 'https://qualitymoving.com',
   email: 'hello@qualitymoving.com',
   phone: {
@@ -68,6 +68,7 @@ export const site = {
 export const yearsInBusiness = new Date().getFullYear() - site.yearFounded;
 
 export const navigation = [
+  { to: '/austin-top-movers', label: 'Austin Movers' },
   { to: '/services', label: 'Services' },
   { to: '/about', label: 'About' },
   { to: '/quote', label: 'Get Quote' },
@@ -255,6 +256,150 @@ export const testimonials = [
     role: 'Homeowner • Cedar Park',
     quote:
       'We had antiques and a piano to move. Everything arrived safely and was placed exactly where we asked.',
+  },
+];
+
+export const austinTopMovers = [
+  {
+    rank: 1,
+    name: 'Einstein Moving Company',
+    score: '9.62',
+    bbb: 'A+',
+    avgMoveDuration: '4 hours',
+    note: 'Overall top recommended in Great Guys Moving Austin ranking.',
+  },
+  {
+    rank: 2,
+    name: 'Webster & Company Moving Services',
+    score: '9.59',
+    bbb: 'A+',
+    avgMoveDuration: '3 hours',
+    note: 'Second-place local Austin mover in the latest Great Guys list.',
+  },
+  {
+    rank: 3,
+    name: 'Word of Mouth Moving',
+    score: '9.56',
+    bbb: 'NR',
+    avgMoveDuration: '2.75 hours',
+    note: 'Ranked for speed and reliable reviews in recent comparison data.',
+  },
+  {
+    rank: 4,
+    name: 'MoverTron Moving',
+    score: '9.48',
+    bbb: 'NR',
+    avgMoveDuration: 'N/A',
+    note: 'Top 10 Austin mover in a data-based comparison list.',
+  },
+  {
+    rank: 5,
+    name: 'Movers League',
+    score: '9.40',
+    bbb: 'NR',
+    avgMoveDuration: '3 hours',
+    note: 'Strong value from Austin ranking snapshot data.',
+  },
+  {
+    rank: 6,
+    name: 'Valet Moving Services - Round Rock Movers',
+    score: '9.37',
+    bbb: 'NR',
+    avgMoveDuration: 'N/A',
+    note: 'Round Rock-based operator appearing in Austin top 10 comparison.',
+  },
+  {
+    rank: 7,
+    name: 'Muscleman Elite Moving & Storage',
+    score: '9.36',
+    bbb: 'A+',
+    avgMoveDuration: '2 hours',
+    note: 'Top movers dataset shows an A+ license-backed profile.',
+  },
+  {
+    rank: 8,
+    name: 'Limestone Moving Co.',
+    score: '9.35',
+    bbb: 'NR',
+    avgMoveDuration: '2.5 hours',
+    note: 'High-scoring Austin mover with quick execution profile.',
+  },
+];
+
+export const austinTopMoverResearchSources = [
+  {
+    title: 'Great Guys Moving – Austin Movers Ranking',
+    url: 'https://www.greatguysmove.com/movers/texas/austin/',
+    snapshot: 'Updated Jun 24, 2025',
+    note: 'Analyzed 143 Austin movers across 122,105 review data points with a 24,000+ mover benchmark.',
+  },
+  {
+    title: 'Great Guys Moving Rating System',
+    url: 'https://www.greatguysmove.com/ggm-rating-index/',
+    snapshot: 'Methodology page',
+    note: 'Uses an 11-point scoring model including quality, punctuality, pricing, communication, and care metrics.',
+  },
+  {
+    title: 'Angi Austin Movers Review Market',
+    url: 'https://www.angi.com/companylist/us/tx/austin/moving.htm',
+    snapshot: 'Last update Feb 16, 2026',
+    note: 'Shows the matched Austin movers ecosystem, including 4.5 average homeowner rating and 557 verified moving reviews.',
+  },
+];
+
+export const austinMoverSelectionChecklist = [
+  {
+    title: 'Verify licensing and insurance',
+    detail:
+      'Ask for active TX moving registration and any federal credentials listed for long-distance lanes.',
+  },
+  {
+    title: 'Demand line-by-line quotes',
+    detail:
+      'Get every fee in writing before you book: hourly pricing, packing extras, stairs access, and overtime triggers.',
+  },
+  {
+    title: 'Check move-day responsiveness',
+    detail:
+      'Top movers score higher when they communicate quickly, confirm arrival windows, and stay transparent about changes.',
+  },
+  {
+    title: 'Protect high-value items',
+    detail:
+      'Ask for specialty handling plans for pianos, artwork, antiques, and fragile boxes before the quote is confirmed.',
+  },
+  {
+    title: 'Validate recent customer signals',
+    detail:
+      'Use multi-platform reviews and look for patterns in complaint handling, not just headline averages.',
+  },
+];
+
+export const austinMoverFaqs = [
+  {
+    question: 'How is a top mover ranked in Austin?',
+    answer:
+      'Public mover comparison data can be based on different formulas. The current snapshots we track blend review volume, score consistency, rating quality, and operating behavior into a ranked list.',
+  },
+  {
+    question: 'Should I prioritize the #1 rank above all else?',
+    answer:
+      'Not always. Use rank as a starting point, then filter by your move type, timing, and required add-ons like packing and storage.',
+  },
+  {
+    question: 'How do I avoid hidden moving fees?',
+    answer:
+      'Ask for a full estimate document and walk through each add-on. If a fee is unclear, request the exact trigger that would add it.',
+  },
+  {
+    question: 'Can a top-rated Austin mover still overcharge?',
+    answer:
+      'Yes, which is why verified pricing terms and response quality are just as important as a star score.',
+  },
+  {
+    question: 'Why do ratings differ between sites?',
+    answer:
+      'Different sites weight review recency, verification, and complaint handling differently, so a single score can never tell the full story.',
   },
 ];
 

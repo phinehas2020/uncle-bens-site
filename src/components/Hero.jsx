@@ -7,11 +7,11 @@ export function Hero() {
       <div className="layout-container hero-grid">
         <div className="space-y-7">
           <p className="eyebrow animated-rise" data-delay="1">
-            Round Rock • Austin • Central Texas
+            Austin Movers • Round Rock Movers • Central Texas
           </p>
 
           <h1 className="display-title animated-rise" data-delay="2">
-            Moving day,
+            Austin moving,
             <span className="gold-gradient block">handled with care.</span>
           </h1>
 
@@ -19,11 +19,15 @@ export function Hero() {
             className="section-copy animated-rise max-w-2xl text-[clamp(1.02rem,0.96rem+0.35vw,1.3rem)]"
             data-delay="3"
           >
-            We help families and businesses move with less stress through clear
-            planning, respectful crews, and dependable execution.
+            Searching for the best Austin movers? We compare service fit,
+            communication, and pricing signals from current public rankings so you can
+            make a faster decision.
           </p>
 
           <div className="animated-rise flex flex-wrap gap-3" data-delay="4">
+            <ButtonLink size="lg" to="/austin-top-movers" variant="secondary">
+              See Austin Movers Guide
+            </ButtonLink>
             <ButtonLink size="lg" to="/quote" variant="primary">
               Get A Quote
             </ButtonLink>

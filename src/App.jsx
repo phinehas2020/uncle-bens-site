@@ -11,6 +11,9 @@ const HomePage = lazy(() =>
 const ServicesPage = lazy(() =>
   routeLoaders['/services']().then((module) => ({ default: module.ServicesPage })),
 );
+const AustinTopMoversPage = lazy(() =>
+  routeLoaders['/austin-top-movers']().then((module) => ({ default: module.AustinTopMoversPage })),
+);
 const AboutPage = lazy(() =>
   routeLoaders['/about']().then((module) => ({ default: module.AboutPage })),
 );
@@ -54,6 +57,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/services" element={<ServicesPage />} />
+                <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/quote" element={<QuotePage />} />
                 <Route path="/contact" element={<ContactPage />} />
