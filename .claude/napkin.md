@@ -38,3 +38,11 @@
 - Fonts loaded via Google Fonts in both index.html and index.css
 - Build: `npm run build` outputs to /dist
 - No env vars needed for dev (form endpoint is optional)
+
+## Corrections
+| 2026-02-16 | self | Tried to read skill at `/Users/phinehasadams/.agents/.../napkin/SKILL.md`; actual file was in `/Users/phinehasadams/.codex/skills/napkin/SKILL.md`. | Use the path from the user-provided list as fallback and verify existence before reading. |
+| 2026-02-16 | self | Ran a wide `rg` across `/Users/phinehasadams`; it produced permission errors from macOS directories. | Limit repo lookups to workspace path and avoid broad home-directory searches. |
+
+## Corrections
+| 2026-02-16 | self | Deleted and rewrote `src/data/site.js` before ensuring no duplicate reads in the same edit cycle. | Keep the old file content as baseline only once, then rewrite directly to avoid partial merges. |
+| 2026-02-16 | user | Requested a full site rebuild with specific page list and block components. | Replaced routing and core pages/components rather than patching partial pieces so the requested architecture is coherent. |

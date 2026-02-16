@@ -9,6 +9,7 @@ export function SEO({
   title,
   description,
   canonical,
+  keywords,
   type = 'website',
   image,
   imageAlt,
@@ -89,6 +90,7 @@ export function SEO({
     <Helmet>
       <title>{fullTitle}</title>
       <meta content={metaDescription} name="description" />
+      {keywords ? <meta content={keywords} name="keywords" /> : null}
       <link href={fullCanonical} rel="canonical" />
       <meta content={site.name} name="author" />
       <meta content="#ffffff" name="theme-color" />

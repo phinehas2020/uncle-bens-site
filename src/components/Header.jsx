@@ -3,11 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { navigation, site } from '../data/site';
 import { ButtonLink } from './Button';
-import { preloadRoute } from '../lib/routeLoader';
 
 function MenuIcon({ open }) {
   return (
-    <svg aria-hidden="true" className="size-5" fill="none" viewBox="0 0 24 24">
+    <svg aria-hidden="true" className="size-6" fill="none" viewBox="0 0 24 24">
       <path
         d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'}
         stroke="currentColor"
@@ -28,27 +27,34 @@ export function Header() {
   }, [location.pathname]);
 
   return (
-    <header className="header-bar">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-header focus:rounded-md focus:bg-bg focus:px-3 focus:py-2 focus:text-text"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-slate-900 focus:px-3 focus:py-2 focus:text-white"
         href="#main-content"
       >
         Skip to main content
       </a>
 
-      <div className="wrap header-inner">
-        <Link className="flex items-center gap-2 text-decoration-none" onClick={() => setMobileOpen(false)} to="/">
-          <span className="text-base font-semibold text-text">{site.name}</span>
+      <div className="site-container flex items-center justify-between gap-4 py-3">
+        <Link
+          className="inline-flex flex-col leading-tight"
+          onClick={() => setMobileOpen(false)}
+          to="/"
+        >
+          <span className="text-base font-semibold text-slate-900 sm:text-lg">{site.name}</span>
+          <span className="text-xs text-slate-500">Austin movers & packing services</span>
         </Link>
 
-        <nav>
-          <ul className="nav-list">
+        <nav className="hidden items-center gap-1 md:flex">
+          <ul className="flex items-center gap-1">
             {navigation.map((item) => (
               <li key={item.to}>
                 <Link
-                  className={cn('nav-link', location.pathname === item.to && 'is-active')}
-                  onFocus={() => preloadRoute(item.to)}
-                  onMouseEnter={() => preloadRoute(item.to)}
+                  className={cn(
+                    'px-3 py-2 text-sm text-slate-700 hover:text-slate-900',
+                    location.pathname === item.to && 'rounded-md bg-slate-100 font-semibold text-slate-900',
+                  )}
+                  onClick={() => setMobileOpen(false)}
                   to={item.to}
                 >
                   {item.label}
@@ -58,17 +64,11 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="header-actions">
+        <div className="hidden items-center gap-2 md:flex">
           <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="ghost">
             {site.phone.display}
           </ButtonLink>
-          <ButtonLink
-            onFocus={() => preloadRoute('/quote')}
-            onMouseEnter={() => preloadRoute('/quote')}
-            size="sm"
-            to="/quote"
-            variant="primary"
-          >
+          <ButtonLink size="sm" to="/contact" variant="primary">
             Get a Quote
           </ButtonLink>
         </div>
@@ -76,7 +76,7 @@ export function Header() {
         <button
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          className="menu-toggle"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-300 text-slate-700 md:hidden"
           onClick={() => setMobileOpen((prev) => !prev)}
           type="button"
         >
@@ -84,14 +84,20 @@ export function Header() {
         </button>
       </div>
 
-      <div className={cn('mobile-drawer', mobileOpen && 'is-open')}>
-        <div className="wrap flex flex-col gap-1 pb-3">
+      <div
+        className={cn(
+          'overflow-hidden border-t border-slate-200 transition-[max-height] duration-200 md:hidden',
+          mobileOpen ? 'max-h-[360px]' : 'max-h-0',
+        )}
+      >
+        <div className="site-container flex flex-col gap-2 py-3">
           {navigation.map((item) => (
             <Link
-              className={cn('mobile-link', location.pathname === item.to && 'is-active')}
+              className={cn(
+                'rounded-md px-3 py-2 text-sm text-slate-700 hover:text-slate-900',
+                location.pathname === item.to && 'bg-slate-100 font-semibold text-slate-900',
+              )}
               key={item.to}
-              onFocus={() => preloadRoute(item.to)}
-              onMouseEnter={() => preloadRoute(item.to)}
               onClick={() => setMobileOpen(false)}
               to={item.to}
             >
@@ -99,20 +105,19 @@ export function Header() {
             </Link>
           ))}
 
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-2 pt-1">
             <ButtonLink
               href={`tel:${site.phone.digits}`}
               onClick={() => setMobileOpen(false)}
               size="sm"
               variant="ghost"
             >
-              Call Us
+              Call us
             </ButtonLink>
             <ButtonLink
-              onFocus={() => preloadRoute('/quote')}
               onClick={() => setMobileOpen(false)}
               size="sm"
-              to="/quote"
+              to="/contact"
               variant="primary"
             >
               Get a Quote

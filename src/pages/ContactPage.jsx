@@ -1,194 +1,62 @@
-import { useState } from 'react';
 import { SEO } from '../components/SEO';
+import { ContactForm } from '../components/ContactForm';
 import { site } from '../data/site';
-import { Button } from '../components/Button';
 
 export function ContactPage() {
-  const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
-  const initialState = {
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  };
-
-  const [formData, setFormData] = useState(initialState);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState('');
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError('');
-
-    if (!formEndpoint) {
-      await new Promise((resolve) => {
-        window.setTimeout(resolve, 400);
-      });
-      setIsSubmitted(true);
-      setFormData(initialState);
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(formEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          formType: 'contact',
-          ...formData,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Unable to send message.');
-      }
-
-      setIsSubmitted(true);
-      setFormData(initialState);
-    } catch {
-      setSubmitError('Submission failed. Please call us directly for immediate support.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const contactInfo = [
+    { label: 'Phone', value: site.phone.display, href: `tel:${site.phone.digits}` },
+    { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+    { label: 'Hours', value: site.hours.summary },
+    {
+      label: 'Address',
+      value: `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`,
+    },
+  ];
 
   return (
     <>
       <SEO
         canonical="/contact"
-        description={`Contact ${site.name} for moving, packing, and storage support in Austin, Round Rock, and Central Texas.`}
-        title="Contact"
+        title="Contact Us | Get a Quote"
+        description={`Contact our Austin moving company for packing services, local moves, long-distance moving, and storage solutions.`}
+        keywords="Austin movers, moving company, packing services, storage solutions, contact quote"
       />
 
-      <section className="section-gap">
-        <div className="wrap">
-          <div className="split">
-            <div className="space-y-5">
-              <h1 className="heading-xl">Contact us</h1>
-              <p className="body-lg">
-                Reach us for scheduling, scope planning, or any questions about your move.
-              </p>
+      <section className="section">
+        <div className="site-container">
+          <div className="max-w-3xl">
+            <p className="subtle-badge">Contact / Quote</p>
+            <h1 className="mt-3 text-4xl font-semibold text-slate-900">Get in touch</h1>
+            <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+              Reach us for scheduling, service scope review, packing help, or storage planning.
+              We respond with a practical plan and a guaranteed quote.
+            </p>
+          </div>
 
-              <div className="card p-5 space-y-3 text-sm text-text-secondary">
-                <p>
-                  <span className="font-semibold text-text">Phone: </span>
-                  <a className="text-teal hover:underline" href={`tel:${site.phone.digits}`}>
-                    {site.phone.display}
-                  </a>
-                </p>
-                <p>
-                  <span className="font-semibold text-text">Email: </span>
-                  <a className="text-teal hover:underline" href={`mailto:${site.email}`}>
-                    {site.email}
-                  </a>
-                </p>
-                <p>
-                  <span className="font-semibold text-text">Hours: </span>
-                  {site.hours.summary}
-                </p>
-                <p>
-                  <span className="font-semibold text-text">Address: </span>
-                  {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}
-                </p>
+          <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="space-y-3 rounded-2xl border border-slate-200 p-5">
+              {contactInfo.map((item) => (
+                <div className="text-sm" key={item.label}>
+                  <p className="font-semibold text-slate-900">{item.label}</p>
+                  {item.href ? (
+                    <a className="text-slate-600 hover:text-slate-900" href={item.href}>
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className="text-slate-600">{item.value}</p>
+                  )}
+                </div>
+              ))}
+              <div className="pt-1 text-xs text-slate-500">
+                <p className="font-semibold text-slate-700">Service areas</p>
+                <p>{site.serviceAreas.join(', ')}</p>
               </div>
             </div>
 
-            <form className="card p-5 space-y-4" onSubmit={handleSubmit}>
-              <div className="grid-2">
-                <label className="block">
-                  <span className="field-label">Name</span>
-                  <input
-                    className="field"
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Your name"
-                    required
-                    value={formData.name}
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="field-label">Phone</span>
-                  <input
-                    className="field"
-                    name="phone"
-                    onChange={handleChange}
-                    placeholder="(512) 555-0101"
-                    type="tel"
-                    value={formData.phone}
-                  />
-                </label>
-              </div>
-
-              <label className="block">
-                <span className="field-label">Email</span>
-                <input
-                  className="field"
-                  name="email"
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  required
-                  type="email"
-                  value={formData.email}
-                />
-              </label>
-
-              <label className="block">
-                <span className="field-label">Subject</span>
-                <select
-                  className="field"
-                  name="subject"
-                  onChange={handleChange}
-                  required
-                  value={formData.subject}
-                >
-                  <option value="">Select a subject</option>
-                  <option value="quote">Quote request</option>
-                  <option value="existing">Existing move support</option>
-                  <option value="commercial">Commercial inquiry</option>
-                  <option value="other">Other</option>
-                </select>
-              </label>
-
-              <label className="block">
-                <span className="field-label">Message</span>
-                <textarea
-                  className="field min-h-28 resize-y"
-                  name="message"
-                  onChange={handleChange}
-                  placeholder="How can we help?"
-                  required
-                  value={formData.message}
-                />
-              </label>
-
-              <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
-                Send message
-              </Button>
-
-              {isSubmitted && (
-                <p className="rounded-md border border-teal/30 bg-teal/5 px-4 py-3 text-sm text-teal">
-                  Message sent. We will reply shortly.
-                </p>
-              )}
-
-              {submitError && (
-                <p className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
-                  {submitError}
-                </p>
-              )}
-            </form>
+            <div className="card-soft p-5">
+              <h2 className="mb-4 text-xl font-semibold text-slate-900">Send a request</h2>
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>

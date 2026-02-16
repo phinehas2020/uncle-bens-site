@@ -1,28 +1,14 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Suspense, lazy, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { routeLoaders } from './lib/routeLoader';
-
-const HomePage = lazy(() =>
-  routeLoaders['/']().then((module) => ({ default: module.HomePage })),
-);
-const ServicesPage = lazy(() =>
-  routeLoaders['/services']().then((module) => ({ default: module.ServicesPage })),
-);
-const AustinTopMoversPage = lazy(() =>
-  routeLoaders['/austin-top-movers']().then((module) => ({ default: module.AustinTopMoversPage })),
-);
-const AboutPage = lazy(() =>
-  routeLoaders['/about']().then((module) => ({ default: module.AboutPage })),
-);
-const QuotePage = lazy(() =>
-  routeLoaders['/quote']().then((module) => ({ default: module.QuotePage })),
-);
-const ContactPage = lazy(() =>
-  routeLoaders['/contact']().then((module) => ({ default: module.ContactPage })),
-);
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { FAQPage } from './pages/FAQPage';
+import { HomePage } from './pages/HomePage';
+import { QuotePage } from './pages/QuotePage';
+import { ServicesPage } from './pages/ServicesPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,32 +20,23 @@ function ScrollToTop() {
   return null;
 }
 
-function RouteFallback() {
-  return (
-    <div className="wrap section-gap-sm">
-      <p className="text-sm text-text-muted">Loading...</p>
-    </div>
-  );
-}
-
-function App() {
+export function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="flex min-h-dvh flex-col">
+        <div className="flex min-h-screen flex-col">
           <Header />
           <main id="main-content" className="flex-1">
-            <Suspense fallback={<RouteFallback />}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/services" element={<ServicesPage />} />
-                <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/quote" element={<QuotePage />} />
-                <Route path="/contact" element={<ContactPage />} />
-              </Routes>
-            </Suspense>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/quote" element={<QuotePage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
           </main>
           <Footer />
         </div>

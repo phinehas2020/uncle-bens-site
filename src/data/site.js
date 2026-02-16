@@ -1,9 +1,10 @@
 export const site = {
   name: 'Quality Moving & Storage',
   shortName: 'Quality Moving',
-  tagline: 'Careful, transparent moving for Austin and Central Texas homes and businesses.',
+  tagline:
+    'Careful, transparent moving for Austin and Central Texas homes and businesses.',
   description:
-    'A Round Rock moving company helping Austin, Round Rock, and Central Texas customers with home moves, office relocations, packing, storage, and specialty items.',
+    'A Round Rock moving company helping Austin, Round Rock, and Central Texas customers with home moves, packing, storage, and local or long-distance support.',
   domain: 'https://qualitymoving.com',
   email: 'hello@qualitymoving.com',
   phone: {
@@ -23,7 +24,7 @@ export const site = {
   },
   hours: {
     summary: 'Mon–Sat • 9:00 AM – 5:00 PM',
-    display: [
+    summaryList: [
       'Monday–Friday: 9:00 AM – 5:00 PM',
       'Saturday: 9:00 AM – 5:00 PM',
       'Sunday: Closed',
@@ -45,11 +46,10 @@ export const site = {
   },
   license: 'TXDMV #006027218C',
   tdmvPhone: '(888) 368-4689',
-  yearFounded: 2006,
-  reviewSummary: 'Trusted by families and teams across Central Texas',
   socials: {
     googleReviews: 'https://www.google.com/search?q=quality+moving+austin+reviews',
   },
+  yearFounded: 2006,
   serviceAreas: [
     'Austin',
     'Round Rock',
@@ -68,11 +68,11 @@ export const site = {
 export const yearsInBusiness = new Date().getFullYear() - site.yearFounded;
 
 export const navigation = [
-  { to: '/austin-top-movers', label: 'Austin Movers' },
+  { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
   { to: '/about', label: 'About' },
-  { to: '/quote', label: 'Get Quote' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/faq', label: 'FAQ' },
+  { to: '/contact', label: 'Contact / Quote' },
 ];
 
 export const heroStats = [
@@ -85,16 +85,15 @@ export const heroStats = [
 export const services = [
   {
     id: 'local-moving',
-    title: 'Home Moving',
-    summary:
-      'Local moves across Austin, Round Rock, and nearby cities with experienced crews and careful handling.',
+    title: 'Local Moving',
+    summary: 'Home moves across Austin, Round Rock, and nearby cities with careful crews.',
     details:
-      'We protect floors and doorways, blanket-wrap furniture, and place items where you want them in your new home.',
+      'Doorway guards, floor protection, and precise furniture placement keep your home organized and protected.',
     highlights: [
-      'Careful in-home protection',
       'Clear arrival windows',
-      'Furniture disassembly and setup',
-      'Apartment and house moves',
+      'In-home protection for flooring and doorways',
+      'Furniture disassembly and reassembly',
+      'Apartment and house move support',
     ],
     image:
       'https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=1200&q=80',
@@ -103,13 +102,13 @@ export const services = [
     id: 'commercial-moving',
     title: 'Commercial Relocation',
     summary:
-      'Office and retail moves planned to reduce downtime and keep your team productive.',
+      'Office and retail moves built around your business operations and work-hour constraints.',
     details:
-      'We coordinate with property managers, label assets by team, and schedule work around your operating hours.',
+      'We coordinate with supervisors, label assets by department, and set practical start/stop checkpoints.',
     highlights: [
-      'After-hours scheduling available',
       'Department-by-department planning',
-      'Workstation and IT coordination',
+      'IT and workstation coordination',
+      'After-hours scheduling options',
       'Labeled inventory process',
     ],
     image:
@@ -117,15 +116,14 @@ export const services = [
   },
   {
     id: 'packing',
-    title: 'Professional Packing',
-    summary:
-      'Full packing, partial packing, or fragile-only packing based on what you need help with.',
+    title: 'Packing Services',
+    summary: 'Full packing, partial packing, or fragile-only packing tailored to your move.',
     details:
-      'We use quality materials, room labels, and clear inventory notes so unpacking is easier on the other side.',
+      'We use quality materials, room labels, and inventory notes so unpacking is straightforward.',
     highlights: [
       'Full-home or partial packing',
-      'Fragile kitchen and artwork packing',
-      'Room-by-room labels',
+      'Fragile kitchen, art, and electronics packing',
+      'Clear room-by-room labeling',
       'Custom crating when needed',
     ],
     image:
@@ -133,16 +131,15 @@ export const services = [
   },
   {
     id: 'long-distance',
-    title: 'Long-Distance Moves',
-    summary:
-      'Cross-state and interstate moves with one point of contact and a clear timeline.',
+    title: 'Long-Distance Moving',
+    summary: 'Cross-state and interstate moves with one point of contact from start to delivery.',
     details:
-      'You get scheduled checkpoints, straightforward communication, and a team that prepares in advance for route and access logistics.',
+      'You receive written timelines, proactive updates, and route-aware planning for stairs and loading access.',
     highlights: [
       'Single point of contact',
-      'Scheduled communication updates',
+      'Scheduled communication checkpoints',
       'Interstate paperwork support',
-      'Planned delivery windows',
+      'Clear delivery windows',
     ],
     image:
       'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
@@ -150,12 +147,11 @@ export const services = [
   {
     id: 'storage',
     title: 'Storage Solutions',
-    summary:
-      'Short-term and long-term storage options when move-in dates shift or space is tight.',
+    summary: 'Short-term and long-term storage when move-in dates shift or spaces are tight.',
     details:
-      'Items are wrapped, logged, and stored in monitored facilities, then returned on your schedule.',
+      'Items are wrapped, logged, and monitored so retrieval is easy when your timeline changes.',
     highlights: [
-      'Monitored storage facilities',
+      'Monitored climate-conscious facilities',
       'Item tracking and labeling',
       'Flexible retrieval dates',
       'Bridge storage for renovations',
@@ -163,55 +159,24 @@ export const services = [
     image:
       'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80',
   },
-  {
-    id: 'specialty',
-    title: 'Pianos & Specialty Items',
-    summary:
-      'Pianos, antiques, and oversized pieces moved by crews trained for high-risk handling.',
-    details:
-      'We plan pathways, protect touch points, and use the right equipment for heavy or delicate items.',
-    highlights: [
-      'Piano moving expertise',
-      'Antique and art handling',
-      'Stair and tight-access planning',
-      'Careful final placement',
-    ],
-    image:
-      'https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=1200&q=80',
-  },
 ];
 
-export const processSteps = [
-  {
-    title: '01 — Walkthrough & Estimate',
-    text: 'We review your inventory, home access, timing, and any specialty items before we quote.',
-  },
-  {
-    title: '02 — Schedule & Prep',
-    text: 'You receive a written plan with arrival windows, crew details, and packing or storage options.',
-  },
-  {
-    title: '03 — Move Day',
-    text: 'Our team arrives prepared, protects your space, and loads and unloads with clear communication throughout.',
-  },
-  {
-    title: '04 — Setup & Final Check',
-    text: 'We place furniture where you want it, reassemble key items, and do a final walkthrough before we leave.',
-  },
-];
+export const featuredServices = services.filter((service) =>
+  ['local-moving', 'packing', 'long-distance', 'storage'].includes(service.id),
+);
 
 export const companyValues = [
   {
     title: 'Prepared Crews',
-    text: 'Our teams come prepared with the right tools, materials, and plan for your specific move.',
+    text: 'Teams arrive with the right tools, materials, and pre-move walkthrough notes.',
   },
   {
     title: 'Clear Communication',
-    text: 'You know who is coming, when they will arrive, and what happens next at every stage.',
+    text: 'You know who is coming, when they arrive, and what happens next at every stage.',
   },
   {
     title: 'Careful Handling',
-    text: 'We treat your home and belongings with respect, from first box to final furniture placement.',
+    text: 'Homes, offices, and specialty items are treated as if they were your own.',
   },
 ];
 
@@ -220,25 +185,62 @@ export const milestones = [
     year: String(site.yearFounded),
     event: 'Opened in Round Rock with a focus on reliable local moving and respectful service.',
   },
-  {
-    year: '2012',
-    event: 'Expanded service routes across Central Texas, including Austin and Cedar Park.',
-  },
+  { year: '2012', event: 'Expanded routes across Central Texas, including Austin and Cedar Park.' },
   {
     year: '2018',
     event: 'Built a dedicated commercial moving team for office and retail relocations.',
   },
   {
     year: '2023',
-    event: 'Expanded storage operations with improved inventory tracking and retrieval scheduling.',
+    event: 'Expanded storage operations with stronger tracking and retrieval scheduling.',
   },
   {
     year: String(new Date().getFullYear()),
-    event: `Now in year ${yearsInBusiness}, continuing to serve families and businesses across Central Texas.`,
+    event: `Now in year ${yearsInBusiness}, serving Austin and surrounding cities with packing, moving, and storage solutions.`,
   },
 ];
 
-export const testimonials = [
+export const faqs = [
+  {
+    question: 'How far in advance should I book?',
+    answer:
+      'During busy seasons, 2–4 weeks is ideal. For urgent windows, call us and we do our best to fit your move in.',
+  },
+  {
+    question: 'Are your quotes guaranteed?',
+    answer:
+      'Yes. After walkthrough review, we provide a written quote tied to the approved scope and timing.',
+  },
+  {
+    question: 'Can you move specialty items like pianos?',
+    answer: 'Yes. We move pianos, antiques, artwork, and larger legacy furniture with a dedicated handling plan.',
+  },
+  {
+    question: 'Do you offer packing-only services?',
+    answer: 'Yes. We offer full packing, partial packing, and fragile-item packing options.',
+  },
+];
+
+export const movingTips = [
+  {
+    title: 'Lock scope before move day',
+    text: 'List stair access, parking limits, heavy doors, fragile items, and access constraints before our walkthrough.',
+  },
+  {
+    title: 'Demand clear line-item pricing',
+    text: 'A good quote includes access fees, labor assumptions, and every optional add-on before you approve.',
+  },
+  {
+    title: 'Confirm licensing and insurance',
+    text: 'Ask for active Texas registration and insurance coverage terms before you sign.',
+  },
+  {
+    title: 'Protecting value items',
+    text: 'Take photos and confirm final placement plans for artwork, antiques, and pianos before loading.',
+  },
+];
+
+export const reviews = [
   {
     name: 'Maya G.',
     role: 'Family Relocation • Austin',
@@ -259,169 +261,23 @@ export const testimonials = [
   },
 ];
 
-export const austinTopMovers = [
-  {
-    rank: 1,
-    name: 'Einstein Moving Company',
-    score: '9.62',
-    bbb: 'A+',
-    avgMoveDuration: '4 hours',
-    note: 'Overall top recommended in Great Guys Moving Austin ranking.',
-  },
-  {
-    rank: 2,
-    name: 'Webster & Company Moving Services',
-    score: '9.59',
-    bbb: 'A+',
-    avgMoveDuration: '3 hours',
-    note: 'Second-place local Austin mover in the latest Great Guys list.',
-  },
-  {
-    rank: 3,
-    name: 'Word of Mouth Moving',
-    score: '9.56',
-    bbb: 'NR',
-    avgMoveDuration: '2.75 hours',
-    note: 'Ranked for speed and reliable reviews in recent comparison data.',
-  },
-  {
-    rank: 4,
-    name: 'MoverTron Moving',
-    score: '9.48',
-    bbb: 'NR',
-    avgMoveDuration: 'N/A',
-    note: 'Top 10 Austin mover in a data-based comparison list.',
-  },
-  {
-    rank: 5,
-    name: 'Movers League',
-    score: '9.40',
-    bbb: 'NR',
-    avgMoveDuration: '3 hours',
-    note: 'Strong value from Austin ranking snapshot data.',
-  },
-  {
-    rank: 6,
-    name: 'Valet Moving Services - Round Rock Movers',
-    score: '9.37',
-    bbb: 'NR',
-    avgMoveDuration: 'N/A',
-    note: 'Round Rock-based operator appearing in Austin top 10 comparison.',
-  },
-  {
-    rank: 7,
-    name: 'Muscleman Elite Moving & Storage',
-    score: '9.36',
-    bbb: 'A+',
-    avgMoveDuration: '2 hours',
-    note: 'Top movers dataset shows an A+ license-backed profile.',
-  },
-  {
-    rank: 8,
-    name: 'Limestone Moving Co.',
-    score: '9.35',
-    bbb: 'NR',
-    avgMoveDuration: '2.5 hours',
-    note: 'High-scoring Austin mover with quick execution profile.',
-  },
-];
-
-export const austinTopMoverResearchSources = [
+export const austinMoverResearchSources = [
   {
     title: 'Great Guys Moving – Austin Movers Ranking',
     url: 'https://www.greatguysmove.com/movers/texas/austin/',
     snapshot: 'Updated Jun 24, 2025',
-    note: 'Analyzed 143 Austin movers across 122,105 review data points with a 24,000+ mover benchmark.',
+    note: 'Analyzed 143 Austin movers across 122,105 review data points with a 24,000+ benchmark.',
   },
   {
     title: 'Great Guys Moving Rating System',
     url: 'https://www.greatguysmove.com/ggm-rating-index/',
     snapshot: 'Methodology page',
-    note: 'Uses an 11-point scoring model including quality, punctuality, pricing, communication, and care metrics.',
+    note: 'Uses an 11-point scoring model including quality, punctuality, communication, and care metrics.',
   },
   {
     title: 'Angi Austin Movers Review Market',
     url: 'https://www.angi.com/companylist/us/tx/austin/moving.htm',
     snapshot: 'Last update Feb 16, 2026',
-    note: 'Shows the matched Austin movers ecosystem, including 4.5 average homeowner rating and 557 verified moving reviews.',
-  },
-];
-
-export const austinMoverSelectionChecklist = [
-  {
-    title: 'Verify licensing and insurance',
-    detail:
-      'Ask for active TX moving registration and any federal credentials listed for long-distance lanes.',
-  },
-  {
-    title: 'Demand line-by-line quotes',
-    detail:
-      'Get every fee in writing before you book: hourly pricing, packing extras, stairs access, and overtime triggers.',
-  },
-  {
-    title: 'Check move-day responsiveness',
-    detail:
-      'Top movers score higher when they communicate quickly, confirm arrival windows, and stay transparent about changes.',
-  },
-  {
-    title: 'Protect high-value items',
-    detail:
-      'Ask for specialty handling plans for pianos, artwork, antiques, and fragile boxes before the quote is confirmed.',
-  },
-  {
-    title: 'Validate recent customer signals',
-    detail:
-      'Use multi-platform reviews and look for patterns in complaint handling, not just headline averages.',
-  },
-];
-
-export const austinMoverFaqs = [
-  {
-    question: 'How is a top mover ranked in Austin?',
-    answer:
-      'Public mover comparison data can be based on different formulas. The current snapshots we track blend review volume, score consistency, rating quality, and operating behavior into a ranked list.',
-  },
-  {
-    question: 'Should I prioritize the #1 rank above all else?',
-    answer:
-      'Not always. Use rank as a starting point, then filter by your move type, timing, and required add-ons like packing and storage.',
-  },
-  {
-    question: 'How do I avoid hidden moving fees?',
-    answer:
-      'Ask for a full estimate document and walk through each add-on. If a fee is unclear, request the exact trigger that would add it.',
-  },
-  {
-    question: 'Can a top-rated Austin mover still overcharge?',
-    answer:
-      'Yes, which is why verified pricing terms and response quality are just as important as a star score.',
-  },
-  {
-    question: 'Why do ratings differ between sites?',
-    answer:
-      'Different sites weight review recency, verification, and complaint handling differently, so a single score can never tell the full story.',
-  },
-];
-
-export const faqs = [
-  {
-    question: 'How far in advance should I book?',
-    answer:
-      'During busy seasons, 2–4 weeks is ideal. If your schedule is tight, call us and we will do our best to fit you in.',
-  },
-  {
-    question: 'Are your quotes guaranteed?',
-    answer:
-      'Yes. After the walkthrough and scope review, we provide a guaranteed quote for the agreed services.',
-  },
-  {
-    question: 'Can you move specialty items like pianos?',
-    answer:
-      'Yes. We regularly move pianos, antiques, artwork, and other large or delicate items.',
-  },
-  {
-    question: 'Do you offer packing-only services?',
-    answer:
-      'Yes. We offer full packing, partial packing, and fragile-item packing depending on your needs.',
+    note: 'Shows the active Austin movers ecosystem and verified review activity across multiple platforms.',
   },
 ];

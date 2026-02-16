@@ -1,68 +1,51 @@
-import { ButtonLink } from '../components/Button';
 import { SEO } from '../components/SEO';
+import { ServiceCard } from '../components/ServiceCard';
+import { ButtonLink } from '../components/Button';
 import { services, site } from '../data/site';
+
+const coreServiceIds = new Set(['local-moving', 'packing', 'long-distance', 'storage']);
+const coreServices = services.filter((service) => coreServiceIds.has(service.id));
 
 export function ServicesPage() {
   return (
     <>
       <SEO
         canonical="/services"
-        description={`Residential, commercial, packing, long-distance, and storage services from ${site.name} in Central Texas.`}
-        title="Services"
+        title="Services | Local, Long-Distance, Packing and Storage"
+        description={`Moving services from ${site.name}: Austin movers for local moving, long-distance moving, packing services, and storage solutions in Central Texas.`
+        }
+        keywords="Austin movers, moving company, packing services, storage solutions, local moving, long-distance moving"
       />
 
-      <section className="section-gap">
-        <div className="wrap max-w-2xl space-y-4">
-          <h1 className="heading-xl">Our services</h1>
-          <p className="body-lg">
-            Pick the support you need. Full-service moves, labor-only help,
-            packing, storage, and specialty handling.
+      <section className="section">
+        <div className="site-container max-w-2xl space-y-4">
+          <h1 className="text-4xl font-semibold text-slate-900">Services</h1>
+          <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+            Pick the core support you need. We handle local and long-distance residential moves,
+            packing services, and storage solutions, with optional office or specialty-item handling.
           </p>
         </div>
       </section>
 
-      <section className="section-gap-sm">
-        <div className="wrap space-y-6">
-          {services.map((service, index) => (
-            <article
-              className={`service-detail-card ${index % 2 ? 'reverse' : ''}`}
-              id={service.id}
-              key={service.id}
-            >
-              <div className="p-6 space-y-4">
-                <h2 className="heading-lg">{service.title}</h2>
-                <p className="text-text-secondary">{service.summary}</p>
-                <p className="text-sm text-text-muted">{service.details}</p>
+      <section className="section">
+        <div className="site-container">
+          <div className="grid gap-4 md:grid-cols-2">
+            {coreServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
 
-                <ul className="grid gap-2 sm:grid-cols-2">
-                  {service.highlights.map((item) => (
-                    <li
-                      className="rounded-md border border-border px-3 py-2 text-sm text-text-secondary"
-                      key={item}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <img
-                  alt={service.title}
-                  className="h-full w-full object-cover"
-                  height="900"
-                  loading="lazy"
-                  src={service.image}
-                  width="1200"
-                />
-              </div>
-            </article>
-          ))}
-
-          <div className="pt-2">
-            <ButtonLink size="lg" to="/quote" variant="primary">
-              Request a quote
-            </ButtonLink>
+          <div className="mt-8">
+            <h2 className="text-2xl font-semibold text-slate-900">Additional services</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Commercial relocation and specialty item handling are available when your move includes
+              retail, office, pianos, antiques, or oversized furniture.
+            </p>
+            <div className="mt-4">
+              <ButtonLink size="lg" to="/contact" variant="primary">
+                Get a custom quote
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </section>
