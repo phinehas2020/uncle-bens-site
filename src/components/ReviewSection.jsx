@@ -7,7 +7,7 @@ export function ReviewSection({ heading = 'What customers say', reviews }) {
         <div className="mx-auto max-w-4xl text-center">
           <p className="subtle-badge">{site.reviewSummary || 'Trusted reviews'}</p>
           <h2 className="mt-3 text-3xl font-semibold text-slate-900">{heading}</h2>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
             We earn repeat work through reliability, care, and transparent communication.
           </p>
         </div>

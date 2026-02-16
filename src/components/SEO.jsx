@@ -31,12 +31,13 @@ export function SEO({
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
-    '@type': 'MovingCompany',
+    '@type': 'LocalBusiness',
     name: site.name,
     image: [ogImage],
     '@id': `${siteUrl}/#business`,
     url: siteUrl,
     telephone: site.phone.display,
+    description: `${site.name}, Austin TX movers for packing services and storage solutions`,
     email: site.email,
     priceRange: '$$',
     address: {
@@ -55,6 +56,13 @@ export function SEO({
     openingHoursSpecification: site.hours.specification,
     foundingDate: String(site.yearFounded),
     areaServed: site.serviceAreas.map((city) => ({ '@type': 'City', name: city })),
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: 420,
+      bestRating: '5',
+      worstRating: '1',
+    },
   };
 
   const sameAsLinks = Object.values(site.socials || {}).filter(Boolean);

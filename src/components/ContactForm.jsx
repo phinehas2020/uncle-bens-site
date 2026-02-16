@@ -68,10 +68,10 @@ export function ContactForm({ endpoint = '' }) {
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Name</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Name</span>
           <input
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="name"
@@ -83,7 +83,7 @@ export function ContactForm({ endpoint = '' }) {
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Phone</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Phone</span>
           <input
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="phone"
@@ -97,7 +97,7 @@ export function ContactForm({ endpoint = '' }) {
       </div>
 
       <label className="block">
-        <span className="mb-1 block text-sm font-medium text-slate-700">Email</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Email</span>
         <input
           className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
           name="email"
@@ -111,7 +111,7 @@ export function ContactForm({ endpoint = '' }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Move type</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Move type</span>
           <select
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="moveType"
@@ -127,7 +127,7 @@ export function ContactForm({ endpoint = '' }) {
           </select>
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Preferred move date</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Preferred move date</span>
           <input
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="moveDate"
@@ -140,7 +140,7 @@ export function ContactForm({ endpoint = '' }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Moving from</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Moving from</span>
           <input
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="fromCity"
@@ -151,7 +151,7 @@ export function ContactForm({ endpoint = '' }) {
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-medium text-slate-700">Moving to</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">Moving to</span>
           <input
             className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
             name="toCity"
@@ -164,7 +164,7 @@ export function ContactForm({ endpoint = '' }) {
       </div>
 
       <label className="block">
-        <span className="mb-1 block text-sm font-medium text-slate-700">What can we help with?</span>
+          <span className="mb-1 block text-sm font-semibold text-slate-700">What can we help with?</span>
         <textarea
           className="min-h-28 w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
           name="message"
@@ -175,8 +175,14 @@ export function ContactForm({ endpoint = '' }) {
         />
       </label>
 
-      <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
-        Send request
+      <Button
+        className="w-full bg-accent border-accent text-white hover:bg-accent/90"
+        disabled={isSubmitting}
+        size="lg"
+        type="submit"
+        variant="primary"
+      >
+        Lock in your move date
       </Button>
 
       {isSubmitted && (

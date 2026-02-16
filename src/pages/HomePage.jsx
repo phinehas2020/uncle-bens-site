@@ -4,15 +4,17 @@ import { ButtonLink } from '../components/Button';
 import { ServiceCard } from '../components/ServiceCard';
 import { ReviewSection } from '../components/ReviewSection';
 import { featuredServices, reviews, site, yearsInBusiness } from '../data/site';
+import { PageBottomCta } from '../components/PageBottomCta';
 
 export function HomePage() {
   return (
     <>
       <SEO
         canonical="/"
-        title="Austin Movers | Quality Moving & Storage"
-        description={`${site.name} provides Austin movers and local or long-distance moving, packing services, and storage solutions across Central Texas. Trusted for ${yearsInBusiness}+ years with guaranteed quotes.`}
-        keywords="Austin movers, moving company, packing services, storage solutions, Austin local moving"
+        title="Austin TX Movers | Quality Moving & Storage | Local & Long-Distance"
+        description={`Austin TX Movers with ${yearsInBusiness}+ years of field experience, offering moving services in Round Rock, Cedar Park, Pflugerville, Lakeway, and all of Austin. Quality Moving & Storage provides local and long-distance moving, packing services, and storage solutions.`
+        }
+        keywords="Austin TX Movers, Austin movers, moving company, packing services, storage solutions, Round Rock movers, Cedar Park moving"
       />
 
       <Hero />
@@ -21,10 +23,9 @@ export function HomePage() {
         <div className="site-container">
           <div className="max-w-3xl">
             <p className="subtle-badge">Featured services</p>
-            <h2 className="mt-3 text-3xl font-semibold text-slate-900">Core services for real moves</h2>
+            <h2 className="mt-3 text-3xl font-semibold text-slate-900">Core services for Austin-area moves</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              We cover the services families and businesses need most: moving, packing, and storage
-              support across the Austin and Central Texas market.
+              From Austin and Round Rock to Cedar Park, Pflugerville, and Lakeway, our teams combine careful handling with clear, timed communication for homes and businesses that need dependable execution.
             </p>
           </div>
 
@@ -38,7 +39,7 @@ export function HomePage() {
 
       <ReviewSection reviews={reviews} />
 
-      <section className="section">
+      <section className="section-surface">
         <div className="site-container">
           <div className="rounded-2xl border border-slate-200 bg-slate-900 px-6 py-8 text-white sm:px-10 sm:py-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Need a fast, reliable estimate?</p>
@@ -49,7 +50,7 @@ export function HomePage() {
               Share your dates and route, and our team will return with transparent pricing and a clear plan.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <ButtonLink size="md" to="/contact" variant="primary">
+              <ButtonLink size="md" to="/contact" variant="primary" className="bg-accent hover:bg-accent/85 border-accent">
                 Request your quote
               </ButtonLink>
               <a
@@ -62,6 +63,11 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      <PageBottomCta
+        heading="Need your moving date secured?"
+        text="Tell us your route through the Austin area and we will lock the timeline with a practical quote and one clear action plan."
+      />
     </>
   );
 }

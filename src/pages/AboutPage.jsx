@@ -1,5 +1,6 @@
 import { ButtonLink } from '../components/Button';
 import { SEO } from '../components/SEO';
+import { PageBottomCta } from '../components/PageBottomCta';
 import { companyValues, milestones, site, yearsInBusiness } from '../data/site';
 
 export function AboutPage() {
@@ -7,9 +8,9 @@ export function AboutPage() {
     <>
       <SEO
         canonical="/about"
-        title="About | Austin Moving Company"
-        description={`Learn about ${site.name}, a moving company in Austin and Central Texas with over ${yearsInBusiness}+ years of local, packing, and storage expertise.`}
-        keywords="Austin movers, moving company, packing services, storage solutions, central texas movers"
+        title="About | Austin TX Movers | Quality Moving & Storage"
+        description={`Learn about ${site.name}, Austin TX movers with ${yearsInBusiness}+ years helping clients in Round Rock, Cedar Park, Pflugerville, and Lakeway with dependable local and long-distance moves.`}
+        keywords="Austin TX Movers, Austin moving company, packing services, storage solutions, Central Texas movers"
       />
 
       <section className="section">
@@ -25,6 +26,10 @@ export function AboutPage() {
               <p className="text-sm text-slate-600">
                 Over {yearsInBusiness} years, families and businesses have trusted us to keep every
                 detail organized, from walk-through to final placement.
+              </p>
+              <p className="text-sm text-slate-600">
+                Our crews operate across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway with a
+                consistent process for apartments, homes, and office locations.
               </p>
               <ButtonLink size="md" to="/quote" variant="primary">
                 Talk with our team
@@ -73,6 +78,11 @@ export function AboutPage() {
           </div>
         </div>
       </section>
+
+      <PageBottomCta
+        heading="Talk to our Austin TX moves team"
+        text="From pre-move estimates to final placement, our team is available Mon–Sat to help you plan with confidence."
+      />
     </>
   );
 }

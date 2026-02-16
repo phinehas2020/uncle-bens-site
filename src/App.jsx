@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { MobileStickyCallBar } from './components/MobileStickyCallBar';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { FAQPage } from './pages/FAQPage';
@@ -39,6 +40,7 @@ export function App() {
             </Routes>
           </main>
           <Footer />
+          <MobileStickyCallBar />
         </div>
       </BrowserRouter>
     </HelmetProvider>

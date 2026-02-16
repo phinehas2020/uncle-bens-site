@@ -27,7 +27,7 @@ export function Header() {
   }, [location.pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
       <a
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-slate-900 focus:px-3 focus:py-2 focus:text-white"
         href="#main-content"
@@ -41,8 +41,8 @@ export function Header() {
           onClick={() => setMobileOpen(false)}
           to="/"
         >
-          <span className="text-base font-semibold text-slate-900 sm:text-lg">{site.name}</span>
-          <span className="text-xs text-slate-500">Austin movers & packing services</span>
+          <span className="text-base font-semibold text-white sm:text-lg">{site.name}</span>
+          <span className="text-xs text-slate-300">Austin TX movers since {site.yearFounded}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -51,8 +51,9 @@ export function Header() {
               <li key={item.to}>
                 <Link
                   className={cn(
-                    'px-3 py-2 text-sm text-slate-700 hover:text-slate-900',
-                    location.pathname === item.to && 'rounded-md bg-slate-100 font-semibold text-slate-900',
+                    'px-3 py-2 text-sm text-slate-200 hover:text-white',
+                    location.pathname === item.to &&
+                      'rounded-md bg-slate-800 font-semibold text-white',
                   )}
                   onClick={() => setMobileOpen(false)}
                   to={item.to}
@@ -65,10 +66,15 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="ghost">
+          <ButtonLink
+            className="border-slate-700 text-white hover:bg-slate-800"
+            href={`tel:${site.phone.digits}`}
+            size="sm"
+            variant="ghost"
+          >
             {site.phone.display}
           </ButtonLink>
-          <ButtonLink size="sm" to="/contact" variant="primary">
+          <ButtonLink className="bg-accent text-white hover:bg-accent/85 border-accent" size="sm" to="/contact" variant="primary">
             Get a Quote
           </ButtonLink>
         </div>
@@ -86,7 +92,7 @@ export function Header() {
 
       <div
         className={cn(
-          'overflow-hidden border-t border-slate-200 transition-[max-height] duration-200 md:hidden',
+          'overflow-hidden border-t border-slate-800 transition-[max-height] duration-200 md:hidden',
           mobileOpen ? 'max-h-[360px]' : 'max-h-0',
         )}
       >
@@ -94,8 +100,8 @@ export function Header() {
           {navigation.map((item) => (
             <Link
               className={cn(
-                'rounded-md px-3 py-2 text-sm text-slate-700 hover:text-slate-900',
-                location.pathname === item.to && 'bg-slate-100 font-semibold text-slate-900',
+                'rounded-md px-3 py-2 text-sm text-slate-200 hover:text-white',
+                location.pathname === item.to && 'bg-slate-800 font-semibold text-white',
               )}
               key={item.to}
               onClick={() => setMobileOpen(false)}
@@ -107,6 +113,7 @@ export function Header() {
 
           <div className="flex flex-wrap gap-2 pt-1">
             <ButtonLink
+              className="border-slate-700 text-white hover:bg-slate-800"
               href={`tel:${site.phone.digits}`}
               onClick={() => setMobileOpen(false)}
               size="sm"
@@ -115,6 +122,7 @@ export function Header() {
               Call us
             </ButtonLink>
             <ButtonLink
+              className="bg-accent text-white border-accent hover:bg-accent/85"
               onClick={() => setMobileOpen(false)}
               size="sm"
               to="/contact"

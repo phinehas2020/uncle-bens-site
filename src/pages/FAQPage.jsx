@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { PageBottomCta } from '../components/PageBottomCta';
 import {
   austinMoverResearchSources,
   faqs,
@@ -11,9 +12,9 @@ export function FAQPage() {
     <>
       <SEO
         canonical="/faq"
-        title="FAQ | Austin Moving Questions"
-        description={`Answers from our moving team plus search-backed tips on selecting packing services, moving companies, and storage solutions for Austin and Central Texas.`}
-        keywords="Austin movers, moving company, packing services, storage solutions, moving FAQ"
+        title="FAQ | Austin TX Movers | Packing, Moving, and Storage Questions"
+        description={`Answers from our moving team plus practical tips from an Austin TX movers perspective. Coverage includes Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway for packing, local moving, and storage solutions.`}
+        keywords="Austin TX Movers, moving FAQ, packing services, storage solutions, local moving"
       />
 
       <section className="section">
@@ -34,6 +35,23 @@ export function FAQPage() {
                 <p className="mt-2 text-sm text-slate-600">{faq.answer}</p>
               </details>
             ))}
+            <details className="rounded-2xl border border-slate-200 p-4 group">
+              <summary className="cursor-pointer text-sm font-semibold text-slate-900">
+                Do you serve neighborhoods outside downtown Austin?
+              </summary>
+              <p className="mt-2 text-sm text-slate-600">
+                Yes. Our team covers Austin metro neighborhoods and nearby communities including Round Rock,
+                Cedar Park, Pflugerville, Lakeway, Leander, and Georgetown.
+              </p>
+            </details>
+            <details className="rounded-2xl border border-slate-200 p-4 group">
+              <summary className="cursor-pointer text-sm font-semibold text-slate-900">
+                How do I combine packing and local moving in one estimate?
+              </summary>
+              <p className="mt-2 text-sm text-slate-600">
+                Start with your full inventory and home constraints. Then ask for one bundled scope review so your team has one quote and one timeline for both services.
+              </p>
+            </details>
           </div>
         </div>
       </section>
@@ -84,6 +102,11 @@ export function FAQPage() {
           </div>
         </div>
       </section>
+
+      <PageBottomCta
+        heading="Need a custom moving plan before you choose?"
+        text="Request your custom quote and get one coordinator helping you through packing, moving, and storage decisions."
+      />
     </>
   );
 }
