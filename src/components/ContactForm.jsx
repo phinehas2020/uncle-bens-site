@@ -71,9 +71,9 @@ export function ContactForm({ endpoint = '' }) {
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Name</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Name</span>
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="name"
             onChange={handleChange}
             placeholder="Your name"
@@ -83,9 +83,9 @@ export function ContactForm({ endpoint = '' }) {
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Phone</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Phone</span>
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="phone"
             onChange={handleChange}
             placeholder="(512) 555-0101"
@@ -97,9 +97,9 @@ export function ContactForm({ endpoint = '' }) {
       </div>
 
       <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Email</span>
+        <span className="mb-1.5 block text-sm font-semibold text-slate-700">Email</span>
         <input
-          className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+          className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
           name="email"
           onChange={handleChange}
           placeholder="you@example.com"
@@ -111,9 +111,9 @@ export function ContactForm({ endpoint = '' }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Move type</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Move type</span>
           <select
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="moveType"
             onChange={handleChange}
             required
@@ -127,9 +127,9 @@ export function ContactForm({ endpoint = '' }) {
           </select>
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Preferred move date</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Preferred move date</span>
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="moveDate"
             onChange={handleChange}
             type="date"
@@ -140,9 +140,9 @@ export function ContactForm({ endpoint = '' }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Moving from</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving from</span>
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="fromCity"
             onChange={handleChange}
             placeholder="Austin, TX"
@@ -151,9 +151,9 @@ export function ContactForm({ endpoint = '' }) {
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">Moving to</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving to</span>
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
             name="toCity"
             onChange={handleChange}
             placeholder="Round Rock, TX"
@@ -164,9 +164,9 @@ export function ContactForm({ endpoint = '' }) {
       </div>
 
       <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-slate-700">What can we help with?</span>
+        <span className="mb-1.5 block text-sm font-semibold text-slate-700">What can we help with?</span>
         <textarea
-          className="min-h-28 w-full rounded-md border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900"
+          className="min-h-32 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
           name="message"
           onChange={handleChange}
           placeholder="Home size, stairs, elevators, and any special items."

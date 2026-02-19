@@ -5,6 +5,7 @@ import { ServiceCard } from '../components/ServiceCard';
 import { ReviewSection } from '../components/ReviewSection';
 import { featuredServices, reviews, yearsInBusiness } from '../data/site';
 import { PageBottomCta } from '../components/PageBottomCta';
+import { motion } from 'framer-motion';
 
 export function HomePage() {
   return (
@@ -20,19 +21,26 @@ export function HomePage() {
       <Hero />
       <TrustStrip />
 
-      <section className="section">
-        <div className="site-container">
-          <div className="max-w-3xl">
-            <p className="subtle-badge">Featured services</p>
-            <h2 className="mt-3 text-3xl font-semibold text-slate-900">Core services for Austin-area moves</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+      <section className="section bg-slate-50 relative isolate overflow-hidden">
+        <div className="absolute top-0 right-0 -m-32 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
+        <div className="site-container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl"
+          >
+            <p className="subtle-badge mb-4">Featured services</p>
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">Core services for <span className="text-accent">Austin-area moves</span></h2>
+            <p className="mt-5 text-lg leading-relaxed text-slate-600">
               From Austin and Round Rock to Cedar Park, Pflugerville, and Lakeway, our teams combine careful handling with clear, timed communication for homes and businesses that need dependable execution.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {featuredServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
+            {featuredServices.map((service, index) => (
+              <ServiceCard key={service.id} service={service} index={index} />
             ))}
           </div>
         </div>
@@ -41,6 +49,7 @@ export function HomePage() {
       <ReviewSection reviews={reviews} />
 
       <PageBottomCta
+
         heading="Need your moving date secured?"
         text="Tell us your route through the Austin area and we will lock the timeline with a practical quote and one clear action plan."
       />
