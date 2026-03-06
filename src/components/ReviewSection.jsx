@@ -2,7 +2,7 @@ import { site } from '../data/site';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
-export function ReviewSection({ heading = 'What customers say', reviews }) {
+export function ReviewSection({ heading = 'People who trusted us with their homes.', reviews }) {
   return (
     <section className="section bg-slate-50 relative overflow-hidden isolate border-t border-slate-200/60">
       <div className="site-container relative z-10">
@@ -14,7 +14,7 @@ export function ReviewSection({ heading = 'What customers say', reviews }) {
         >
           <p className="subtle-badge border-transparent bg-slate-200 text-slate-700">{site.reviewSummary || 'Word of mouth'}</p>
           <h2 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 font-serif">
-            People who trusted us with their homes.
+            {heading}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-slate-600 max-w-2xl text-balance">
             We don't just move boxes, we move families, routines, and lives. We're proud to share what that experience feels like.

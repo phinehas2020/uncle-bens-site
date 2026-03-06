@@ -23,10 +23,12 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
 
-  useEffect(() => {
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
     setMobileOpen(false);
-  }, [location.pathname]);
+  }
 
   useEffect(() => {
     const handleScroll = () => {

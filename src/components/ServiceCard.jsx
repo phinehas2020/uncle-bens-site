@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export function ServiceCard({ service, index = 0 }) {
-  const { title, summary, details, highlights, image, id } = service;
+  const { title, summary, highlights, image } = service;
 
   return (
     <motion.article
