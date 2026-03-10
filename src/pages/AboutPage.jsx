@@ -20,8 +20,9 @@ export function AboutPage() {
       />
 
       <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-start">
-          <div className="max-w-2xl">
+        <div className="site-container">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-start">
+            <div className="max-w-2xl">
             <p className="text-sm text-slate-600">About</p>
             <h1 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">
               A Round Rock moving company that keeps the day orderly.
@@ -77,6 +78,7 @@ export function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </section>
 

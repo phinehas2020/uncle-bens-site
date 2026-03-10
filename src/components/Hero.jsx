@@ -4,9 +4,20 @@ import { site, yearsInBusiness } from '../data/site';
 
 export function Hero() {
   return (
-    <section className="border-b border-slate-200">
-      <div className="site-container grid gap-6 lg:grid-cols-2 lg:gap-0">
-        <div className="flex flex-col justify-center py-6 sm:py-10 lg:py-16 lg:pr-12">
+    <section className="relative flex min-h-[calc(100svh-73px)] items-center border-b border-slate-200">
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          alt="Quality Moving crew loading furniture into a truck"
+          className="h-full w-full object-cover object-center lg:object-right"
+          decoding="async"
+          src="/hero-bg.png"
+        />
+        <div className="absolute inset-0 bg-white/70 lg:hidden"></div>
+        <div className="absolute inset-y-0 left-0 hidden w-full bg-[linear-gradient(75deg,white_45%,transparent_70%)] lg:block"></div>
+      </div>
+
+      <div className="site-container relative z-10 w-full py-12 sm:py-20 lg:py-24">
+        <div className="max-w-xl lg:max-w-2xl">
           <h1 className="text-balance text-[2.75rem] leading-[1.05] text-slate-900 sm:text-5xl lg:text-[3.5rem]">
             Austin &amp; Round Rock Moving Company
           </h1>
@@ -31,16 +42,8 @@ export function Hero() {
             <span>{yearsInBusiness}+ years in business</span>
             <span>TXDMV licensed</span>
             <span>Round Rock, TX</span>
+            <span>Estimates in 24 hrs</span>
           </div>
-        </div>
-
-        <div className="aspect-[16/10] overflow-hidden lg:aspect-auto lg:self-stretch">
-          <img
-            alt="Quality Moving crew loading furniture into a truck"
-            className="h-full w-full object-cover"
-            decoding="async"
-            src="/hero-bg.png"
-          />
         </div>
       </div>
     </section>

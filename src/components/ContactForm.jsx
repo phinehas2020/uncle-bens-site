@@ -6,10 +6,9 @@ const initialFormState = {
   phone: '',
   email: '',
   moveType: 'local-moving',
-  fromCity: '',
-  toCity: '',
+  fromZip: '',
+  toZip: '',
   moveDate: '',
-  message: '',
 };
 
 const moveTypeOptions = [
@@ -136,40 +135,32 @@ export function ContactForm({ endpoint = '' }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving from</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Origin ZIP</span>
           <input
             className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
-            name="fromCity"
+            name="fromZip"
             onChange={handleChange}
-            placeholder="Austin, TX"
+            placeholder="78701"
             required
-            value={formData.fromCity}
+            type="text"
+            pattern="[0-9]{5}"
+            value={formData.fromZip}
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving to</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Destination ZIP</span>
           <input
             className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
-            name="toCity"
+            name="toZip"
             onChange={handleChange}
-            placeholder="Round Rock, TX"
+            placeholder="78664"
             required
-            value={formData.toCity}
+            type="text"
+            pattern="[0-9]{5}"
+            value={formData.toZip}
           />
         </label>
       </div>
-
-      <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-slate-700">What can we help with?</span>
-        <textarea
-          className="min-h-32 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
-          name="message"
-          onChange={handleChange}
-          placeholder="Home size, stairs, elevators, and any special items."
-          required
-          value={formData.message}
-        />
-      </label>
 
       <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
         Send request

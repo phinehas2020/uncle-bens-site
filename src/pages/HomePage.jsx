@@ -5,6 +5,7 @@ import { ReviewSection } from '../components/ReviewSection';
 import { featuredServices, reviews, yearsInBusiness } from '../data/site';
 import { PageBottomCta } from '../components/PageBottomCta';
 import { ButtonLink } from '../components/Button';
+import { FAQ } from '../components/FAQ';
 
 const reasons = [
   {
@@ -92,6 +93,8 @@ export function HomePage() {
       </section>
 
       <ReviewSection reviews={reviews} />
+
+      <FAQ />
 
       <PageBottomCta
         heading="Need help figuring out the move?"
