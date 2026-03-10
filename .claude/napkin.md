@@ -23,6 +23,7 @@
 - Naming CSS classes plainly (wrap, card, split, grid-2) avoids the "design system theater" smell
 
 ## Patterns That Don't Work
+- Hero image as a card (rounded-[2rem] + border + overlay) = AI slot; use restrained radius (rounded-lg) and no border so the photo reads as a photo
 - Radial gradients, SVG grid overlays, pseudo-element decorative layers = instant AI slop detection
 - Card hover lifts (translateY + shadow changes) on every card = template behavior
 - "Kicker" labels (uppercase tracked text before every heading) = repetitive pattern
@@ -46,3 +47,35 @@
 ## Corrections
 | 2026-02-16 | self | Deleted and rewrote `src/data/site.js` before ensuring no duplicate reads in the same edit cycle. | Keep the old file content as baseline only once, then rewrite directly to avoid partial merges. |
 | 2026-02-16 | user | Requested a full site rebuild with specific page list and block components. | Replaced routing and core pages/components rather than patching partial pieces so the requested architecture is coherent. |
+
+## Session Notes (2026-03-02)
+- Semrush skill helper script lives at `/Users/phinehasadams/.codex/skills/semrush-api/scripts/semrush_api.py`, not in this repo.
+- Semrush API key in the skill-local `.env` currently has zero remaining units (`ERROR 132`), so report pulls are blocked.
+- Mistake: Passed `--output` after the `report` subcommand once; top-level flags must come before subcommands in this helper.
+- Setup completed: added `semrush` MCP server registration for this workspace via `claude mcp add semrush https://mcp.semrush.com/v1/mcp -t http`, and added an additional global entry in `~/.claude/mcp.json` to keep the endpoint handy across sessions.
+- Verified again via Semrush MCP tools (`organic_research`, `overview_research`, `keyword_research`): account access is active but API units are insufficient, so all Semrush MCP report calls are currently blocked.
+
+## Session Notes (2026-03-05)
+- Production-readiness check: `npm run build` passes, but `npm run lint` currently fails on unused `motion` imports/props and the `react-hooks/set-state-in-effect` rule in `src/components/Header.jsx`.
+- Route-level SEO tags are duplicated because `index.html` ships default canonical/description/OG tags and pages add another set with `react-helmet-async`; `/quote` ends up with two canonicals and two descriptions.
+- Contact and quote forms silently fall back to demo success mode when `VITE_FORM_ENDPOINT` is unset, so verify deploy-time env vars before treating lead capture as production-ready.
+- `src/pages/AustinTopMoversPage.jsx` and `src/components/AustinTopMoversTeaser.jsx` depend on data exports that do not exist in `src/data/site.js`; the code is currently dead, but wiring that route back in will break.
+- Supabase MCP table inspection failed with `password authentication failed for user "supabase_read_only_user"`, so additive SQL files should assume the current schema could not be verified live.
+
+## Corrections
+| 2026-03-06 | self | Tried to land the visual cleanup as one oversized `apply_patch`, and one drifted hunk blocked the whole patch. | In this repo, split broad UI refactors into smaller file groups or full-file rewrites so dirty working tree changes do not derail the pass. |
+
+## Session Notes (2026-03-10)
+- Hero redesigned from CRO principles: location-specific H1, plain subhead, two CTAs, compact inline trust strip (rating, years, license, location), clean undecorated image.
+- Removed TrustStrip from homepage — trust signals are now in the hero. The old TrustStrip was a separate component duplicating hero content.
+- Added "Why choose us" section directly in HomePage addressing real buyer anxieties: written estimates, own crews not brokers, floor/door protection, clear scheduling.
+- The old hero had 8 content blocks crammed in (subtitle, H1, description, CTAs, quick facts grid, "most people call us for" box, image card, two info boxes). Stripped to 5 focused elements.
+- Image treatment: no border-radius, no border, no background color = photo reads as a photo, not a floating card.
+- User provided detailed CRO brief citing Google Ads docs, NN/g, Stanford credibility, FTC/FMCSA, Unbounce benchmarks, CXL, Portent case studies. Core insight: relevance before cleverness, legitimacy is part of the offer, concrete proof over decorative bravado.
+
+## Session Notes (2026-03-06)
+- What worked for de-slopping this site: light header and footer, sentence-case labels, no glass/backdrop treatment, no card hover lifts, no decorative overlays, and calmer CTA language.
+- Rendering the mobile nav only when `mobileOpen` is true keeps hidden links out of the accessibility tree and avoids weird mobile snapshots.
+- The services page reads better when it shows intros, included items, pairings, and FAQs only; long SEO filler paragraphs made the page feel AI-written even after the visual cleanup.
+- Removed the fake-success fallback in `src/components/ContactForm.jsx`; if `VITE_FORM_ENDPOINT` is missing now, the UI shows an error instead of pretending the lead was captured.
+- Verified after the refactor: `npm run build` and `npm run lint` both pass.

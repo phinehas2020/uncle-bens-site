@@ -38,11 +38,7 @@ export function ContactForm({ endpoint = '' }) {
     setSubmitError('');
 
     if (!formEndpoint) {
-      await new Promise((resolve) => {
-        window.setTimeout(resolve, 350);
-      });
-      setIsSubmitted(true);
-      setFormData(initialFormState);
+      setSubmitError('This form is not connected yet. Please call or email us directly.');
       setIsSubmitting(false);
       return;
     }
@@ -73,7 +69,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Name</span>
           <input
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
             name="name"
             onChange={handleChange}
             placeholder="Your name"
@@ -85,7 +81,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Phone</span>
           <input
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
             name="phone"
             onChange={handleChange}
             placeholder="(512) 555-0101"
@@ -99,7 +95,7 @@ export function ContactForm({ endpoint = '' }) {
       <label className="block">
         <span className="mb-1.5 block text-sm font-semibold text-slate-700">Email</span>
         <input
-          className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
           name="email"
           onChange={handleChange}
           placeholder="you@example.com"
@@ -113,7 +109,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Move type</span>
           <select
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-slate-900"
             name="moveType"
             onChange={handleChange}
             required
@@ -129,7 +125,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Preferred move date</span>
           <input
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-slate-900"
             name="moveDate"
             onChange={handleChange}
             type="date"
@@ -142,7 +138,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving from</span>
           <input
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
             name="fromCity"
             onChange={handleChange}
             placeholder="Austin, TX"
@@ -153,7 +149,7 @@ export function ContactForm({ endpoint = '' }) {
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Moving to</span>
           <input
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
             name="toCity"
             onChange={handleChange}
             placeholder="Round Rock, TX"
@@ -166,7 +162,7 @@ export function ContactForm({ endpoint = '' }) {
       <label className="block">
         <span className="mb-1.5 block text-sm font-semibold text-slate-700">What can we help with?</span>
         <textarea
-          className="min-h-32 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 hover:border-slate-300"
+          className="min-h-32 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
           name="message"
           onChange={handleChange}
           placeholder="Home size, stairs, elevators, and any special items."
@@ -175,14 +171,8 @@ export function ContactForm({ endpoint = '' }) {
         />
       </label>
 
-      <Button
-        className="w-full bg-accent border-accent text-white hover:bg-accent/90"
-        disabled={isSubmitting}
-        size="lg"
-        type="submit"
-        variant="primary"
-      >
-        Lock in your move date
+      <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
+        Send request
       </Button>
 
       {isSubmitted && (

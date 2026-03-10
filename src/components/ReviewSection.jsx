@@ -1,56 +1,40 @@
 import { site } from '../data/site';
-import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
 
 export function ReviewSection({ heading = 'What customers say', reviews }) {
   return (
-    <section className="section bg-slate-50 relative overflow-hidden isolate border-t border-slate-200/60">
-      <div className="site-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-4xl text-center flex flex-col items-center"
-        >
-          <p className="subtle-badge border-transparent bg-slate-200 text-slate-700">{site.reviewSummary || 'Word of mouth'}</p>
-          <h2 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 font-serif">
-            People who trusted us with their homes.
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-slate-600 max-w-2xl text-balance">
-            We don't just move boxes, we move families, routines, and lives. We're proud to share what that experience feels like.
+    <section className="section border-t border-slate-200 bg-white">
+      <div className="site-container grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+        <div className="max-w-md">
+          <p className="text-sm text-slate-600">Reviews</p>
+          <h2 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">{heading}</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">
+            People remember whether the crew showed up steady, protected the house, and made the
+            day easier. That is the part we care about.
           </p>
-        </motion.div>
+          <a
+            className="mt-6 inline-flex items-center text-sm font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+            href={site.socials.googleReviews}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Read Google reviews
+          </a>
+        </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-slate-200">
           {reviews.map((review, index) => (
-            <motion.article
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
-              className="card-soft p-8 bg-white flex flex-col justify-between hover:border-slate-300"
+            <article
+              className={index === 0 ? 'bg-[#faf8f5] p-6 sm:p-8' : 'bg-white p-6 sm:p-8'}
               key={review.name}
             >
-              <div>
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <blockquote className="text-lg leading-relaxed text-slate-800 font-medium tracking-tight">
-                  "{review.quote}"
-                </blockquote>
+              <blockquote className="text-lg leading-relaxed text-slate-900">
+                &ldquo;{review.quote}&rdquo;
+              </blockquote>
+              <div className="mt-6 border-t border-slate-200 pt-4">
+                <p className="text-sm font-medium text-slate-900">{review.name}</p>
+                <p className="mt-1 text-sm text-slate-600">{review.role}</p>
               </div>
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm">
-                  {review.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-900">{review.name}</p>
-                  <p className="text-xs font-medium text-slate-500">{review.role}</p>
-                </div>
-              </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

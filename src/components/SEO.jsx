@@ -1,10 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { site } from '../data/site';
 
-/**
- * SEO component for managing page meta tags
- * Following SEO skill guidelines for structured data and meta optimization
- */
 export function SEO({
   title,
   description,
@@ -21,7 +17,7 @@ export function SEO({
   const fallbackDescription = site.description;
   const metaDescription = description || fallbackDescription;
   const fullTitle = title
-    ? `${title} | ${site.name}`
+    ? (title.includes(site.name) ? title : `${title} | ${site.name}`)
     : `${site.name} | Trusted Central Texas Movers`;
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
   const ogImage = image ? `${siteUrl}${image}` : defaultImage;

@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileStickyCallBar } from './components/MobileStickyCallBar';
 import { AboutPage } from './pages/AboutPage';
+import { AustinTopMoversPage } from './pages/AustinTopMoversPage';
 import { ContactPage } from './pages/ContactPage';
 import { FAQPage } from './pages/FAQPage';
 import { HomePage } from './pages/HomePage';
@@ -32,6 +33,7 @@ export function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/contact" element={<ContactPage />} />

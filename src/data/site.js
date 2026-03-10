@@ -2,7 +2,7 @@ export const site = {
   name: 'Quality Moving & Storage',
   shortName: 'Quality Moving',
   tagline:
-    'Careful, transparent moving for Austin and Central Texas homes and businesses.',
+    'Moving, packing, and storage for Austin, Round Rock, and nearby Central Texas homes and businesses.',
   description:
     'A Round Rock moving company helping Austin, Round Rock, and Central Texas customers with home moves, packing, storage, and local or long-distance support.',
   domain: 'https://qualitymoving.com',
@@ -73,23 +73,23 @@ export const navigation = [
   { to: '/services', label: 'Services' },
   { to: '/about', label: 'About' },
   { to: '/faq', label: 'FAQ' },
-  { to: '/contact', label: 'Contact / Quote' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export const heroStats = [
-  { value: `${yearsInBusiness}+`, label: 'Years serving Central Texas' },
+  { value: `${yearsInBusiness}+`, label: 'Years in business' },
   { value: '15,000+', label: 'Moves completed' },
-  { value: '4.9/5', label: 'Average review rating' },
-  { value: 'Mon–Sat', label: 'Service availability' },
+  { value: '4.9/5', label: 'Average rating' },
+  { value: 'Mon–Sat', label: 'Open Monday through Saturday' },
 ];
 
 export const services = [
   {
     id: 'local-moving',
     title: 'Local Moving',
-    summary: 'Home moves across Austin, Round Rock, and nearby cities with careful crews.',
+    summary: 'Home and apartment moves across Austin, Round Rock, and nearby cities.',
     details:
-      'Doorway guards, floor protection, and precise furniture placement keep your home organized and protected.',
+      'Doorway guards, floor protection, and careful furniture placement keep the house in good shape.',
     highlights: [
       'Clear arrival windows',
       'In-home protection for flooring and doorways',
@@ -105,7 +105,7 @@ export const services = [
     summary:
       'Office and retail moves built around your business operations and work-hour constraints.',
     details:
-      'We coordinate with supervisors, label assets by department, and set practical start/stop checkpoints.',
+      'We coordinate with supervisors, label assets by department, and keep the sequence clear.',
     highlights: [
       'Department-by-department planning',
       'IT and workstation coordination',
@@ -120,7 +120,7 @@ export const services = [
     title: 'Packing Services',
     summary: 'Full packing, partial packing, or fragile-only packing tailored to your move.',
     details:
-      'We use quality materials, room labels, and inventory notes so unpacking is straightforward.',
+      'We use sturdy materials and room labels so unpacking is less chaotic.',
     highlights: [
       'Full-home or partial packing',
       'Fragile kitchen, art, and electronics packing',
@@ -134,7 +134,7 @@ export const services = [
     title: 'Long-Distance Moving',
     summary: 'Cross-state and interstate moves with one point of contact from start to delivery.',
     details:
-      'You receive written timelines, proactive updates, and route-aware planning for stairs and loading access.',
+      'You get a written timeline, regular updates, and planning around access at both ends.',
     highlights: [
       'Single point of contact',
       'Scheduled communication checkpoints',
@@ -148,7 +148,7 @@ export const services = [
     title: 'Storage Solutions',
     summary: 'Short-term and long-term storage when move-in dates shift or spaces are tight.',
     details:
-      'Items are wrapped, logged, and monitored so retrieval is easy when your timeline changes.',
+      'Items are wrapped, logged, and easy to retrieve when your timeline changes.',
     highlights: [
       'Monitored climate-conscious facilities',
       'Item tracking and labeling',
@@ -169,7 +169,7 @@ export const serviceDetails = [
     id: 'local-moving',
     title: 'Local Moving in Austin',
     intro:
-      'Precision moving for homes and apartments across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway with dependable timing and complete communication.',
+      'Local moves for homes and apartments across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway.',
     details: [
       'In the Austin metro, local move logistics are heavily influenced by timing and access. We do not use one-size-fits-all plans for every job. The first part of our process is an in-person or virtual walkthrough where we measure stair access, verify parking options, and confirm elevator availability before we ever move a box.',
       'When you work with our local moving team, you get transparent sequencing from first call to final placement. We lock your move date, assign your crew early, and confirm exact arrival windows again 24 hours before show time so your home and schedule stay protected. That is how we keep neighbors and neighborhoods from being disrupted by avoidable confusion.',
@@ -196,7 +196,7 @@ export const serviceDetails = [
     id: 'packing',
     title: 'Packing Services for Austin Homes',
     intro:
-      'Custom packing support for full transitions, partial room support, or fragile-only runs across the Austin metro and surrounding ZIPs.',
+      'Full packing, partial packing, or fragile-only help for Austin-area homes.',
     details: [
       'Packing quality is usually the single biggest predictor of move-day speed. At Quality Moving & Storage, our team starts with a move map: which rooms are packed first, what must be packed only by hand, and which items can be staged separately for easy transport.',
       'Our packing services include high-density boxes, wardrobe and dish packing strategies, protective bubble wraps, corner guards, and crate options for legacy furniture. In neighborhoods like Cedar Park and Pflugerville, we see seasonal timing, weekend constraints, and family schedules vary widely, so we tailor the workflow around your calendar instead of forcing one standard method.',
@@ -223,7 +223,7 @@ export const serviceDetails = [
     id: 'long-distance',
     title: 'Long-Distance Moving',
     intro:
-      'Interstate planning, paperwork coordination, and destination handoff support for moves beyond the Austin area.',
+      'Cross-state and interstate moves with one coordinator from pickup to delivery.',
     details: [
       'A long-distance move can create uncertainty around timing, documentation, and arrival confirmation. We remove that by creating a written move timeline with clear responsibility checkpoints. Each stage includes who is handling route updates, who monitors delivery milestones, and how disputes are resolved.',
       'Your move starts with a detailed scope review. We document stair access, equipment constraints, special handling requirements, and whether your move includes sensitive systems like instruments, antique furniture, or home office electronics. For cross-border or multi-state routes, we also flag permit and parking variables early so you are not waiting at the truck for missing documents.',
@@ -250,7 +250,7 @@ export const serviceDetails = [
     id: 'storage',
     title: 'Storage Solutions in Austin Area',
     intro:
-      'Secure short-term and long-term storage with pickup flexibility for renovation, job transitions, and delayed close dates.',
+      'Short-term and long-term storage for delayed closings, renovations, and move-in gaps.',
     details: [
       'Storage should support your move, not replace planning. Our storage solutions are built for practical use cases like delayed home access, renovation delays, and estate cleanout transitions. We keep your move active while your living space waits.',
       'Each unit run is logged with item-level notes and retrieval tags so you can request staged pickups without relearning where every box was packed. Families using our storage from Austin or Lakeway often appreciate the clarity: they can move in phases while construction or rental timing is finalized.',

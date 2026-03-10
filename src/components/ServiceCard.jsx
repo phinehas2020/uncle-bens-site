@@ -1,21 +1,15 @@
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
-export function ServiceCard({ service, index = 0 }) {
-  const { title, summary, details, highlights, image, id } = service;
+export function ServiceCard({ service }) {
+  const { title, summary, highlights, image, id } = service;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
-      className="card-soft overflow-hidden group flex flex-col h-full bg-white hover:border-slate-300"
-    >
-      <div className="relative aspect-[16/9] sm:aspect-[4/3] overflow-hidden bg-slate-100 border-b border-slate-100">
+    <article className="card-soft flex h-full flex-col">
+      <div className="relative aspect-[16/9] overflow-hidden border-b border-slate-200 bg-slate-100">
         <img
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          className="h-full w-full object-cover"
           height="800"
           loading="lazy"
           src={image}
@@ -23,32 +17,32 @@ export function ServiceCard({ service, index = 0 }) {
         />
       </div>
 
-      <div className="flex flex-col flex-1 p-8 pb-10 space-y-5 bg-white relative z-20">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div>
-          <h3 className="text-2xl font-bold font-serif text-slate-900 group-hover:text-accent transition-colors">
+          <div className="h-1 w-12 rounded-full bg-accent/75" />
+          <h3 className="mt-4 font-sans text-[1.75rem] font-semibold tracking-tight text-slate-900">
             {title}
           </h3>
-          <p className="mt-4 text-base leading-relaxed text-slate-600">
-            {summary}
-          </p>
+          <p className="mt-3 text-base leading-relaxed text-slate-700">{summary}</p>
         </div>
 
-        <ul className="grid gap-3.5 flex-1 mt-6">
-          {highlights.map((highlight) => (
-            <li className="flex items-start gap-3.5 text-sm text-slate-600" key={highlight}>
-              <div className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-accent/60" />
+        <ul className="mt-6 grid gap-2.5 text-sm text-slate-700">
+          {highlights.slice(0, 3).map((highlight) => (
+            <li className="flex items-start gap-3" key={highlight}>
+              <div className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" />
               <span className="leading-snug">{highlight}</span>
             </li>
           ))}
         </ul>
 
-        <div className="pt-8 mt-auto flex items-center justify-between">
-          <span className="text-[0.9rem] font-bold tracking-wide uppercase text-slate-900 group-hover:text-accent transition-colors">Learn more</span>
-          <div className="w-8 h-8 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:border-accent group-hover:bg-accent transition-colors">
-            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-          </div>
-        </div>
+        <Link
+          className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900 hover:text-accent"
+          to={`/services#${id}`}
+        >
+          See service details
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
-    </motion.article>
+    </article>
   );
 }

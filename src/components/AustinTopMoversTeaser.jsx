@@ -1,41 +1,42 @@
 import { ButtonLink } from './Button';
-import { austinTopMovers } from '../data/site';
+import { austinTopMovers } from '../data/austinTopMovers';
 
 export function AustinTopMoversTeaser() {
   const topThree = austinTopMovers.slice(0, 3);
 
   return (
-    <section className="section-gap-sm">
-      <div className="wrap">
-        <div className="split items-center">
-          <div className="space-y-3">
-            <h2 className="heading-lg">Top-rated Austin movers</h2>
-            <p className="body-lg">
-              We track rankings so you can compare before committing.
-              Here are the top 3 from recent data.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-1">
-              <ButtonLink size="md" to="/austin-top-movers" variant="primary">
-                See full rankings
-              </ButtonLink>
-              <ButtonLink size="md" to="/quote" variant="secondary">
-                Get a quote
-              </ButtonLink>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {topThree.map((mover) => (
-              <div className="card p-4" key={mover.name}>
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="text-base font-semibold text-text">
-                    #{mover.rank} {mover.name}
-                  </h3>
-                  <span className="text-sm tabular-nums text-text-muted">{mover.score}/10</span>
-                </div>
-                <p className="mt-1 text-sm text-text-secondary">{mover.note}</p>
+    <section className="section">
+      <div className="site-container">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-8">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div>
+              <p className="text-sm text-slate-600">Austin mover guide</p>
+              <h2 className="mt-4 text-3xl text-slate-900">
+                Researching Austin movers?
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+                We pulled together a public shortlist, pricing context, and quote checklist so you
+                can compare movers with more confidence before you book.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <ButtonLink size="md" to="/austin-top-movers">
+                  See the full shortlist
+                </ButtonLink>
+                <ButtonLink size="md" to="/quote" variant="secondary">
+                  Request an estimate
+                </ButtonLink>
               </div>
-            ))}
+            </div>
+
+            <div className="grid gap-3">
+              {topThree.map((mover) => (
+                <div className="rounded-2xl border border-slate-200 p-4" key={mover.name}>
+                  <p className="text-sm text-slate-600">{mover.snapshot}</p>
+                  <h3 className="mt-2 text-lg font-semibold text-slate-900">{mover.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{mover.summary}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
