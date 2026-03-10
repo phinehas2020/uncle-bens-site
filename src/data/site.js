@@ -127,7 +127,7 @@ export const services = [
       'Clear room-by-room labeling',
       'Custom crating when needed',
     ],
-    image: '/packing.png',
+    image: '/packing-service.png',
   },
   {
     id: 'long-distance',
@@ -155,8 +155,7 @@ export const services = [
       'Flexible retrieval dates',
       'Bridge storage for renovations',
     ],
-    image:
-      'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80',
+    image: '/storage-service.png',
   },
 ];
 
