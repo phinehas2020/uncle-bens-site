@@ -7,5 +7,6 @@ Allow: /
 # Sitemap
 Sitemap: https://qualitymoving.com/sitemap.xml
 
-# Disallow admin/private areas (none currently)
-# Disallow: /admin/
+# Disallow admin/private areas
+Disallow: /admin/
+Disallow: /admin

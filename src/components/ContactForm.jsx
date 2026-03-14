@@ -20,8 +20,10 @@ const moveTypeOptions = [
   { value: 'other', label: 'Other' },
 ];
 
+const SUPABASE_ENDPOINT = 'https://bfxemhxuwmfdbmbwegjz.supabase.co/functions/v1/submit-lead';
+
 export function ContactForm({ endpoint = '' }) {
-  const formEndpoint = endpoint || import.meta.env.VITE_FORM_ENDPOINT;
+  const formEndpoint = endpoint || import.meta.env.VITE_FORM_ENDPOINT || SUPABASE_ENDPOINT;
   const [formData, setFormData] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
