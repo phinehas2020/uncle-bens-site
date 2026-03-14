@@ -25,7 +25,7 @@ export function ContactPage({ variant = 'contact' } = {}) {
   return (
     <>
       <SEO
-        canonical={isQuote ? '/quote' : '/contact'}
+        canonical="/contact"
         title={pageTitle}
         description={pageDescription}
         keywords="Austin TX Movers, contact, moving company, packing services, storage solutions"

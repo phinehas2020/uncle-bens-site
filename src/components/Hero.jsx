@@ -11,6 +11,7 @@ export function Hero() {
           alt="Quality Moving crew loading furniture into a truck"
           className="h-full w-full object-cover object-center opacity-30 mix-blend-luminosity lg:object-right"
           decoding="async"
+          fetchpriority="high"
           src="/hero-bg.png"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/50 to-transparent"></div>

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { AustinTopMoversTeaser } from '../components/AustinTopMoversTeaser';
 import { PageBottomCta } from '../components/PageBottomCta';
 import { SEO } from '../components/SEO';
@@ -8,6 +9,33 @@ import {
   site,
 } from '../data/site';
 
+const allFaqItems = [
+  ...faqs,
+  {
+    question: 'Do you serve neighborhoods outside downtown Austin?',
+    answer:
+      'Yes. Our team covers Austin metro neighborhoods and nearby communities including Round Rock, Cedar Park, Pflugerville, Lakeway, Leander, and Georgetown.',
+  },
+  {
+    question: 'Can packing and moving be quoted together?',
+    answer:
+      'Yes. If you want one timeline and one estimate, tell us early that packing should be included so we can scope it with the move instead of pricing it separately later.',
+  },
+];
+
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: allFaqItems.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+
 export function FAQPage() {
   return (
     <>
@@ -17,6 +45,9 @@ export function FAQPage() {
         description="Answers from our moving team plus practical tips from an Austin TX movers perspective. Coverage includes Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway for packing, local moving, and storage solutions."
         keywords="Austin TX Movers, moving FAQ, packing services, storage solutions, local moving"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqPageSchema)}</script>
+      </Helmet>
 
       <section className="section">
         <div className="site-container">

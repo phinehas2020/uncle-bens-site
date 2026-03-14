@@ -61,6 +61,18 @@ export function SEO({
     },
   };
 
+  localBusinessSchema.hasOfferCatalog = {
+    '@type': 'OfferCatalog',
+    name: 'Moving Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Local Moving' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Long-Distance Moving' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Packing Services' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Storage Solutions' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Commercial Relocation' } },
+    ],
+  };
+
   const sameAsLinks = Object.values(site.socials || {}).filter(Boolean);
   if (sameAsLinks.length) {
     localBusinessSchema.sameAs = sameAsLinks;

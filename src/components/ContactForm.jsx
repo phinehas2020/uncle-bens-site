@@ -9,6 +9,7 @@ const initialFormState = {
   fromZip: '',
   toZip: '',
   moveDate: '',
+  notes: '',
 };
 
 const moveTypeOptions = [
@@ -162,18 +163,30 @@ export function ContactForm({ endpoint = '' }) {
         </label>
       </div>
 
+      <label className="block">
+        <span className="mb-1.5 block text-sm font-semibold text-slate-700">Notes</span>
+        <textarea
+          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
+          name="notes"
+          onChange={handleChange}
+          placeholder="Stairs, pianos, storage needs, anything unusual about the move..."
+          rows={4}
+          value={formData.notes}
+        />
+      </label>
+
       <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
-        Send request
+        {isSubmitting ? 'Sending...' : 'Send request'}
       </Button>
 
       {isSubmitted && (
-        <p className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+        <p className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700" role="status">
           Thanks — we received your request and will contact you soon.
         </p>
       )}
 
       {submitError && (
-        <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
           {submitError}
         </p>
       )}

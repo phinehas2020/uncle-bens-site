@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { ButtonLink } from '../components/Button';
 import { PageBottomCta } from '../components/PageBottomCta';
 import { SEO } from '../components/SEO';
@@ -39,7 +40,9 @@ export function AustinTopMoversPage() {
         }}
       />
 
-      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
 
       <section className="section">
         <div className="site-container">
