@@ -1,36 +1,75 @@
 import { Link } from 'react-router-dom';
-import { Clock, Mail, MapPin, Truck } from 'lucide-react';
-import { navigation, site } from '../data/site';
-import { ButtonLink } from './Button';
+import { navigation, publicContact, site } from '../data/site';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="border-t border-slate-200 bg-white text-slate-700">
-      <div className="site-container py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.7fr_0.9fr]">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-[#faf8f5] text-accent">
-                <Truck className="h-5 w-5" />
-              </div>
-              <span className="text-xl font-semibold text-slate-900">{site.name}</span>
-            </div>
-            <p className="max-w-md text-base leading-relaxed text-slate-600">{site.tagline}</p>
-            <div>
-              <ButtonLink href={`tel:${site.phone.digits}`} size="sm" variant="secondary">
+      <div className="site-container py-12 sm:py-14">
+        <div className="grid gap-6 border-b border-slate-200 pb-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-xl">
+            <p className="text-2xl font-semibold tracking-[-0.03em] text-slate-900">{site.displayName}</p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">{site.tagline}</p>
+          </div>
+
+          <div className="flex flex-col items-start gap-2 lg:items-end">
+            {publicContact.hasPhone ? (
+              <a className="text-lg font-semibold text-slate-900 hover:text-accent" href={publicContact.phoneHref}>
                 {site.phone.display}
-              </ButtonLink>
+              </a>
+            ) : (
+              <Link className="text-lg font-semibold text-slate-900 hover:text-accent" to="/contact">
+                Talk through your move
+              </Link>
+            )}
+            <Link
+              className="text-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-900"
+              to="/quote"
+            >
+              Start a written estimate
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.7fr_0.8fr]">
+          <div>
+            <div className="mt-5 grid gap-1 text-sm text-slate-600">
+              {publicContact.hasPhone ? (
+                <a className="font-semibold text-slate-900 hover:text-accent" href={publicContact.phoneHref}>
+                  {site.phone.display}
+                </a>
+              ) : (
+                <Link className="font-semibold text-slate-900 hover:text-accent" to="/contact">
+                  Use the contact page
+                </Link>
+              )}
+              {publicContact.hasEmail ? (
+                <a className="hover:text-slate-900" href={publicContact.emailHref}>
+                  {site.email}
+                </a>
+              ) : (
+                <p>{site.officeLabel}</p>
+              )}
+              {site.address ? (
+                <>
+                  <p>{site.address.street}</p>
+                  <p>
+                    {site.address.city}, {site.address.region} {site.address.postalCode}
+                  </p>
+                </>
+              ) : (
+                <p>Austin, Round Rock, and nearby Central Texas cities.</p>
+              )}
             </div>
           </div>
 
-          <div className="space-y-6">
-            <p className="text-sm font-medium text-slate-600">Navigation</p>
-            <ul className="space-y-3 font-medium text-slate-600">
+          <div>
+            <p className="text-sm font-semibold text-slate-900">Pages</p>
+            <ul className="mt-4 grid gap-2 text-sm text-slate-600">
               {navigation.map((item) => (
                 <li key={item.to}>
-                  <Link className="transition-colors hover:text-slate-900" to={item.to}>
+                  <Link className="hover:text-slate-900" to={item.to}>
                     {item.label}
                   </Link>
                 </li>
@@ -38,37 +77,24 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-6">
-            <p className="text-sm font-medium text-slate-600">Contact</p>
-            <div className="space-y-4 text-sm text-slate-600">
-              <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <address className="not-italic">
-                  {site.address.street}
-                  <br />
-                  {site.address.city}, {site.address.region} {site.address.postalCode}
-                </address>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 shrink-0 text-accent" />
-                <a className="transition-colors hover:text-slate-900" href={`mailto:${site.email}`}>
-                  {site.email}
-                </a>
-              </div>
-              <div className="flex items-start gap-3">
-                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                <p>{site.hours.summary}</p>
-              </div>
+          <div>
+            <p className="text-sm font-semibold text-slate-900">Office notes</p>
+            <div className="mt-4 grid gap-2 text-sm text-slate-600">
+              <p>{site.hours.summary}</p>
+              <p>{site.complianceNote}</p>
+              <p>Service area: Austin, Round Rock, Cedar Park, Georgetown, Leander, and nearby Central Texas cities.</p>
+              <Link
+                className="mt-2 inline-flex w-fit text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                to="/quote"
+              >
+                Request a written estimate
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {currentYear} {site.name}. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <span>{site.license}</span>
-            <span>TxDMV: {site.tdmvPhone}</span>
-          </div>
+        <div className="mt-10 border-t border-slate-200 pt-5 text-sm text-slate-500">
+          <p>&copy; {currentYear} {site.copyrightLabel}</p>
         </div>
       </div>
     </footer>

@@ -48,18 +48,6 @@ export function AdminPage() {
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    checkAuth();
-    fetchLeads();
-  }, []);
-
-  async function checkAuth() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate('/admin/login');
-    }
-  }
-
   async function fetchLeads() {
     setLoading(true);
     const { data, error } = await supabase
@@ -72,6 +60,28 @@ export function AdminPage() {
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    let active = true;
+
+    async function initialize() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/admin/login');
+        return;
+      }
+
+      if (active) {
+        await fetchLeads();
+      }
+    }
+
+    void initialize();
+
+    return () => {
+      active = false;
+    };
+  }, [navigate]);
 
   async function updateStatus(id, status) {
     await supabase.from('leads').update({ status }).eq('id', id);

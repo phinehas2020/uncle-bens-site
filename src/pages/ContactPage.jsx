@@ -1,23 +1,39 @@
 import { ContactForm } from '../components/ContactForm';
-import { PageBottomCta } from '../components/PageBottomCta';
 import { SEO } from '../components/SEO';
-import { site } from '../data/site';
+import { publicContact, site } from '../data/site';
+
+const estimateChecklist = [
+  'Pickup and delivery addresses',
+  'Move date or date range',
+  'Home size, stairs, elevators, or long carries',
+  'Packing, storage, and specialty-item needs',
+];
+
+const contactChecklist = [
+  'Your service area or destination city',
+  'Whether you need a quote, a schedule answer, or help with packing or storage',
+  'The best phone number or email for a reply',
+];
 
 export function ContactPage({ variant = 'contact' } = {}) {
   const contactInfo = [
-    { label: 'Phone', value: site.phone.display, href: `tel:${site.phone.digits}` },
-    { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+    ...(publicContact.hasPhone
+      ? [{ label: 'Phone', value: site.phone.display, href: publicContact.phoneHref }]
+      : [{ label: 'Call path', value: 'Use the form below and we can route you to the right next step.' }]),
+    ...(publicContact.hasEmail
+      ? [{ label: 'Email', value: site.email, href: publicContact.emailHref }]
+      : []),
     { label: 'Hours', value: site.hours.summary },
-    {
-      label: 'Address',
-      value: `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`,
-    },
+    site.address
+      ? {
+          label: 'Office',
+          value: `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`,
+        }
+      : { label: 'Office', value: `${site.officeLabel} serving Austin and nearby Central Texas cities.` },
   ];
 
   const isQuote = variant === 'quote';
-  const pageTitle = isQuote
-    ? 'Request an Estimate | Austin TX Movers | Quality Moving & Storage'
-    : 'Contact Us | Austin TX Movers | Quality Moving & Storage';
+  const pageTitle = isQuote ? 'Request an Estimate' : 'Contact Us';
   const pageDescription = isQuote
     ? 'Request a written estimate for local moving, long-distance moving, packing, or storage in Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway.'
     : 'Contact our Austin-area moving team about local moving, long-distance moving, packing, and storage services.';
@@ -25,63 +41,65 @@ export function ContactPage({ variant = 'contact' } = {}) {
   return (
     <>
       <SEO
-        canonical="/contact"
+        canonical={isQuote ? '/quote' : '/contact'}
         title={pageTitle}
         description={pageDescription}
-        keywords="Austin TX Movers, contact, moving company, packing services, storage solutions"
+        keywords="contact, moving company, packing services, storage solutions"
       />
 
       <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div className="site-container grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
           <div className="max-w-md">
-            <p className="text-sm text-slate-600">{isQuote ? 'Estimate' : 'Contact'}</p>
-            <h1 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">
-              {isQuote ? 'Request an estimate' : 'Get in touch'}
+            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
+              {isQuote ? 'Request a written estimate.' : 'Send the basics or talk it through.'}
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-slate-700">
-              Tell us the route, the size of the move, and anything unusual like stairs, elevators,
-              pianos, or storage timing. We will follow up with next steps and pricing details.
+            <p className="mt-5 text-base leading-relaxed text-slate-700">
+              {isQuote
+                ? 'The more detail you send up front, the easier it is to quote the move accurately.'
+                : 'Tell us the route, the timeline, and anything unusual about access or handling, and we will point you to the right next step.'}
             </p>
 
-            <div className="mt-8 grid gap-px overflow-hidden rounded-[1.5rem] bg-slate-200">
+            <div className="mt-8 border-t border-slate-200">
               {contactInfo.map((item) => (
-                <div className="bg-white p-4" key={item.label}>
-                  <p className="text-sm font-medium text-slate-600">{item.label}</p>
+                <div className="grid gap-2 border-b border-slate-200 py-4 sm:grid-cols-[90px_1fr]" key={item.label}>
+                  <p className="text-sm font-semibold text-slate-900">{item.label}</p>
                   {item.href ? (
-                    <a className="mt-1 block text-base text-slate-900 hover:text-accent" href={item.href}>
+                    <a className="text-sm leading-relaxed text-slate-700 hover:text-accent" href={item.href}>
                       {item.value}
                     </a>
                   ) : (
-                    <p className="mt-1 text-base text-slate-900">{item.value}</p>
+                    <p className="text-sm leading-relaxed text-slate-700">{item.value}</p>
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 rounded-[1.5rem] border border-slate-200 bg-[#faf8f5] p-4">
-              <p className="text-sm font-medium text-slate-600">Service areas</p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {site.serviceAreas.join(', ')}
+            <div className="mt-8">
+              <p className="text-sm font-semibold text-slate-900">
+                {isQuote ? 'Helpful details to include' : 'Helpful details for a fast reply'}
               </p>
+              <ul className="mt-4 grid gap-2 text-sm leading-relaxed text-slate-700">
+                {(isQuote ? estimateChecklist : contactChecklist).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 sm:p-8">
-            <h2 className="text-2xl text-slate-900">Tell us about the move</h2>
+          <div className="border-t border-slate-200 pt-6 lg:pt-0 lg:pl-8">
+            <h2 className="text-2xl text-slate-900">
+              {isQuote ? 'Tell us about the move' : 'Tell us what you need help with'}
+            </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-              The more detail you share here, the more accurate the estimate will be.
+              If you are still sorting out the plan, send what you know. Missing details can be
+              filled in after the first conversation.
             </p>
             <div className="mt-6">
-              <ContactForm />
+              <ContactForm variant={isQuote ? 'quote' : 'contact'} />
             </div>
           </div>
         </div>
       </section>
-
-      <PageBottomCta
-        heading={isQuote ? 'Want to talk it through first?' : 'Need an estimate this week?'}
-        text="Call or send the form. We will help you sort out timing, packing, storage, and anything else that could affect the move."
-      />
     </>
   );
 }

@@ -16,7 +16,7 @@ export function Services() {
           {services.slice(0, 6).map((service) => (
             <article className="card overflow-hidden" key={service.id}>
               <img
-                alt={service.title}
+                alt={service.imageAlt ?? service.title}
                 className="h-44 w-full object-cover"
                 height="800"
                 loading="lazy"

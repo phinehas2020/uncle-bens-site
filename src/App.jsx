@@ -33,30 +33,41 @@ function ScrollToTop() {
   return null;
 }
 
+function AppLayout() {
+  const { pathname } = useLocation();
+  const hideSticky = pathname.startsWith('/admin');
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main
+        className={`flex-1 md:pb-0 ${hideSticky ? '' : 'pb-[5rem]'}`}
+        id="main-content"
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/quote" element={<QuotePage />} />
+          <Route path="/admin/login" element={<Suspense fallback={null}><AdminLoginPage /></Suspense>} />
+          <Route path="/admin" element={<Suspense fallback={null}><AdminPage /></Suspense>} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+      <Footer />
+      {hideSticky ? null : <MobileStickyCallBar />}
+    </div>
+  );
+}
+
 export function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main id="main-content" className="flex-1">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/faq" element={<FAQPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/quote" element={<QuotePage />} />
-              <Route path="/admin/login" element={<Suspense fallback={null}><AdminLoginPage /></Suspense>} />
-              <Route path="/admin" element={<Suspense fallback={null}><AdminPage /></Suspense>} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-          <Footer />
-          <MobileStickyCallBar />
-        </div>
+        <AppLayout />
       </BrowserRouter>
     </HelmetProvider>
   );

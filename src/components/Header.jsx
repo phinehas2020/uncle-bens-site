@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Truck } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { navigation, site } from '../data/site';
-import { ButtonLink } from './Button';
+import { navigation, publicContact, site } from '../data/site';
 
 function MenuIcon({ open }) {
   return (
@@ -25,7 +24,7 @@ export function Header() {
   const closeMenu = () => setMobileOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
+    <header className="border-b border-slate-200 bg-white">
       <a
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
         href="#main-content"
@@ -33,97 +32,142 @@ export function Header() {
         Skip to main content
       </a>
 
-      <div className="site-container flex items-center justify-between gap-4 py-4">
-        <Link className="group inline-flex items-center gap-3 leading-tight" onClick={closeMenu} to="/">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-[#faf8f5] text-accent transition-colors group-hover:border-slate-300">
-            <Truck className="h-5 w-5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-semibold text-slate-900">{site.name}</span>
-            <span className="text-sm text-slate-600">Round Rock, Texas</span>
-          </div>
-        </Link>
+      <div className="site-container py-4 lg:py-5">
+        <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <div className="flex items-start justify-between gap-4">
+            <Link
+              className="group inline-flex max-w-xl items-start gap-3 leading-tight"
+              onClick={closeMenu}
+              to="/"
+            >
+              <Truck className="mt-1 h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-hover:translate-x-0.5" />
+              <div className="min-w-0">
+                <div className="text-xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-[1.35rem]">
+                  {site.displayName}
+                </div>
+                <div className="mt-1 text-sm leading-relaxed text-slate-600">
+                  {site.officeLabel}. Austin-area moving, packing, storage, and long-distance work.
+                </div>
+              </div>
+            </Link>
 
-        <nav className="hidden md:flex">
-          <ul className="flex items-center gap-6">
-            {navigation.map((item) => (
-              <li key={item.to}>
-                <Link
-                  className={cn(
-                    'text-sm font-medium transition-colors',
-                    location.pathname === item.to
-                      ? 'text-slate-900 underline decoration-accent underline-offset-8'
-                      : 'text-slate-600 hover:text-slate-900',
-                  )}
-                  onClick={closeMenu}
-                  to={item.to}
+            <button
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 transition-colors hover:border-slate-900 md:hidden"
+              onClick={() => setMobileOpen((open) => !open)}
+              type="button"
+            >
+              <MenuIcon open={mobileOpen} />
+            </button>
+          </div>
+
+          <div className="hidden md:flex md:flex-col md:items-end md:gap-3 xl:flex-row xl:items-center xl:gap-8">
+            <nav aria-label="Primary" className="min-w-0">
+              <ul className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
+                {navigation.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      className={cn(
+                        'transition-colors',
+                        location.pathname === item.to
+                          ? 'font-semibold text-slate-900'
+                          : 'text-slate-600 hover:text-slate-900',
+                      )}
+                      onClick={closeMenu}
+                      to={item.to}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="flex flex-col items-end text-right">
+              {publicContact.hasPhone ? (
+                <a
+                  className="text-base font-semibold text-slate-900 transition-colors hover:text-accent"
+                  href={publicContact.phoneHref}
                 >
-                  {item.label}
+                  {site.phone.display}
+                </a>
+              ) : (
+                <Link
+                  className="text-base font-semibold text-slate-900 transition-colors hover:text-accent"
+                  to="/contact"
+                >
+                  Talk through your move
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
-            href={`tel:${site.phone.digits}`}
-          >
-            {site.phone.display}
-          </a>
-          <ButtonLink size="sm" to="/contact" variant="primary">
-            Request an estimate
-          </ButtonLink>
-        </div>
-
-        <button
-          aria-expanded={mobileOpen}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition-colors hover:border-slate-300 md:hidden"
-          onClick={() => setMobileOpen((open) => !open)}
-          type="button"
-        >
-          <MenuIcon open={mobileOpen} />
-        </button>
-      </div>
-
-      {mobileOpen ? (
-        <div className="absolute left-0 right-0 top-full border-b border-slate-200 bg-white md:hidden">
-          <div className="site-container flex flex-col gap-2 py-5">
-            {navigation.map((item) => (
+              )}
               <Link
-                className={cn(
-                  'rounded-xl px-4 py-3 text-base font-medium transition-colors',
-                  location.pathname === item.to
-                    ? 'bg-[#faf8f5] text-slate-900'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900',
-                )}
-                key={item.to}
-                onClick={closeMenu}
-                to={item.to}
+                className="mt-1 text-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-900"
+                to="/quote"
               >
-                {item.label}
+                Start a written estimate
               </Link>
-            ))}
-
-            <div className="mt-2 flex flex-col gap-3 border-t border-slate-200 pt-4">
-              <ButtonLink onClick={closeMenu} size="md" to="/contact" variant="primary">
-                Request an estimate
-              </ButtonLink>
-              <ButtonLink
-                className="justify-center"
-                href={`tel:${site.phone.digits}`}
-                onClick={closeMenu}
-                size="md"
-                variant="secondary"
-              >
-                Call {site.phone.display}
-              </ButtonLink>
             </div>
           </div>
         </div>
-      ) : null}
+
+        {mobileOpen ? (
+          <div className="mt-5 border-t border-slate-200 pt-5 md:hidden">
+            <nav aria-label="Mobile primary">
+              <ul className="grid gap-3 text-base">
+                {navigation.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      className={cn(
+                        'block',
+                        location.pathname === item.to
+                          ? 'font-semibold text-slate-900'
+                          : 'text-slate-600',
+                      )}
+                      onClick={closeMenu}
+                      to={item.to}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="mt-5 border-t border-slate-200 pt-4 text-sm">
+              <p className="text-slate-600">
+                {site.officeLabel} • {site.hours.summary}
+              </p>
+
+              <div className="mt-4 flex flex-col gap-2">
+                {publicContact.hasPhone ? (
+                  <a
+                    className="font-semibold text-slate-900"
+                    href={publicContact.phoneHref}
+                    onClick={closeMenu}
+                  >
+                    Call {site.phone.display}
+                  </a>
+                ) : (
+                  <Link
+                    className="font-semibold text-slate-900"
+                    onClick={closeMenu}
+                    to="/contact"
+                  >
+                    Talk through your move
+                  </Link>
+                )}
+                <Link
+                  className="text-slate-600 underline decoration-slate-300 underline-offset-4"
+                  onClick={closeMenu}
+                  to="/quote"
+                >
+                  Request a written estimate
+                </Link>
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </div>
     </header>
   );
 }

@@ -1,56 +1,80 @@
-import { ButtonLink } from '../components/Button';
-import { PageBottomCta } from '../components/PageBottomCta';
+import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
-import { ServiceCard } from '../components/ServiceCard';
-import { serviceDetails, services } from '../data/site';
+import { services } from '../data/site';
 
-const serviceIds = new Set(['local-moving', 'packing', 'long-distance', 'storage']);
-const coreServices = services.filter((service) => serviceIds.has(service.id));
+const serviceIds = ['local-moving', 'packing', 'long-distance', 'storage'];
+const coreServices = services.filter((service) => serviceIds.includes(service.id));
 
-const overviewFacts = [
-  { label: 'Base', value: 'Round Rock' },
-  { label: 'Coverage', value: 'Austin and nearby cities' },
-  { label: 'Schedule', value: 'Monday through Saturday' },
-  { label: 'Storage', value: 'Short-term and long-term options' },
+const serviceGuide = {
+  'local-moving': {
+    bestFor: 'Homes, apartments, and office moves inside Austin and nearby cities.',
+    pairedWith: 'Packing help or short-term storage when access or timing changes.',
+    mention: 'Stairs, elevators, loading zones, and anything that affects truck access.',
+  },
+  packing: {
+    bestFor: 'Fragile rooms, partial-home packing, or jobs where time is tight before move day.',
+    pairedWith: 'Local or long-distance moves that need one inventory plan from the start.',
+    mention: 'What you want packed by us, what you are packing yourself, and any specialty items.',
+  },
+  'long-distance': {
+    bestFor: 'Texas cross-state and interstate moves that need one point of contact.',
+    pairedWith: 'Storage holds or staged packing when delivery timing is not locked in yet.',
+    mention: 'Pickup and delivery windows, access at both ends, and any deadline you cannot miss.',
+  },
+  storage: {
+    bestFor: 'Delayed closings, renovation gaps, phased move-ins, and overflow between addresses.',
+    pairedWith: 'Packing or long-distance work when items need to stay organized between stops.',
+    mention: 'How long you expect the hold to last and whether retrieval needs to happen in stages.',
+  },
+};
+
+const quoteChecklist = [
+  'List both addresses and your target date window.',
+  'Note access issues like stairs, elevators, parking limits, or long walks from the truck.',
+  'Say whether packing, storage, or specialty-item handling is part of the job.',
+  'Use one inventory list if you are comparing more than one mover.',
 ];
 
 export function ServicesPage() {
-  const detailsById = Object.fromEntries(serviceDetails.map((detail) => [detail.id, detail]));
-
   return (
     <>
       <SEO
         canonical="/services"
-        title="Austin TX Movers Services | Local Moving, Packing, and Storage"
-        description="Austin TX movers service page for local moving, packing services, long-distance moving, and storage solutions across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway."
-        keywords="Austin TX Movers, moving services, local moving, long-distance moving, packing services, storage solutions"
+        title="Moving services"
+        description="Austin-area moving service page for local moving, packing services, long-distance moving, and storage solutions across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway."
+        keywords="moving services, local moving, long-distance moving, packing services, storage solutions"
       />
 
       <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-start">
-          <div className="max-w-3xl">
-            <p className="text-sm text-slate-600">Services</p>
-            <h1 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">
-              Moving, packing, and storage that can be scheduled together.
+        <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="max-w-md">
+            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
+              Four services, usually planned together.
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-slate-700">
-              We handle local moves, long-distance routes, packing, and storage across Austin,
-              Round Rock, Cedar Park, Pflugerville, and Lakeway. If you need more than one service,
-              we build one plan instead of sending you between teams.
+            <p className="mt-5 text-base leading-relaxed text-slate-700">
+              Most jobs are a mix of route planning, access coordination, packing, and temporary
+              holding. This page is meant to show how those pieces fit.
             </p>
-            <div className="mt-6">
-              <ButtonLink size="md" to="/contact" variant="primary">
-                Request an estimate
-              </ButtonLink>
-            </div>
           </div>
 
-          <div className="grid gap-px overflow-hidden rounded-[1.5rem] bg-slate-200 sm:grid-cols-2">
-            {overviewFacts.map((fact) => (
-              <div className="bg-white p-5" key={fact.label}>
-                <p className="text-sm font-medium text-slate-600">{fact.label}</p>
-                <p className="mt-2 text-base leading-relaxed text-slate-900">{fact.value}</p>
-              </div>
+          <div className="border-t border-slate-200">
+            <div className="hidden grid-cols-[180px_1fr_1fr_1fr] gap-4 border-b border-slate-200 py-4 text-sm font-semibold text-slate-900 md:grid">
+              <div>Service</div>
+              <div>Good fit for</div>
+              <div>Often paired with</div>
+              <div>Mention this when asking for a quote</div>
+            </div>
+
+            {coreServices.map((service) => (
+              <article className="grid gap-4 border-b border-slate-200 py-5 md:grid-cols-[180px_1fr_1fr_1fr]" key={service.id}>
+                <div>
+                  <p className="text-base font-semibold text-slate-900">{service.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{service.summary}</p>
+                </div>
+                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].bestFor}</p>
+                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].pairedWith}</p>
+                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].mention}</p>
+              </article>
             ))}
           </div>
         </div>
@@ -58,110 +82,58 @@ export function ServicesPage() {
 
       <section className="section-surface">
         <div className="site-container">
-          <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-slate-200 md:grid-cols-2">
-            {coreServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
-        </div>
-      </section>
+          {coreServices.map((service) => (
+            <article className="grid gap-6 border-t border-slate-300 py-8 first:pt-0 lg:grid-cols-[220px_1fr]" id={service.id} key={service.id}>
+              <div>
+                <p className="text-sm leading-relaxed text-slate-700">{service.details}</p>
+              </div>
 
-      <section className="section">
-        <div className="site-container space-y-6">
-          {coreServices.map((service) => {
-            const details = detailsById[service.id];
-            if (!details) {
-              return null;
-            }
-
-            return (
-              <article className="rounded-[1.75rem] border border-slate-200 bg-white p-6 sm:p-8" id={service.id} key={service.id}>
-                <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-                  <div className="space-y-4">
-                    <p className="text-sm font-medium text-slate-600">{service.title}</p>
-                    <h2 className="text-3xl text-slate-900">{details.title}</h2>
-                    <p className="text-base leading-relaxed text-slate-700">{details.intro}</p>
-
-                    <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf8f5] p-4">
-                      <p className="text-sm font-medium text-slate-900">Often paired with</p>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                        <a
-                          className="font-medium text-slate-900 underline decoration-slate-300 underline-offset-4"
-                          href={`#${details.related[0]}`}
-                        >
-                          {detailsById[details.related[0]]?.title || ''}
-                        </a>
-                        {details.related.length > 1 ? (
-                          <>
-                            {' '}
-                            and{' '}
-                            <a
-                              className="font-medium text-slate-900 underline decoration-slate-300 underline-offset-4"
-                              href={`#${details.related[1]}`}
-                            >
-                              {detailsById[details.related[1]]?.title || ''}
-                            </a>
-                          </>
-                        ) : null}
-                        {' '}
-                        if you want one plan instead of separate bookings.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf8f5] p-4">
-                      <p className="text-sm font-medium text-slate-900">What&apos;s included</p>
-                      <ul className="mt-3 grid gap-2 text-sm text-slate-700">
-                        {service.highlights.map((highlight) => (
-                          <li className="rounded-xl border border-slate-200 bg-white px-3 py-2" key={highlight}>
-                            {highlight}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="rounded-[1.5rem] border border-slate-200 p-4">
-                      <p className="text-sm font-medium text-slate-900">Common questions</p>
-                      <div className="mt-3 space-y-2">
-                        {details.faqs.map((faq) => (
-                          <details className="rounded-xl border border-slate-200 bg-white p-3" key={faq.question}>
-                            <summary className="cursor-pointer text-sm font-medium text-slate-900">
-                              {faq.question}
-                            </summary>
-                            <p className="mt-2 text-sm leading-relaxed text-slate-600">{faq.answer}</p>
-                          </details>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+              <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+                <div>
+                  <h2 className="text-3xl text-slate-900">{service.title}</h2>
+                  <ul className="mt-5 grid gap-3 text-sm leading-relaxed text-slate-700 sm:grid-cols-2">
+                    {service.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
                 </div>
-              </article>
-            );
-          })}
 
-          <div className="rounded-[1.75rem] border border-slate-200 bg-[#faf8f5] p-6 sm:p-8">
-            <p className="text-sm font-medium text-slate-600">Custom work</p>
-            <h3 className="mt-3 text-2xl text-slate-900">
-              Need help with antiques, office equipment, or a tricky access setup?
-            </h3>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-              We also handle jobs that need extra planning before move day. Tell us what is unusual
-              and we will build the estimate around that.
-            </p>
-            <div className="mt-5">
-              <ButtonLink size="md" to="/contact" variant="primary">
-                Start the estimate
-              </ButtonLink>
-            </div>
-          </div>
+                <div className="border-t border-slate-300 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+                  <p className="text-sm font-semibold text-slate-900">Planning note</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                    {serviceGuide[service.id].mention}
+                  </p>
+                  <Link
+                    className="mt-4 inline-flex text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                    to="/quote"
+                  >
+                    Request a quote for {service.title.toLowerCase()}
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <PageBottomCta
-        heading="Need help choosing the right service mix?"
-        text="Tell us the route, the size of the move, and whether packing or storage is involved. We will recommend the cleanest way to handle it."
-      />
+      <section className="section border-t border-slate-200 bg-white">
+        <div className="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <h2 className="text-balance text-4xl text-slate-900">
+              If you are comparing movers, keep the quote inputs the same.
+            </h2>
+          </div>
+
+          <ol className="grid gap-4">
+            {quoteChecklist.map((item, index) => (
+              <li className="grid gap-3 border-t border-slate-200 py-4 sm:grid-cols-[28px_1fr]" key={item}>
+                <span className="font-semibold text-slate-900">{index + 1}.</span>
+                <span className="text-base leading-relaxed text-slate-700">{item}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
     </>
   );
 }

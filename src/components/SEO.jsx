@@ -13,70 +13,31 @@ export function SEO({
   noindex = false,
 }) {
   const siteUrl = site.domain;
-  const defaultImage = `${siteUrl}/og-image.png`;
+  const shouldPublishOrganizationIdentity = site.hasApprovedBusinessName;
+  const titleSuffix = site.seoTitleSuffix;
+  const withSiteOrigin = (value) => {
+    if (!value) {
+      return value;
+    }
+
+    if (/^https?:\/\//.test(value)) {
+      return value;
+    }
+
+    return siteUrl ? `${siteUrl}${value}` : value;
+  };
+
+  const defaultImage = withSiteOrigin('/og-image.png');
   const fallbackDescription = site.description;
   const metaDescription = description || fallbackDescription;
   const fullTitle = title
-    ? (title.includes(site.name) ? title : `${title} | ${site.name}`)
-    : `${site.name} | Trusted Central Texas Movers`;
-  const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
-  const ogImage = image ? `${siteUrl}${image}` : defaultImage;
-  const ogImageAlt = imageAlt || `${site.shortName} moving services in Central Texas`;
+    ? (title.includes(titleSuffix) ? title : `${title} | ${titleSuffix}`)
+    : titleSuffix;
+  const fullCanonical = canonical ? withSiteOrigin(canonical) : siteUrl || '/';
+  const ogImage = image ? withSiteOrigin(image) : defaultImage;
+  const ogImageAlt = imageAlt || `${site.shortName} helping with moves across Central Texas`;
   const ogImageWidth = 1200;
   const ogImageHeight = 630;
-
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: site.name,
-    image: [ogImage],
-    '@id': `${siteUrl}/#business`,
-    url: siteUrl,
-    telephone: site.phone.display,
-    description: `${site.name}, Austin TX movers for packing services and storage solutions`,
-    email: site.email,
-    priceRange: '$$',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: site.address.street,
-      addressLocality: site.address.city,
-      addressRegion: site.address.region,
-      postalCode: site.address.postalCode,
-      addressCountry: site.address.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: site.geo.latitude,
-      longitude: site.geo.longitude,
-    },
-    openingHoursSpecification: site.hours.specification,
-    foundingDate: String(site.yearFounded),
-    areaServed: site.serviceAreas.map((city) => ({ '@type': 'City', name: city })),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      ratingCount: 420,
-      bestRating: '5',
-      worstRating: '1',
-    },
-  };
-
-  localBusinessSchema.hasOfferCatalog = {
-    '@type': 'OfferCatalog',
-    name: 'Moving Services',
-    itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Local Moving' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Long-Distance Moving' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Packing Services' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Storage Solutions' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Commercial Relocation' } },
-    ],
-  };
-
-  const sameAsLinks = Object.values(site.socials || {}).filter(Boolean);
-  if (sameAsLinks.length) {
-    localBusinessSchema.sameAs = sameAsLinks;
-  }
 
   const articleSchema = article
     ? {
@@ -85,20 +46,24 @@ export function SEO({
         headline: title,
         description: metaDescription,
         image: ogImage,
-        author: {
-          '@type': 'Organization',
-          name: site.name,
-        },
-        publisher: {
-          '@type': 'Organization',
-          name: site.name,
-          logo: {
-            '@type': 'ImageObject',
-            url: `${siteUrl}/logo.svg`,
-          },
-        },
         datePublished: article.publishedTime,
         dateModified: article.modifiedTime || article.publishedTime,
+        ...(shouldPublishOrganizationIdentity
+          ? {
+              author: {
+                '@type': 'Organization',
+                name: site.name,
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: site.name,
+                logo: {
+                  '@type': 'ImageObject',
+                  url: withSiteOrigin('/logo.svg'),
+                },
+              },
+            }
+          : {}),
       }
     : null;
 
@@ -108,7 +73,7 @@ export function SEO({
       <meta content={metaDescription} name="description" />
       {keywords ? <meta content={keywords} name="keywords" /> : null}
       <link href={fullCanonical} rel="canonical" />
-      <meta content={site.name} name="author" />
+      {shouldPublishOrganizationIdentity ? <meta content={site.name} name="author" /> : null}
       <meta content="#ffffff" name="theme-color" />
 
       {noindex && <meta content="noindex, nofollow" name="robots" />}
@@ -121,7 +86,7 @@ export function SEO({
       <meta content={ogImageAlt} property="og:image:alt" />
       <meta content={String(ogImageWidth)} property="og:image:width" />
       <meta content={String(ogImageHeight)} property="og:image:height" />
-      <meta content={site.name} property="og:site_name" />
+      {shouldPublishOrganizationIdentity ? <meta content={site.name} property="og:site_name" /> : null}
       <meta content="en_US" property="og:locale" />
 
       <meta content="summary_large_image" name="twitter:card" />
@@ -140,7 +105,6 @@ export function SEO({
         </>
       )}
 
-      <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
       {articleSchema && (
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       )}

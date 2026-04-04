@@ -1,13 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { AustinTopMoversTeaser } from '../components/AustinTopMoversTeaser';
-import { PageBottomCta } from '../components/PageBottomCta';
+import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
-import {
-  austinMoverResearchSources,
-  faqs,
-  movingTips,
-  site,
-} from '../data/site';
+import { faqs, movingTips } from '../data/site';
 
 const allFaqItems = [
   ...faqs,
@@ -19,7 +13,7 @@ const allFaqItems = [
   {
     question: 'Can packing and moving be quoted together?',
     answer:
-      'Yes. If you want one timeline and one estimate, tell us early that packing should be included so we can scope it with the move instead of pricing it separately later.',
+      'Yes. If you want one timeline and one estimate, say that early so we can scope the job as one plan instead of separate bookings.',
   },
 ];
 
@@ -41,112 +35,104 @@ export function FAQPage() {
     <>
       <SEO
         canonical="/faq"
-        title="FAQ | Austin TX Movers | Packing, Moving, and Storage Questions"
-        description="Answers from our moving team plus practical tips from an Austin TX movers perspective. Coverage includes Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway for packing, local moving, and storage solutions."
-        keywords="Austin TX Movers, moving FAQ, packing services, storage solutions, local moving"
+        title="FAQ"
+        description="Answers from our moving team plus practical tips from an Austin-area moving perspective. Coverage includes Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway for packing, local moving, and storage solutions."
+        keywords="moving FAQ, packing services, storage solutions, local moving"
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(faqPageSchema)}</script>
       </Helmet>
 
       <section className="section">
-        <div className="site-container">
-          <div className="max-w-3xl">
-            <p className="text-sm text-slate-600">FAQ</p>
-            <h1 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">
-              Questions we hear most often.
+        <div className="site-container grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="max-w-md">
+            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
+              Common questions about timing, quotes, packing, and storage.
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-slate-700">
-              These are the common questions about timing, quotes, packing, storage, and service
-              areas.
+            <p className="mt-5 text-base leading-relaxed text-slate-700">
+              This page is here so you can see the practical questions we get most often before you
+              start comparing estimates.
             </p>
+            <div className="mt-8 border-t border-slate-200 pt-5">
+              <p className="text-sm font-semibold text-slate-900">Need the estimate path instead?</p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                If you already know the route, start with the quote form so the office has your
+                addresses, timing, and access notes in writing.
+              </p>
+              <Link
+                className="mt-4 inline-flex text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                to="/quote"
+              >
+                Open the quote form
+              </Link>
+            </div>
           </div>
 
-          <div className="mt-8 grid gap-3">
-            {faqs.map((faq) => (
-              <details className="rounded-[1.5rem] border border-slate-200 bg-white p-5" key={faq.question}>
-                <summary className="cursor-pointer text-sm font-medium text-slate-900">
-                  {faq.question}
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{faq.answer}</p>
-              </details>
+          <div className="border-t border-slate-200">
+            {allFaqItems.map((faq) => (
+              <div className="border-b border-slate-200 py-5" key={faq.question}>
+                <h2 className="text-xl text-slate-900">{faq.question}</h2>
+                <p className="mt-3 text-base leading-relaxed text-slate-700">{faq.answer}</p>
+              </div>
             ))}
-            <details className="rounded-[1.5rem] border border-slate-200 bg-white p-5">
-              <summary className="cursor-pointer text-sm font-medium text-slate-900">
-                Do you serve neighborhoods outside downtown Austin?
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                Yes. Our team covers Austin metro neighborhoods and nearby communities including
-                Round Rock, Cedar Park, Pflugerville, Lakeway, Leander, and Georgetown.
-              </p>
-            </details>
-            <details className="rounded-[1.5rem] border border-slate-200 bg-white p-5">
-              <summary className="cursor-pointer text-sm font-medium text-slate-900">
-                Can packing and moving be quoted together?
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                Yes. If you want one timeline and one estimate, tell us early that packing should be
-                included so we can scope it with the move instead of pricing it separately later.
-              </p>
-            </details>
           </div>
         </div>
       </section>
 
       <section className="section-surface">
-        <div className="site-container">
-          <h2 className="text-3xl text-slate-900">Planning notes before move day</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-            A little prep goes a long way when you are comparing movers or trying to avoid surprises
-            in the estimate.
-          </p>
-
-          <div className="mt-6 grid gap-px overflow-hidden rounded-[1.5rem] bg-slate-200 md:grid-cols-2">
-            {movingTips.map((tip) => (
-              <div className="bg-white p-5" key={tip.title}>
-                <p className="text-base font-medium text-slate-900">{tip.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{tip.text}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-[1.5rem] border border-slate-200 bg-white p-5">
-            <h3 className="text-xl text-slate-900">Outside resources</h3>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              If you want to compare more than one mover, these public sources are useful background
-              reading. The final decision should still come from a walkthrough and a written scope.
-            </p>
-            <div className="mt-4 space-y-3 text-sm text-slate-600">
-              {austinMoverResearchSources.map((source) => (
-                <div key={source.url}>
-                  <a
-                    className="font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    href={source.url}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {source.title}
-                  </a>
-                  <p className="mt-1">
-                    {source.snapshot}. {source.note}
-                  </p>
+        <div className="site-container grid gap-10 lg:grid-cols-[1fr_0.9fr]">
+          <div>
+            <h2 className="text-balance text-4xl text-slate-900">
+              A few things worth checking before you book any mover.
+            </h2>
+            <div className="mt-8 border-t border-slate-300">
+              {movingTips.map((tip) => (
+                <div className="grid gap-3 border-b border-slate-300 py-5 lg:grid-cols-[220px_1fr]" key={tip.title}>
+                  <h3 className="text-lg text-slate-900">{tip.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-700">{tip.text}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-sm text-slate-600">
-              <span className="font-medium text-slate-900">{site.name}</span> is licensed and insured,
-              but we still recommend comparing details line by line before you book any mover.
+          </div>
+
+          <div>
+            <h3 className="text-xl text-slate-900">Need more detail before you call?</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              The service pages break down local moves, commercial relocation, packing, storage,
+              and long-distance planning in more detail.
+            </p>
+            <div className="mt-6 border-t border-slate-300">
+              {[
+                {
+                  title: 'Services overview',
+                  detail: 'See how local moving, packing, storage, and longer routes are usually planned together.',
+                  to: '/services',
+                },
+                {
+                  title: 'Contact page',
+                  detail: 'Use the lower-friction contact form when you have questions before you are ready for a full quote.',
+                  to: '/contact',
+                },
+                {
+                  title: 'Quote page',
+                  detail: 'Use the estimate form when you already know the route, date window, and the services tied to the move.',
+                  to: '/quote',
+                },
+              ].map((item) => (
+                <div className="border-b border-slate-300 py-4" key={item.title}>
+                  <Link
+                    className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                    to={item.to}
+                  >
+                    {item.title}
+                  </Link>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
-
-      <AustinTopMoversTeaser />
-
-      <PageBottomCta
-        heading="Still unsure what to ask for in the estimate?"
-        text="Send us the basic details and we can tell you what information matters before you commit."
-      />
     </>
   );
 }

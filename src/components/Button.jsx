@@ -9,9 +9,9 @@ const variantClasses = {
 };
 
 const sizeClasses = {
-  sm: 'rounded-xl px-4 py-2 text-sm',
-  md: 'rounded-xl px-5 py-3 text-sm font-medium',
-  lg: 'rounded-2xl px-6 py-3.5 text-base font-medium',
+  sm: 'rounded-md px-4 py-2 text-sm',
+  md: 'rounded-md px-5 py-3 text-sm font-medium',
+  lg: 'rounded-md px-6 py-3.5 text-base font-medium',
 };
 
 export function Button({

@@ -1,7 +1,18 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button } from './Button';
+import { getLeadEndpoint, hasLeadEndpoint, submitLead } from '../lib/submitLead';
+import { publicContact } from '../data/site';
 
-const initialFormState = {
+const contactInitialState = {
+  name: '',
+  phone: '',
+  email: '',
+  subject: 'general-question',
+  notes: '',
+};
+
+const quoteInitialState = {
   name: '',
   phone: '',
   email: '',
@@ -12,66 +23,204 @@ const initialFormState = {
   notes: '',
 };
 
+const subjectOptions = [
+  { value: 'general-question', label: 'General question' },
+  { value: 'service-area', label: 'Service area' },
+  { value: 'packing-storage', label: 'Packing or storage' },
+  { value: 'schedule', label: 'Scheduling' },
+];
+
 const moveTypeOptions = [
   { value: 'local-moving', label: 'Local moving' },
   { value: 'long-distance', label: 'Long-distance moving' },
   { value: 'packing', label: 'Packing services' },
   { value: 'storage', label: 'Storage solutions' },
+  { value: 'commercial-moving', label: 'Commercial relocation' },
   { value: 'other', label: 'Other' },
 ];
 
-const SUPABASE_ENDPOINT = 'https://bfxemhxuwmfdbmbwegjz.supabase.co/functions/v1/submit-lead';
+function getInitialState(variant, routeState) {
+  const initialState = variant === 'quote' ? { ...quoteInitialState } : { ...contactInitialState };
 
-export function ContactForm({ endpoint = '' }) {
-  const formEndpoint = endpoint || import.meta.env.VITE_FORM_ENDPOINT || SUPABASE_ENDPOINT;
-  const [formData, setFormData] = useState(initialFormState);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  if (variant === 'quote' && routeState?.fromHero) {
+    initialState.name = typeof routeState.name === 'string' ? routeState.name : '';
+    initialState.phone = typeof routeState.phone === 'string' ? routeState.phone : '';
+    initialState.moveDate = typeof routeState.moveDate === 'string' ? routeState.moveDate : '';
+  }
+
+  return initialState;
+}
+
+function validateForm(formData, variant) {
+  const errors = {};
+  const phoneDigits = formData.phone.replace(/\D/g, '');
+  const email = formData.email.trim();
+
+  if (!formData.name.trim()) {
+    errors.name = 'Enter your name so we know who to reply to.';
+  }
+
+  if (!phoneDigits && !email) {
+    errors.contact = 'Add a phone number or email address so we can get back to you.';
+  }
+
+  if (phoneDigits && phoneDigits.length < 10) {
+    errors.phone = 'Use a full phone number with at least 10 digits.';
+  }
+
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.email = 'Enter a valid email address.';
+  }
+
+  if (variant === 'quote') {
+    if (!/^\d{5}$/.test(formData.fromZip.trim())) {
+      errors.fromZip = 'Enter a 5-digit origin ZIP code.';
+    }
+
+    if (!/^\d{5}$/.test(formData.toZip.trim())) {
+      errors.toZip = 'Enter a 5-digit destination ZIP code.';
+    }
+
+    if (!formData.moveDate) {
+      errors.moveDate = 'Choose your preferred move date or the closest target date.';
+    }
+
+    if (!formData.notes.trim()) {
+      errors.notes = 'Add a few move details like home size, stairs, elevators, or specialty items.';
+    }
+  } else if (!formData.notes.trim()) {
+    errors.notes = 'Tell us what you need help with so we can reply usefully.';
+  }
+
+  return errors;
+}
+
+function getFieldClass(error) {
+  return `w-full rounded-md border bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900 ${
+    error ? 'border-red-300' : 'border-slate-300'
+  }`;
+}
+
+function FieldError({ id, message }) {
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <p className="mt-2 text-sm text-red-700" id={id}>
+      {message}
+    </p>
+  );
+}
+
+function getOfflineMessage() {
+  if (publicContact.hasPhone && publicContact.hasEmail) {
+    return 'Online form delivery is not connected in this environment. Please call or email us directly.';
+  }
+
+  if (publicContact.hasPhone) {
+    return 'Online form delivery is not connected in this environment. Please call us directly or use the full quote path.';
+  }
+
+  return 'Online form delivery is not connected in this environment. Please use the quote path or try again when direct contact details are published.';
+}
+
+export function ContactForm({ endpoint = '', variant = 'contact' }) {
+  const { state } = useLocation();
+  const formEndpoint = getLeadEndpoint(endpoint);
+  const canSubmitOnline = hasLeadEndpoint(endpoint);
+  const [formData, setFormData] = useState(() => getInitialState(variant, state));
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => {
+      if (!prev[name] && !((name === 'phone' || name === 'email') && prev.contact)) {
+        return prev;
+      }
+
+      const next = { ...prev };
+      delete next[name];
+      if (name === 'phone' || name === 'email') {
+        delete next.contact;
+      }
+      return next;
+    });
+
+    if (status !== 'idle') {
+      setStatus('idle');
+      setSubmitMessage('');
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError('');
+    const nextErrors = validateForm(formData, variant);
+    setErrors(nextErrors);
 
-    if (!formEndpoint) {
-      setSubmitError('This form is not connected yet. Please call or email us directly.');
-      setIsSubmitting(false);
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus('error');
+      setSubmitMessage('Please fix the highlighted fields and try again.');
+      return;
+    }
+
+    setStatus('submitting');
+    setSubmitMessage('');
+
+    if (!canSubmitOnline || !formEndpoint) {
+      setStatus('error');
+      setSubmitMessage(getOfflineMessage());
       return;
     }
 
     try {
-      const response = await fetch(formEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formType: 'contact', ...formData }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Unable to submit the form');
-      }
-
-      setIsSubmitted(true);
-      setFormData(initialFormState);
+      await submitLead(
+        {
+          formType: variant === 'quote' ? 'quote' : 'contact',
+          ...formData,
+        },
+        formEndpoint,
+      );
+      setStatus('success');
+      setSubmitMessage(
+        variant === 'quote'
+          ? 'Thanks. Your quote request was sent and the office can follow up with the next step.'
+          : 'Thanks. Your message was sent and we will reply as soon as we can.',
+      );
+      setErrors({});
+      setFormData(getInitialState(variant));
     } catch {
-      setSubmitError('Could not submit the form. Please call or email us directly.');
-    } finally {
-      setIsSubmitting(false);
+      setStatus('error');
+      setSubmitMessage(getOfflineMessage());
     }
   };
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
+      {!canSubmitOnline && (
+        <p className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status">
+          {getOfflineMessage()} You can still review the form before the approved delivery path is
+          connected.
+        </p>
+      )}
+
+      {errors.contact && (
+        <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" id={`${variant}-contact-error`}>
+          {errors.contact}
+        </p>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Name</span>
           <input
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
+            autoComplete="name"
+            aria-describedby={errors.name ? `${variant}-name-error` : undefined}
+            aria-invalid={errors.name ? 'true' : 'false'}
+            className={getFieldClass(errors.name)}
             name="name"
             onChange={handleChange}
             placeholder="Your name"
@@ -79,117 +228,173 @@ export function ContactForm({ endpoint = '' }) {
             type="text"
             value={formData.name}
           />
+          <FieldError id={`${variant}-name-error`} message={errors.name} />
         </label>
         <label className="block">
           <span className="mb-1.5 block text-sm font-semibold text-slate-700">Phone</span>
           <input
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
+            autoComplete="tel"
+            aria-describedby={
+              [errors.phone ? `${variant}-phone-error` : '', errors.contact ? `${variant}-contact-error` : '']
+                .filter(Boolean)
+                .join(' ') || undefined
+            }
+            aria-invalid={errors.phone || errors.contact ? 'true' : 'false'}
+            className={getFieldClass(errors.phone || errors.contact)}
             name="phone"
             onChange={handleChange}
             placeholder="(512) 555-0101"
-            required
             type="tel"
             value={formData.phone}
           />
+          <FieldError id={`${variant}-phone-error`} message={errors.phone} />
         </label>
       </div>
 
       <label className="block">
         <span className="mb-1.5 block text-sm font-semibold text-slate-700">Email</span>
         <input
-          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
+          autoComplete="email"
+          aria-describedby={
+            [errors.email ? `${variant}-email-error` : '', errors.contact ? `${variant}-contact-error` : '']
+              .filter(Boolean)
+              .join(' ') || undefined
+          }
+          aria-invalid={errors.email || errors.contact ? 'true' : 'false'}
+          className={getFieldClass(errors.email || errors.contact)}
           name="email"
           onChange={handleChange}
           placeholder="you@example.com"
-          required
           type="email"
           value={formData.email}
         />
+        <FieldError id={`${variant}-email-error`} message={errors.email} />
       </label>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      {variant === 'quote' ? (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Move type</span>
+              <select
+                aria-invalid="false"
+                className={getFieldClass(false)}
+                name="moveType"
+                onChange={handleChange}
+                required
+                value={formData.moveType}
+              >
+                {moveTypeOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Preferred move date</span>
+              <input
+                aria-describedby={errors.moveDate ? `${variant}-moveDate-error` : undefined}
+                aria-invalid={errors.moveDate ? 'true' : 'false'}
+                className={getFieldClass(errors.moveDate)}
+                name="moveDate"
+                onChange={handleChange}
+                type="date"
+                value={formData.moveDate}
+              />
+              <FieldError id={`${variant}-moveDate-error`} message={errors.moveDate} />
+            </label>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Origin ZIP</span>
+              <input
+                aria-describedby={errors.fromZip ? `${variant}-fromZip-error` : undefined}
+                aria-invalid={errors.fromZip ? 'true' : 'false'}
+                className={getFieldClass(errors.fromZip)}
+                inputMode="numeric"
+                name="fromZip"
+                onChange={handleChange}
+                placeholder="78701"
+                type="text"
+                value={formData.fromZip}
+              />
+              <FieldError id={`${variant}-fromZip-error`} message={errors.fromZip} />
+            </label>
+            <label className="block">
+              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Destination ZIP</span>
+              <input
+                aria-describedby={errors.toZip ? `${variant}-toZip-error` : undefined}
+                aria-invalid={errors.toZip ? 'true' : 'false'}
+                className={getFieldClass(errors.toZip)}
+                inputMode="numeric"
+                name="toZip"
+                onChange={handleChange}
+                placeholder="78664"
+                type="text"
+                value={formData.toZip}
+              />
+              <FieldError id={`${variant}-toZip-error`} message={errors.toZip} />
+            </label>
+          </div>
+        </>
+      ) : (
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Move type</span>
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700">What do you need help with?</span>
           <select
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-slate-900"
-            name="moveType"
+            className={getFieldClass(false)}
+            name="subject"
             onChange={handleChange}
-            required
-            value={formData.moveType}
+            value={formData.subject}
           >
-            {moveTypeOptions.map((option) => (
+            {subjectOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
         </label>
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Preferred move date</span>
-          <input
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-slate-900"
-            name="moveDate"
-            onChange={handleChange}
-            type="date"
-            value={formData.moveDate}
-          />
-        </label>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Origin ZIP</span>
-          <input
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
-            name="fromZip"
-            onChange={handleChange}
-            placeholder="78701"
-            required
-            type="text"
-            pattern="[0-9]{5}"
-            value={formData.fromZip}
-          />
-        </label>
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Destination ZIP</span>
-          <input
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
-            name="toZip"
-            onChange={handleChange}
-            placeholder="78664"
-            required
-            type="text"
-            pattern="[0-9]{5}"
-            value={formData.toZip}
-          />
-        </label>
-      </div>
+      )}
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-slate-700">Notes</span>
+        <span className="mb-1.5 block text-sm font-semibold text-slate-700">
+          {variant === 'quote' ? 'Move details' : 'Message'}
+        </span>
         <textarea
-          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900"
+          aria-describedby={errors.notes ? `${variant}-notes-error` : undefined}
+          aria-invalid={errors.notes ? 'true' : 'false'}
+          className={getFieldClass(errors.notes)}
           name="notes"
           onChange={handleChange}
-          placeholder="Stairs, pianos, storage needs, anything unusual about the move..."
+          placeholder={
+            variant === 'quote'
+              ? 'Home size, stairs, elevators, storage needs, specialty items, or anything else that affects the move...'
+              : 'Tell us your question, your service area, or what kind of move you are planning...'
+          }
           rows={4}
           value={formData.notes}
         />
+        <FieldError id={`${variant}-notes-error`} message={errors.notes} />
       </label>
 
-      <Button className="w-full" disabled={isSubmitting} size="lg" type="submit" variant="primary">
-        {isSubmitting ? 'Sending...' : 'Send request'}
+      <Button className="w-full min-h-12" disabled={status === 'submitting'} size="lg" type="submit" variant="primary">
+        {status === 'submitting'
+          ? 'Sending…'
+          : variant === 'quote'
+            ? 'Send my quote request'
+            : 'Send my message'}
       </Button>
 
-      {isSubmitted && (
+      {status === 'success' && submitMessage && (
         <p className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700" role="status">
-          Thanks — we received your request and will contact you soon.
+          {submitMessage}
         </p>
       )}
 
-      {submitError && (
+      {status === 'error' && submitMessage && (
         <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
-          {submitError}
+          {submitMessage}
         </p>
       )}
     </form>

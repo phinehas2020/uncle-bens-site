@@ -1,38 +1,39 @@
-import { site } from '../data/site';
+import { site, trustSignals } from '../data/site';
 
-export function ReviewSection({ heading = 'What customers say', reviews }) {
+export function ReviewSection({ heading = 'What helps the first conversation go well' }) {
   return (
     <section className="section border-t border-slate-200 bg-white">
-      <div className="site-container grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+      <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="max-w-md">
-          <p className="text-sm text-slate-600">Reviews</p>
-          <h2 className="mt-4 text-balance text-4xl text-slate-900 sm:text-5xl">{heading}</h2>
-          <p className="mt-5 text-lg leading-relaxed text-slate-700">
-            People remember whether the crew showed up steady, protected the house, and made the
-            day easier. That is the part we care about.
+          <p className="text-sm font-semibold text-slate-900">Trust-first details</p>
+          <h2 className="mt-5 text-balance text-4xl text-slate-900 sm:text-5xl">{heading}</h2>
+          <p className="mt-5 text-base leading-relaxed text-slate-700">
+            The trust story here is practical: clear contact paths, written estimates, and enough
+            route detail to understand whether the job is a fit before move day.
           </p>
-          <a
-            className="mt-6 inline-flex items-center text-sm font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-            href={site.socials.googleReviews}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Read Google reviews
-          </a>
+
+          <div className="mt-6 border-t border-slate-200 pt-5 text-sm leading-relaxed text-slate-600">
+            <p>{site.hours.summary}</p>
+            <p className="mt-2">
+              {site.officeLabel} serving Austin, Cedar Park, Georgetown, Leander, Pflugerville,
+              and nearby Central Texas communities.
+            </p>
+          </div>
         </div>
 
-        <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-slate-200">
-          {reviews.map((review, index) => (
+        <div className="border-t border-slate-200">
+          {trustSignals.map((signal) => (
             <article
-              className={index === 0 ? 'bg-[#faf8f5] p-6 sm:p-8' : 'bg-white p-6 sm:p-8'}
-              key={review.name}
+              className="grid gap-4 border-b border-slate-200 py-6 sm:grid-cols-[1fr_180px]"
+              key={signal.label}
             >
-              <blockquote className="text-lg leading-relaxed text-slate-900">
-                &ldquo;{review.quote}&rdquo;
-              </blockquote>
-              <div className="mt-6 border-t border-slate-200 pt-4">
-                <p className="text-sm font-medium text-slate-900">{review.name}</p>
-                <p className="mt-1 text-sm text-slate-600">{review.role}</p>
+              <div>
+                <h3 className="text-xl text-slate-900">{signal.label}</h3>
+                <p className="mt-3 text-base leading-relaxed text-slate-700">{signal.detail}</p>
+              </div>
+              <div className="text-sm text-slate-600 sm:text-right">
+                <p className="font-semibold text-slate-900">Why it matters</p>
+                <p className="mt-1">It keeps the quote and call decision grounded in real move details.</p>
               </div>
             </article>
           ))}

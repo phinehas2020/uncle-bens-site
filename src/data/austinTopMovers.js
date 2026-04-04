@@ -82,21 +82,6 @@ export const austinTopMovers = [
     watchFor:
       'As with any company that looks strong on one marketplace, cross-check with another source and ask for the exact scope assumptions behind the estimate.',
   },
-  {
-    name: 'Quality Moving & Storage',
-    snapshot: 'Round Rock mover with BBB credentials',
-    summary:
-      'Quality Moving & Storage belongs on a serious Austin shortlist if you need local moving, packing, and storage in one workflow rather than separate vendors.',
-    bestFor: 'Families who want one coordinator for Austin-area moves, storage holds, and packing support.',
-    publicSignals: [
-      'BBB rating: A+',
-      'BBB accreditation date listed: August 11, 2016',
-      'BBB years in business listed: 21',
-      'Services listed include local, long-distance, piano, packing, and storage',
-    ],
-    watchFor:
-      'This page lives on Quality Moving & Storage’s site, so use the same checklist and quote comparison rules on us that you use for every other mover.',
-  },
 ];
 
 export const austinMoverSelectionChecklist = [
@@ -143,7 +128,7 @@ export const austinMoverFaqs = [
   {
     question: 'Who are the top movers in Austin right now?',
     answer:
-      'The names that surface most consistently across current public review ecosystems include Einstein Moving Company, 3 Men Movers, NorthStar Moving Company, Advantage Austin Moving, and Quality Moving & Storage. The right fit still depends on scope, route, and how each quote is written.',
+      'The names that surface most consistently across current public review ecosystems include Einstein Moving Company, 3 Men Movers, NorthStar Moving Company, and Advantage Austin Moving. The right fit still depends on scope, route, and how each quote is written.',
   },
   {
     question: 'What should a local Austin moving quote include?',
@@ -161,9 +146,9 @@ export const austinMoverFaqs = [
       'No. Rankings are useful for creating a shortlist, but they are only one layer. The better approach is to combine public review data with license checks, a clear walkthrough, and a written scope that is consistent across every mover you compare.',
   },
   {
-    question: 'When is Quality Moving & Storage a strong option?',
+    question: 'When is a smaller Austin-area moving team a strong option?',
     answer:
-      'Quality Moving & Storage is a particularly strong fit when you want Austin-area moving, packing, and storage coordinated through one local team instead of splitting those steps across multiple vendors.',
+      'Smaller Austin-area moving teams can be a strong fit when you want packing, storage, and moving handled through one coordinator instead of bouncing between vendors or departments.',
   },
 ];
 
@@ -195,12 +180,5 @@ export const austinTopMoverResearchSources = [
     snapshot: 'Accessed March 5, 2026',
     note:
       'Used for local pricing context, including the hourly-per-mover estimate for Austin moving labor.',
-  },
-  {
-    title: 'BBB: Quality Moving & Storage',
-    url: 'https://www.bbb.org/us/tx/round-rock/profile/moving-companies/quality-moving-storage-0825-1000182119',
-    snapshot: 'Accessed March 5, 2026',
-    note:
-      'Used to verify the local company profile, BBB grade, accreditation date, and service categories.',
   },
 ];

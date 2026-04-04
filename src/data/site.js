@@ -1,27 +1,69 @@
+function getPublicEnv(key) {
+  const value = import.meta.env[key];
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+const approvedBusinessName = getPublicEnv('VITE_PUBLIC_BUSINESS_NAME');
+const approvedBusinessShortName = getPublicEnv('VITE_PUBLIC_BUSINESS_SHORT_NAME');
+const hasApprovedBusinessName = Boolean(approvedBusinessName);
+const fallbackDisplayName = 'Austin-area movers';
+const fallbackSeoTitleSuffix = 'Austin and Central Texas movers';
+const fallbackCopyrightLabel = 'Austin-area moving website';
+
+function getApprovedPhone() {
+  const display = getPublicEnv('VITE_PUBLIC_PHONE');
+  const digits = display.replace(/\D/g, '');
+
+  if (!display || !digits) {
+    return null;
+  }
+
+  return { display, digits };
+}
+
+function getApprovedAddress() {
+  const street = getPublicEnv('VITE_PUBLIC_ADDRESS_STREET');
+  const city = getPublicEnv('VITE_PUBLIC_ADDRESS_CITY');
+  const region = getPublicEnv('VITE_PUBLIC_ADDRESS_REGION');
+  const postalCode = getPublicEnv('VITE_PUBLIC_ADDRESS_POSTAL_CODE');
+
+  if (!street || !city || !region || !postalCode) {
+    return null;
+  }
+
+  return {
+    street,
+    city,
+    region,
+    postalCode,
+    country: getPublicEnv('VITE_PUBLIC_ADDRESS_COUNTRY') || 'US',
+  };
+}
+
+const approvedSiteOrigin = getPublicEnv('VITE_PUBLIC_SITE_ORIGIN').replace(/\/+$/, '');
+const approvedPhone = getApprovedPhone();
+const approvedAddress = getApprovedAddress();
+const approvedYearFoundedValue = Number.parseInt(getPublicEnv('VITE_PUBLIC_YEAR_FOUNDED'), 10);
+const approvedYearFounded = Number.isInteger(approvedYearFoundedValue)
+  ? approvedYearFoundedValue
+  : null;
+
 export const site = {
-  name: 'Quality Moving & Storage',
-  shortName: 'Quality Moving',
+  name: approvedBusinessName,
+  displayName: approvedBusinessName || fallbackDisplayName,
+  shortName: approvedBusinessShortName || approvedBusinessName || fallbackDisplayName,
+  hasApprovedBusinessName,
+  seoTitleSuffix: approvedBusinessName || fallbackSeoTitleSuffix,
+  copyrightLabel: approvedBusinessName || fallbackCopyrightLabel,
   tagline:
-    'Moving, packing, and storage for Austin, Round Rock, and nearby Central Texas homes and businesses.',
+    'Austin-area moving, packing, storage, and long-distance planning across Central Texas homes and businesses.',
   description:
-    'A Round Rock moving company helping Austin, Round Rock, and Central Texas customers with home moves, packing, storage, and local or long-distance support.',
-  domain: 'https://qualitymoving.com',
-  email: 'hello@qualitymoving.com',
-  phone: {
-    display: '(512) 300-9543',
-    digits: '15123009543',
-  },
-  address: {
-    street: '1101 North Industrial Boulevard',
-    city: 'Round Rock',
-    region: 'TX',
-    postalCode: '78681',
-    country: 'US',
-  },
-  geo: {
-    latitude: 30.5083,
-    longitude: -97.6789,
-  },
+    'Austin-area moving support for local moves, commercial relocations, packing, storage, and long-distance planning across Central Texas.',
+  domain: approvedSiteOrigin,
+  email: getPublicEnv('VITE_PUBLIC_EMAIL'),
+  phone: approvedPhone,
+  address: approvedAddress,
+  geo: null,
   hours: {
     summary: 'Mon–Sat • 9:00 AM – 5:00 PM',
     summaryList: [
@@ -44,12 +86,11 @@ export const site = {
       },
     ],
   },
-  license: 'TXDMV #006027218C',
-  tdmvPhone: '(888) 368-4689',
-  socials: {
-    googleReviews: 'https://www.google.com/search?q=quality+moving+austin+reviews',
-  },
-  yearFounded: 2006,
+  license: getPublicEnv('VITE_PUBLIC_LICENSE'),
+  complianceNote: 'Written estimates confirm scope, schedule, and service fit before booking.',
+  officeLabel: approvedAddress ? `${approvedAddress.city} office` : 'Central Texas office',
+  socials: {},
+  yearFounded: approvedYearFounded,
   serviceAreas: [
     'Austin',
     'Round Rock',
@@ -66,7 +107,20 @@ export const site = {
   neighborhoods: ['Round Rock', 'Cedar Park', 'Pflugerville', 'Lakeway'],
 };
 
-export const yearsInBusiness = new Date().getFullYear() - site.yearFounded;
+export const yearsInBusiness = site.yearFounded
+  ? new Date().getFullYear() - site.yearFounded
+  : null;
+
+export const publicContact = {
+  hasPhone: Boolean(site.phone?.digits),
+  hasEmail: Boolean(site.email),
+  hasAddress: Boolean(site.address),
+  phoneHref: site.phone ? `tel:${site.phone.digits}` : '',
+  emailHref: site.email ? `mailto:${site.email}` : '',
+  talkHref: site.phone ? `tel:${site.phone.digits}` : '/contact',
+  talkLabel: site.phone ? `Call ${site.phone.display}` : 'Talk through your move',
+  shortTalkLabel: site.phone ? 'Call now' : 'Contact us',
+};
 
 export const navigation = [
   { to: '/', label: 'Home' },
@@ -77,10 +131,10 @@ export const navigation = [
 ];
 
 export const heroStats = [
-  { value: `${yearsInBusiness}+`, label: 'Years in business' },
-  { value: '15,000+', label: 'Moves completed' },
-  { value: '4.9/5', label: 'Average rating' },
-  { value: 'Mon–Sat', label: 'Open Monday through Saturday' },
+  { value: 'Austin + Central Texas', label: 'Coverage' },
+  { value: 'Written estimates', label: 'Quote process' },
+  { value: 'Homes and businesses', label: 'Move types' },
+  { value: 'Mon–Sat', label: 'Office schedule' },
 ];
 
 export const services = [
@@ -141,7 +195,8 @@ export const services = [
       'Interstate paperwork support',
       'Clear delivery windows',
     ],
-    image: '/long-distance.png',
+    image: '/austin-tx-long-distance-moving-truck.jpg',
+    imageAlt: 'Long-distance moving truck on a highway for Austin-area interstate moves.',
   },
   {
     id: 'storage',
@@ -155,7 +210,8 @@ export const services = [
       'Flexible retrieval dates',
       'Bridge storage for renovations',
     ],
-    image: '/storage-service.png',
+    image: '/austin-tx-moving-storage-warehouse.jpg',
+    imageAlt: 'Warehouse storage space with palletized inventory for Austin-area moving and storage.',
   },
 ];
 
@@ -197,7 +253,7 @@ export const serviceDetails = [
     intro:
       'Full packing, partial packing, or fragile-only help for Austin-area homes.',
     details: [
-      'Packing quality is usually the single biggest predictor of move-day speed. At Quality Moving & Storage, our team starts with a move map: which rooms are packed first, what must be packed only by hand, and which items can be staged separately for easy transport.',
+      'Packing quality is usually the single biggest predictor of move-day speed. Our team starts with a move map: which rooms are packed first, what must be packed only by hand, and which items can be staged separately for easy transport.',
       'Our packing services include high-density boxes, wardrobe and dish packing strategies, protective bubble wraps, corner guards, and crate options for legacy furniture. In neighborhoods like Cedar Park and Pflugerville, we see seasonal timing, weekend constraints, and family schedules vary widely, so we tailor the workflow around your calendar instead of forcing one standard method.',
       'For clients with mixed load plans, we pair full-service packing on priority items with assisted self-packing for low-risk goods. This keeps costs practical while ensuring every fragile or high-value shipment receives the right level of labor. We label every box clearly by room and handling sensitivity so unpacking is organized, not chaotic.',
       'A common Austin challenge is uncertain timing in the final 48 hours. Weather, school commitments, and last-minute access changes can add stress. Our team handles that by sequencing fragile items, appliances, and heavy boxes with clear checkpoints, then sharing a quick room status report before loading begins.',
@@ -276,23 +332,23 @@ export const serviceDetails = [
 
 export const trustSignals = [
   {
-    label: 'Licensed & insured',
-    detail: 'TXDMV registration and active coverage details',
+    label: 'Written estimates after a walkthrough',
+    detail: 'We use the walkthrough to scope access, timing, and the services tied to your move.',
     icon: 'shield-check',
   },
   {
-    label: 'Background-checked crews',
-    detail: 'Crew members complete screening and training',
+    label: 'Austin-area coverage with one point of contact',
+    detail: 'Local routes, packing, storage, and longer hauls are planned together instead of as separate jobs.',
     icon: 'user-check',
   },
   {
-    label: '15,000+ moves',
-    detail: `Completed across Austin and Central Texas`,
+    label: 'Clear contact and quote paths',
+    detail: 'Every public page keeps the next step visible whether you want to talk through the move or send details in writing.',
     icon: 'cube',
   },
   {
-    label: '4.9+ rating',
-    detail: 'From verified moving reviews and customer follow-ups',
+    label: 'Operational facts only',
+    detail: 'The site avoids unsupported review counts, badges, and claims until final proof is approved.',
     icon: 'star',
   },
 ];
@@ -312,25 +368,43 @@ export const companyValues = [
   },
 ];
 
-export const milestones = [
-  {
-    year: String(site.yearFounded),
-    event: 'Opened in Round Rock with a focus on reliable local moving and respectful service.',
-  },
-  { year: '2012', event: 'Expanded routes across Central Texas, including Austin and Cedar Park.' },
-  {
-    year: '2018',
-    event: 'Built a dedicated commercial moving team for office and retail relocations.',
-  },
-  {
-    year: '2023',
-    event: 'Expanded storage operations with stronger tracking and retrieval scheduling.',
-  },
-  {
-    year: String(new Date().getFullYear()),
-    event: `Now in year ${yearsInBusiness}, serving Austin and surrounding cities with packing, moving, and storage solutions.`,
-  },
-];
+export const milestones = site.yearFounded && yearsInBusiness
+  ? [
+      {
+        year: String(site.yearFounded),
+        event: 'Opened with a focus on reliable local moving and respectful service.',
+      },
+      {
+        year: '2018',
+        event: 'Built a dedicated commercial moving team for office and retail relocations.',
+      },
+      {
+        year: '2023',
+        event: 'Expanded storage operations with stronger tracking and retrieval scheduling.',
+      },
+      {
+        year: '2012',
+        event: 'Expanded routes across Central Texas, including Austin and Cedar Park.',
+      },
+      {
+        year: String(new Date().getFullYear()),
+        event: `Now in year ${yearsInBusiness}, serving Austin and surrounding cities with packing, moving, and storage solutions.`,
+      },
+    ]
+  : [
+      {
+        year: 'Walkthrough',
+        event: 'Written scope reviews cover access, timing, and service fit before scheduling.',
+      },
+      {
+        year: 'Packing',
+        event: 'Packing, storage, and route planning stay coordinated as one job instead of separate bookings.',
+      },
+      {
+        year: 'Move day',
+        event: 'Crews follow the same written plan used during the estimate stage.',
+      },
+    ];
 
 export const faqs = [
   {
@@ -374,22 +448,10 @@ export const movingTips = [
 
 export const reviews = [
   {
-    name: 'Maya G.',
-    role: 'Family Relocation • Austin',
+    name: 'Proof pending',
+    role: 'Customer review content is waiting on client approval',
     quote:
-      'Best move we have had. The crew was on time, careful with our furniture, and easy to work with all day.',
-  },
-  {
-    name: 'Jordan R.',
-    role: 'Studio Founder • Round Rock',
-    quote:
-      'They moved our office over the weekend and we were fully running Monday morning. Great planning and execution.',
-  },
-  {
-    name: 'Elena T.',
-    role: 'Homeowner • Cedar Park',
-    quote:
-      'We had antiques and a piano to move. Everything arrived safely and was placed exactly where we asked.',
+      'Customer quotes and star ratings will be added here once the approved review source and wording are supplied.',
   },
 ];
 

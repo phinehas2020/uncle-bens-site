@@ -2,10 +2,10 @@
 
 @theme {
   --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-serif: 'DM Serif Display', serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
 
-  --color-accent: #b94e22;
-  --color-accent-dark: #963a14;
+  --color-accent: #a24a27;
+  --color-accent-dark: #863919;
   --color-slate-950: #0d1117;
   --color-slate-900: #141b22;
   --color-slate-800: #1f2937;
@@ -30,9 +30,16 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply m-0 bg-white text-slate-900 antialiased selection:bg-accent/15 selection:text-slate-900;
     font-family: var(--font-sans);
+    line-height: 1.5;
   }
 
   h1,
@@ -42,13 +49,18 @@
   h5,
   h6 {
     font-family: var(--font-serif);
-    line-height: 1.1;
+    font-weight: 400;
+    line-height: 1.12;
     margin: 0;
-    letter-spacing: -0.02em;
   }
 
   p {
     margin: 0;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
   }
 
   a {
@@ -60,7 +72,7 @@
 
 @layer components {
   .site-container {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10;
   }
 
   .section {
@@ -75,13 +87,6 @@
     @apply bg-[#faf8f5] py-16 sm:py-20 lg:py-24;
   }
 
-  .card-soft {
-    @apply overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm;
-  }
-
-  .subtle-badge {
-    @apply inline-flex items-center text-sm font-medium text-slate-600;
-  }
 }
 
 @layer utilities {
