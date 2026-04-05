@@ -1,11 +1,11 @@
 # Quality Moving & Storage - Robots.txt
-# https://qualitymoving.com
+# https://austintxmovers.com
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://qualitymoving.com/sitemap.xml
+Sitemap: https://austintxmovers.com/sitemap.xml
 
 # Disallow admin/private areas
 Disallow: /admin/
