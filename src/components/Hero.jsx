@@ -1,78 +1,72 @@
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { HeroLeadForm } from './HeroLeadForm';
-import { publicContact, site } from '../data/site';
-
-const heroHighlights = [
-  'Local household and apartment moves',
-  'Commercial relocation, packing, and storage support',
-  'Written estimates before scheduling',
-];
+import { publicContact, site, heroStats } from '../data/site';
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
   const revealTransition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
-  const MotionFigure = motion.figure;
   const MotionDiv = motion.div;
 
   return (
-    <section className="overflow-hidden border-b border-slate-200 bg-white">
-      <div className="site-container py-6 sm:py-8 lg:py-10">
-        <div className="grid gap-7 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-start lg:gap-12">
-          <MotionFigure
-            animate={reduceMotion ? undefined : { opacity: 1, x: 0, scale: 1 }}
-            className="order-1 -mx-5 sm:-mx-8 lg:order-2 lg:-mr-10 lg:ml-0"
-            initial={reduceMotion ? false : { opacity: 0, x: 28, scale: 0.98 }}
-            transition={revealTransition}
-          >
-            <img
-              alt="Moving crew loading furniture into a truck"
-              className="aspect-[16/11] w-full object-cover object-[center_32%] sm:aspect-[6/4] sm:object-center lg:aspect-[10/11] lg:max-h-[42rem]"
-              decoding="async"
-              fetchPriority="high"
-              src="/hero-bg.png"
-            />
-            <figcaption className="mt-3 px-5 text-sm leading-relaxed text-slate-600 sm:mt-4 sm:px-8 lg:px-0 lg:pr-10">
-              Crew on a local job. Estimates start with a walkthrough so access, timing, and
-              inventory match move day.
-            </figcaption>
-          </MotionFigure>
+    <section className="relative overflow-hidden bg-white">
+      {/* Hero image — full bleed on mobile, right column on desktop */}
+      <div className="absolute inset-0 lg:left-[52%]">
+        <img
+          alt="Moving crew loading furniture into a truck"
+          className="h-full w-full object-cover object-[center_32%]"
+          decoding="async"
+          fetchPriority="high"
+          src="/hero-bg.png"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40 lg:from-white lg:via-white/80 lg:to-transparent" />
+      </div>
 
+      <div className="site-container relative">
+        <div className="grid lg:grid-cols-[1fr_1fr] lg:gap-12">
+          {/* Left: headline + trust + form */}
           <MotionDiv
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            className="order-2 max-w-xl lg:order-1"
+            className="max-w-xl py-12 sm:py-16 lg:py-20"
             initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             transition={revealTransition}
           >
-            <p className="text-sm font-semibold tracking-[0.01em] text-slate-900">{site.displayName}</p>
-            <h1 className="mt-3 text-pretty text-4xl text-slate-900 sm:text-5xl lg:max-w-[11ch] lg:text-[3.75rem] lg:leading-[1.02]">
-              Austin and Round Rock movers for homes, offices, packing, and storage.
+            <p className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm font-medium text-slate-700 backdrop-blur-sm">
+              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+              Serving Austin + Central Texas
+            </p>
+
+            <h1 className="mt-5 text-pretty text-4xl text-slate-900 sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
+              Movers who plan<br className="hidden sm:block" /> before they lift.
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-slate-700 sm:text-lg">
-              Local moves, commercial relocations, packing, storage gaps, and long-distance routes
-              all start with a written estimate and a clear plan for access, timing, and handling.
+
+            <p className="mt-4 max-w-md text-base leading-relaxed text-slate-700 sm:text-lg sm:leading-relaxed">
+              Written estimates, one crew from walkthrough to placement, and a clear
+              plan for access, timing, and handling — every job.
             </p>
 
-            <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm leading-relaxed text-slate-600">
-              <span>{site.officeLabel}</span>
-              <span className="text-slate-300">/</span>
-              <span>Austin + Central Texas routes</span>
-              <span className="text-slate-300">/</span>
-              <span>{site.hours.summary}</span>
-            </p>
-
-            <HeroLeadForm />
-
-            <div className="mt-6 grid gap-3 border-t border-slate-200 pt-4 sm:grid-cols-3">
-              {heroHighlights.map((item) => (
-                <p className="text-sm leading-relaxed text-slate-700" key={item}>
-                  {item}
-                </p>
+            {/* Trust stats bar */}
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-y border-slate-200 py-4">
+              {heroStats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="text-sm font-semibold text-slate-900">{stat.value}</p>
+                  <p className="text-xs text-slate-500">{stat.label}</p>
+                </div>
               ))}
             </div>
 
-            <p className="mt-5 text-sm leading-relaxed text-slate-600">
-              {publicContact.hasPhone ? 'Prefer the phone? ' : 'Prefer to talk it through? '}
+            {/* Lead form card */}
+            <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <p className="text-base font-semibold text-slate-900">Get your free estimate</p>
+              <p className="mt-1 text-sm text-slate-600">
+                Share a few details and we'll follow up to schedule a walkthrough.
+              </p>
+              <HeroLeadForm />
+            </div>
+
+            {/* Secondary CTA */}
+            <p className="mt-4 text-sm text-slate-600">
+              {publicContact.hasPhone ? 'Prefer to talk? ' : 'Prefer to talk it through? '}
               {publicContact.hasPhone ? (
                 <a
                   className="font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
@@ -85,18 +79,14 @@ export function Hero() {
                   className="font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
                   to="/contact"
                 >
-                  talk through your move
+                  Talk through your move
                 </Link>
               )}
-              {' or '}
-              <Link
-                className="font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                to="/quote"
-              >
-                use the full quote form
-              </Link>
             </p>
           </MotionDiv>
+
+          {/* Right column: spacer for the background image */}
+          <div className="hidden lg:block" aria-hidden="true" />
         </div>
       </div>
     </section>

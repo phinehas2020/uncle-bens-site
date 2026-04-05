@@ -7,20 +7,24 @@ import { featuredServices, publicContact, site } from '../data/site';
 
 const reasons = [
   {
+    number: '01',
     title: 'Written estimates, not guesses',
-    text: 'Pricing starts with a walkthrough. Labor, packing materials, access issues, and timing get named before anyone books the truck.',
+    text: 'Pricing starts with a walkthrough. Labor, materials, access, and timing get named before anyone books the truck.',
   },
   {
-    title: 'One crew plan across the job',
-    text: 'If packing, storage, or a long route are involved, we scope it as one move instead of handing you between separate teams.',
+    number: '02',
+    title: 'One crew, one plan',
+    text: 'Packing, storage, and long routes are scoped as one move — not handed between separate teams.',
   },
   {
-    title: 'House protection is part of the work',
-    text: 'Doorways, floors, and furniture protection are planned at the same time as the truck load so the house is not treated like an afterthought.',
+    number: '03',
+    title: 'Your home stays protected',
+    text: 'Doorways, floors, and furniture protection are planned at the same time as the truck load.',
   },
   {
-    title: 'Communication stays practical',
-    text: 'Arrival windows, access issues, and day-of changes get handled in plain language so you know what is happening next.',
+    number: '04',
+    title: 'Clear communication',
+    text: 'Arrival windows, access issues, and day-of changes get handled in plain language.',
   },
 ];
 
@@ -43,173 +47,156 @@ export function HomePage() {
 
       <Hero />
 
-      <section className="section">
-        <div className="site-container grid gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
-          <div className="lg:sticky lg:top-10">
-            <div className="max-w-lg">
-              <h2 className="text-balance text-4xl text-slate-900 sm:text-5xl">
-                Most of the job is keeping the day calm.
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-slate-700">
-                The lifting only goes smoothly when the access, timing, and inventory are settled
-                first. We treat the move like one plan, not a stack of separate services.
-              </p>
-            </div>
-
-            <figure className="mt-8">
-              <img
-                alt="Mover wrapping furniture before loading a truck"
-                className="aspect-[5/4] w-full object-cover"
-                decoding="async"
-                loading="lazy"
-                src="/hero-image.png"
-              />
-              <figcaption className="mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-                Wrapping, staging, and truck order are planned before load-out so the crew is not
-                improvising in the driveway.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="border-t border-slate-200">
-            {reasons.map((reason, index) => (
-              <article
-                className="group grid gap-4 border-b border-slate-200 py-6 sm:grid-cols-[64px_1fr]"
-                key={reason.title}
+      {/* Why us — horizontal cards */}
+      <section className="border-t border-slate-200 bg-slate-50">
+        <div className="site-container py-12 sm:py-16">
+          <p className="text-center text-sm font-semibold tracking-wide text-slate-500 uppercase">
+            Why families and businesses choose us
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {reasons.map((reason) => (
+              <div
+                className="group rounded-xl border border-slate-200 bg-white p-5 transition-shadow duration-300 hover:shadow-md"
+                key={reason.number}
               >
-                <p className="text-3xl text-slate-300 transition-colors duration-300 group-hover:text-accent">
-                  {String(index + 1).padStart(2, '0')}
+                <p className="text-2xl font-light text-slate-300 transition-colors duration-300 group-hover:text-accent">
+                  {reason.number}
                 </p>
-                <div className="grid gap-3 lg:grid-cols-[220px_1fr]">
-                  <h3 className="text-2xl text-slate-900">{reason.title}</h3>
-                  <p className="max-w-3xl text-base leading-relaxed text-slate-700">{reason.text}</p>
-                </div>
-              </article>
+                <h3 className="mt-3 text-lg font-semibold text-slate-900">{reason.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{reason.text}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-surface border-t border-slate-200">
-        <div className="site-container grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-          <div className="max-w-lg">
+      {/* Services — clean cards with hover */}
+      <section className="section border-t border-slate-200">
+        <div className="site-container">
+          <div className="max-w-2xl">
             <h2 className="text-balance text-4xl text-slate-900 sm:text-5xl">
               Most jobs blend these services.
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-slate-700">
-              A local move may still need full packing or a storage gap. A long route may start
-              with apartment access and staging. We plan the pieces together.
+            <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
+              A local move may still need full packing or a storage gap. We plan the
+              pieces together so nothing falls between teams.
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              If your move does not fit neatly in one category, that is normal. The route and the
-              access usually matter more than the page title.
-            </p>
-
-            <figure className="mt-8">
-              <img
-                alt="Packed moving boxes and supplies staged for pickup"
-                className="aspect-[5/4] w-full object-cover"
-                decoding="async"
-                loading="lazy"
-                src="/packing.png"
-              />
-              <figcaption className="mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-                Packing, truck load, and storage are usually the same conversation, not three
-                separate jobs.
-              </figcaption>
-            </figure>
           </div>
 
-          <div className="border-t border-slate-300">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {featuredServices.map((service) => (
-              <article
-                className="group grid gap-5 border-b border-slate-300 py-6 lg:grid-cols-[220px_1fr]"
-                id={service.id}
+              <Link
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow duration-300 hover:shadow-lg"
                 key={service.id}
+                to={`/services#${service.id}`}
               >
-                <div>
-                  <h3 className="text-xl text-slate-900 transition-colors duration-300 group-hover:text-accent">
+                {service.image && (
+                  <div className="aspect-[16/9] overflow-hidden">
+                    <img
+                      alt={service.imageAlt || service.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      decoding="async"
+                      loading="lazy"
+                      src={service.image}
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <h3 className="text-xl font-semibold text-slate-900 transition-colors duration-300 group-hover:text-accent">
                     {service.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{service.summary}</p>
-                </div>
-
-                <div>
-                  <ul className="grid gap-x-8 gap-y-2 text-sm leading-relaxed text-slate-700 sm:grid-cols-2">
-                    {service.highlights.map((highlight) => (
-                      <li
-                        className="transition-colors duration-300 group-hover:text-slate-900"
-                        key={highlight}
-                      >
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
+                    {service.summary}
+                  </p>
+                  <ul className="mt-4 grid gap-1.5 text-sm text-slate-700">
+                    {service.highlights.slice(0, 3).map((highlight) => (
+                      <li className="flex items-start gap-2" key={highlight}>
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                         {highlight}
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    className="mt-4 inline-flex text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    to={`/services#${service.id}`}
-                  >
-                    Read the service notes
-                  </Link>
+                  <p className="mt-4 text-sm font-semibold text-accent">
+                    Learn more &rarr;
+                  </p>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Social proof / trust */}
       <ReviewSection />
 
-      <section className="section border-t border-slate-200 bg-white">
-        <div className="site-container grid gap-12 lg:grid-cols-[1.02fr_0.98fr]">
-          <div>
+      {/* CTA — estimate section */}
+      <section className="section-surface border-t border-slate-200">
+        <div className="site-container">
+          <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-balance text-4xl text-slate-900 sm:text-5xl">
               The cleaner the inventory, the cleaner the quote.
             </h2>
-            <ol className="mt-8 border-t border-slate-200">
-              {estimateChecklist.map((item, index) => (
-                <li className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[36px_1fr]" key={item}>
-                  <span className="font-semibold text-slate-900">{index + 1}.</span>
-                  <span className="text-base leading-relaxed text-slate-700">{item}</span>
-                </li>
-              ))}
-            </ol>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-700">
+              Before we quote, we need a few details about your move. The more precise the
+              inventory, the more accurate the estimate.
+            </p>
           </div>
 
-          <div className="lg:pt-2">
-            <div className="border-y border-slate-200 py-6">
-              <p className="text-sm font-semibold text-slate-900">Coverage</p>
-              <p className="mt-5 text-base leading-relaxed text-slate-700">
-                We work across Austin and nearby Central Texas cities including{' '}
-                {site.serviceAreas.slice(0, 6).join(', ')}, and other routes in the metro when the
-                scope is a fit.
+          <div className="mx-auto mt-10 grid max-w-4xl gap-8 lg:grid-cols-2">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                What to have ready
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-slate-600">
-                {site.hours.summary}
-                <br />
-                {site.complianceNote}
-              </p>
+              <ol className="mt-4 space-y-0">
+                {estimateChecklist.map((item, index) => (
+                  <li
+                    className="flex items-start gap-4 border-b border-slate-200 py-4"
+                    key={item}
+                  >
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <span className="text-base leading-relaxed text-slate-700">{item}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            <div className="mt-8 flex flex-col items-start gap-4">
-              <ButtonLink size="lg" to="/quote">
-                Start the written estimate
-              </ButtonLink>
-              {publicContact.hasPhone ? (
-                <a
-                  className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                  href={publicContact.phoneHref}
-                >
-                  Call {site.phone.display}
-                </a>
-              ) : (
-                <Link
-                  className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                  to="/contact"
-                >
-                  Talk through your move
-                </Link>
-              )}
+            <div className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Coverage</p>
+                <p className="mt-3 text-base leading-relaxed text-slate-700">
+                  We work across Austin and nearby Central Texas cities including{' '}
+                  {site.serviceAreas.slice(0, 6).join(', ')}, and other routes in the metro
+                  when the scope is a fit.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  {site.hours.summary}
+                  <br />
+                  {site.complianceNote}
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3">
+                <ButtonLink size="lg" to="/quote" className="text-center">
+                  Start the written estimate
+                </ButtonLink>
+                {publicContact.hasPhone ? (
+                  <a
+                    className="text-center text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                    href={publicContact.phoneHref}
+                  >
+                    Or call {site.phone.display}
+                  </a>
+                ) : (
+                  <Link
+                    className="text-center text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
+                    to="/contact"
+                  >
+                    Or talk through your move
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>

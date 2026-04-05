@@ -123,7 +123,7 @@ export function HeroLeadForm() {
   }
 
   return (
-    <form aria-label="Start a moving quote" className="mt-6 space-y-3" onSubmit={handleSubmit}>
+    <form aria-label="Start a moving quote" className="mt-4 space-y-3" onSubmit={handleSubmit}>
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block sm:col-span-2">
           <span className="mb-1 block text-sm font-medium text-slate-700">Name</span>
