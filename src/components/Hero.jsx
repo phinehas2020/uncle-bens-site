@@ -31,12 +31,7 @@ export function Hero() {
             initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             transition={revealTransition}
           >
-            <p className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm font-medium text-slate-700 backdrop-blur-sm">
-              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-              Serving Austin + Central Texas
-            </p>
-
-            <h1 className="mt-3 text-pretty text-4xl text-slate-900 sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
+            <h1 className=" text-pretty text-4xl text-slate-900 sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
               Movers who plan<br className="hidden sm:block" /> before they lift.
             </h1>
 
