@@ -3,10 +3,11 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 
+const initialPath = window.location.pathname;
 const rootElement = document.getElementById('root');
 const app = (
   <StrictMode>
-    <App />
+    <App initialPath={initialPath} />
   </StrictMode>
 );
 
