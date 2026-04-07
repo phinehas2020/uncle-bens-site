@@ -12,9 +12,12 @@
       name="keywords"
       content="Austin TX movers, moving company Austin Texas, local movers Austin, long distance movers Austin, Round Rock movers, Cedar Park moving company"
     />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="author" content="Quality Moving &amp; Storage" />
     <meta name="theme-color" content="#0D1117" />
 
     <link rel="canonical" href="https://austintxmovers.com/" />
+    <link rel="alternate" hreflang="en-US" href="https://austintxmovers.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,6 +25,8 @@
       rel="stylesheet"
     />
 
+    <meta property="og:site_name" content="Quality Moving &amp; Storage" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Quality Moving &amp; Storage | Austin TX Movers" />
     <meta
       property="og:description"
@@ -29,6 +34,25 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://austintxmovers.com/" />
+    <meta property="og:image" content="https://austintxmovers.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Quality Moving &amp; Storage moving truck serving Austin and Round Rock, Texas."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quality Moving &amp; Storage | Austin TX Movers" />
+    <meta
+      name="twitter:description"
+      content="19 years serving Austin. Licensed, insured, guaranteed quotes. Call (512) 300-9543."
+    />
+    <meta name="twitter:image" content="https://austintxmovers.com/og-image.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Quality Moving &amp; Storage moving truck serving Austin and Round Rock, Texas."
+    />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -38,22 +62,69 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "MovingCompany",
-        "name": "Quality Moving & Storage",
-        "url": "https://austintxmovers.com",
-        "telephone": "+15123009543",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "1101 N Industrial Blvd",
-          "addressLocality": "Round Rock",
-          "addressRegion": "TX",
-          "postalCode": "78681",
-          "addressCountry": "US"
-        },
-        "areaServed": ["Austin", "Round Rock", "Cedar Park", "Georgetown", "Leander", "Kyle", "Buda"],
-        "openingHours": "Mo-Sa 09:00-18:00",
-        "priceRange": "$$",
-        "description": "Quality Moving & Storage is a licensed and insured moving company serving Austin, TX and surrounding areas since 2005."
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://austintxmovers.com/#website",
+            "url": "https://austintxmovers.com/",
+            "name": "Quality Moving & Storage",
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "MovingCompany",
+            "@id": "https://austintxmovers.com/#moving-company",
+            "name": "Quality Moving & Storage",
+            "url": "https://austintxmovers.com/",
+            "telephone": "+15123009543",
+            "priceRange": "$$",
+            "image": [
+              "https://austintxmovers.com/og-image.png",
+              "https://austintxmovers.com/austin-tx-long-distance-moving-truck.jpg",
+              "https://austintxmovers.com/hero-image.png"
+            ],
+            "logo": "https://austintxmovers.com/apple-touch-icon.png",
+            "description": "Quality Moving & Storage is a licensed and insured moving company serving Austin, TX and surrounding areas since 2005.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "1101 N Industrial Blvd",
+              "addressLocality": "Round Rock",
+              "addressRegion": "TX",
+              "postalCode": "78681",
+              "addressCountry": "US"
+            },
+            "areaServed": [
+              "Austin",
+              "Round Rock",
+              "Cedar Park",
+              "Georgetown",
+              "Leander",
+              "Pflugerville",
+              "Kyle",
+              "Buda",
+              "Lakeway",
+              "Manor",
+              "Jarrell",
+              "Burnet",
+              "Marble Falls"
+            ],
+            "openingHours": "Mo-Sa 09:00-18:00",
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>

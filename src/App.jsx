@@ -75,6 +75,34 @@ const SERVICE_AREA_GROUPS = [
   },
 ];
 
+const FAQS = [
+  {
+    question: 'How fast can I get a moving quote in Austin?',
+    answer:
+      'Most quote requests get a callback within the hour during business hours. Submit the form with your move details and our team will confirm scope, timing, and pricing without hidden fees.',
+  },
+  {
+    question: 'Are you licensed and insured for Texas moves?',
+    answer:
+      'Yes. Quality Moving & Storage is a licensed and insured Texas mover with TXDMV license #006027218C, and every move is scoped with a guaranteed quote before work begins.',
+  },
+  {
+    question: 'Do you move pianos, antiques, and artwork?',
+    answer:
+      'We do. Specialty items are one of our core services, and our crews use the right equipment, wrapping, and handling process for pianos, antiques, and framed artwork.',
+  },
+  {
+    question: 'Do you offer storage near Austin?',
+    answer:
+      'Yes. We provide short and long-term storage at our Round Rock facility, which makes it easier to bridge closing dates, remodel timelines, and staged long-distance moves.',
+  },
+  {
+    question: 'Which cities do you serve around Austin?',
+    answer:
+      'We regularly serve Austin, Round Rock, Cedar Park, Georgetown, Leander, Pflugerville, Kyle, Buda, Lakeway, Manor, Jarrell, Burnet, and Marble Falls.',
+  },
+];
+
 const MOVE_SIZES = ['Studio', '1 Bed', '2 Bed', '3 Bed', '4+ Bed', 'Office'];
 
 const INITIAL_FORM_STATE = {
@@ -402,6 +430,26 @@ function App() {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="anchor-section reveal-section section-shell border-t border-[var(--color-border)]" data-reveal id="faq">
+          <div className="site-shell">
+            <SectionHeading
+              subtitle="Straight answers on quotes, licensing, specialty items, storage, and the Central Texas cities we serve."
+              title="Questions Austin Customers Ask Before They Book"
+            />
+
+            <dl className="faq-list mt-12">
+              {FAQS.map((item) => (
+                <div className="faq-row" key={item.question}>
+                  <dt>
+                    <h3 className="faq-question">{item.question}</h3>
+                  </dt>
+                  <dd className="faq-answer">{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 

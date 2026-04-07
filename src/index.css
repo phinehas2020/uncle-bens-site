@@ -394,6 +394,32 @@
     line-height: 1.7;
   }
 
+  .faq-list {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-row {
+    display: grid;
+    gap: 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.25rem 0;
+  }
+
+  .faq-question {
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2vw, 1.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .faq-answer {
+    max-width: 44rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
   .quote-form-shell {
     border: 1px solid var(--color-border);
     background:
@@ -510,6 +536,12 @@
 
   .service-area-group:first-child {
     border-top: 0;
+  }
+
+  .faq-row {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 0.38fr);
+    align-items: start;
+    gap: 2rem;
   }
 }
 
