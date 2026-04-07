@@ -52,36 +52,27 @@ const SERVICES = [
   },
 ];
 
-const SERVICE_AREAS = [
-  'Austin',
-  'Round Rock',
-  'Cedar Park',
-  'Georgetown',
-  'Leander',
-  'Pflugerville',
-  'Kyle',
-  'Buda',
-  'Lakeway',
-  'Manor',
-  'Jarrell',
-  'Burnet',
-  'Marble Falls',
-];
-
-const MAP_MARKERS = [
-  { name: 'Austin', x: 362, y: 238 },
-  { name: 'Round Rock', x: 408, y: 186 },
-  { name: 'Cedar Park', x: 312, y: 186 },
-  { name: 'Georgetown', x: 438, y: 128 },
-  { name: 'Leander', x: 274, y: 132 },
-  { name: 'Pflugerville', x: 470, y: 214 },
-  { name: 'Kyle', x: 366, y: 322 },
-  { name: 'Buda', x: 362, y: 288 },
-  { name: 'Lakeway', x: 242, y: 252 },
-  { name: 'Manor', x: 522, y: 252 },
-  { name: 'Jarrell', x: 448, y: 70 },
-  { name: 'Burnet', x: 182, y: 100 },
-  { name: 'Marble Falls', x: 144, y: 176 },
+const SERVICE_AREA_GROUPS = [
+  {
+    label: 'Metro Core',
+    cities: ['Austin'],
+  },
+  {
+    label: 'North',
+    cities: ['Round Rock', 'Georgetown', 'Jarrell'],
+  },
+  {
+    label: 'West',
+    cities: ['Cedar Park', 'Leander', 'Lakeway', 'Burnet', 'Marble Falls'],
+  },
+  {
+    label: 'East',
+    cities: ['Pflugerville', 'Manor'],
+  },
+  {
+    label: 'South',
+    cities: ['Kyle', 'Buda'],
+  },
 ];
 
 const MOVE_SIZES = ['Studio', '1 Bed', '2 Bed', '3 Bed', '4+ Bed', 'Office'];
@@ -392,62 +383,24 @@ function App() {
               title="We Move All of Greater Austin"
             />
 
-            <div className="mt-12 border-y border-[var(--color-border)] py-8 sm:py-10">
-              <svg
-                aria-labelledby="service-area-map-title service-area-map-desc"
-                className="h-auto w-full"
-                role="img"
-                viewBox="0 0 760 460"
-              >
-                <title id="service-area-map-title">Stylized Central Texas service area map for Quality Moving &amp; Storage</title>
-                <desc id="service-area-map-desc">
-                  Austin metro outline with markers for Austin, Round Rock, Cedar Park, Georgetown, Leander, Pflugerville, Kyle,
-                  Buda, Lakeway, Manor, Jarrell, Burnet, and Marble Falls.
-                </desc>
+            <div className="service-area-panel mt-12">
+              <div className="service-area-lead">
+                <p className="service-area-kicker">Coverage across Central Texas</p>
+                <p className="service-area-display">Austin</p>
+                <p className="service-area-copy">
+                  Weekly routes run north, south, east, and west from Austin, so local moves stay local and longer hauls still
+                  move with one accountable crew.
+                </p>
+              </div>
 
-                <defs>
-                  <linearGradient id="mapFill" x1="0%" x2="100%" y1="0%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(22,27,34,0.96)" />
-                    <stop offset="100%" stopColor="rgba(13,17,23,0.98)" />
-                  </linearGradient>
-                </defs>
-
-                <g aria-hidden="true">
-                  <path
-                    d="M118 76L212 40L328 54L444 30L610 92L664 182L632 266L676 342L580 404L430 420L336 392L220 430L138 370L88 264L98 166Z"
-                    fill="url(#mapFill)"
-                    stroke="var(--color-border)"
-                    strokeWidth="3"
-                  />
-                  <path
-                    d="M178 120L540 310"
-                    stroke="rgba(240,165,0,0.24)"
-                    strokeDasharray="12 18"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M238 316L446 132"
-                    stroke="rgba(240,165,0,0.18)"
-                    strokeDasharray="10 16"
-                    strokeWidth="2"
-                  />
-                </g>
-
-                {MAP_MARKERS.map((city) => (
-                  <g key={city.name}>
-                    <circle cx={city.x} cy={city.y} fill="rgba(232,80,26,0.18)" r="16" />
-                    <circle cx={city.x} cy={city.y} fill="var(--color-brand)" r="6" />
-                  </g>
+              <div className="service-area-groups" aria-label="Quality Moving & Storage service area">
+                {SERVICE_AREA_GROUPS.map((group) => (
+                  <div className="service-area-group" key={group.label}>
+                    <p className="service-area-group-label">{group.label}</p>
+                    <p className="service-area-group-cities">{group.cities.join(', ')}</p>
+                  </div>
                 ))}
-              </svg>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-x-4 gap-y-3 text-sm leading-6 text-[var(--color-text-muted)] sm:text-[14px]">
-              {SERVICE_AREAS.map((city) => (
-                <span className="city-pill" key={city}>
-                  {city}
-                </span>
-              ))}
+              </div>
             </div>
           </div>
         </section>
