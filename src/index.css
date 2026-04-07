@@ -246,18 +246,26 @@
   }
 
   .mobile-menu {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    visibility: hidden;
+    overflow: hidden;
     pointer-events: none;
     opacity: 0;
     transform: translateY(-0.5rem);
     transition:
+      visibility 0ms linear 180ms,
       opacity 180ms ease,
       transform 180ms ease;
   }
 
   .mobile-menu.is-open {
+    visibility: visible;
     pointer-events: auto;
     opacity: 1;
     transform: translateY(0);
+    transition-delay: 0ms;
   }
 
   .mobile-menu-shell {
@@ -497,21 +505,31 @@
   }
 
   .hero-entrance {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 600ms var(--ease-industrial),
-      transform 600ms var(--ease-industrial);
-    transition-delay: var(--delay, 0ms);
+    opacity: 1;
+    transform: translateY(0);
+    animation: hero-fade-up 600ms var(--ease-industrial) both;
+    animation-delay: var(--delay, 0ms);
     will-change: opacity, transform;
   }
 
-  .hero-entrance.is-ready {
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal-section {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .reveal-section {
+  html.reveal-enhanced .reveal-section.reveal-pending {
     opacity: 0;
     transform: translateY(24px);
     transition:
@@ -520,6 +538,7 @@
     will-change: opacity, transform;
   }
 
+  html.reveal-enhanced .reveal-section.reveal-pending.is-visible,
   .reveal-section.is-visible {
     opacity: 1;
     transform: translateY(0);
@@ -1158,6 +1177,16 @@
 }
 
 @media (max-width: 640px) {
+  .page-hero {
+    min-height: clamp(27rem, 62svh, 34rem);
+  }
+
+  .page-hero-shell {
+    min-height: clamp(27rem, 62svh, 34rem);
+    padding-top: calc(var(--header-height) + 1.5rem);
+    padding-bottom: 2.5rem;
+  }
+
   .poster-hero-license {
     left: 1rem;
     right: 1rem;
@@ -1184,6 +1213,7 @@
 
   .hero-entrance,
   .reveal-section {
+    animation: none !important;
     opacity: 1 !important;
   }
 }

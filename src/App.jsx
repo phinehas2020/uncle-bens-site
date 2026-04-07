@@ -112,7 +112,7 @@ function TrustRail() {
   );
 }
 
-function HomeHero({ heroReady }) {
+function HomeHero() {
   return (
     <section className="poster-hero" id="top">
       <img
@@ -126,16 +126,16 @@ function HomeHero({ heroReady }) {
 
       <div className="site-shell poster-hero-shell">
         <div className="poster-hero-copy">
-          <p className={cx('hero-entrance brand-lockup', heroReady && 'is-ready')} style={{ '--delay': '0ms' }}>
+          <p className="hero-entrance brand-lockup" style={{ '--delay': '0ms' }}>
             {BUSINESS.company}
           </p>
-          <h1 className={cx('hero-entrance poster-title', heroReady && 'is-ready')} style={{ '--delay': '0ms' }}>
+          <h1 className="hero-entrance poster-title" style={{ '--delay': '0ms' }}>
             Austin&apos;s Most Trusted Movers
           </h1>
-          <p className={cx('hero-entrance poster-subtitle', heroReady && 'is-ready')} style={{ '--delay': '150ms' }}>
+          <p className="hero-entrance poster-subtitle" style={{ '--delay': '150ms' }}>
             19 years of stress-free moves. Licensed, insured, and guaranteed quotes - no surprises.
           </p>
-          <HeroActions className={cx('hero-entrance', heroReady && 'is-ready')} style={{ '--delay': '300ms' }} />
+          <HeroActions className="hero-entrance" style={{ '--delay': '300ms' }} />
         </div>
       </div>
 
@@ -144,7 +144,7 @@ function HomeHero({ heroReady }) {
   );
 }
 
-function PageHero({ route, heroReady, eyebrow, title, description, image, imageAlt }) {
+function PageHero({ route, eyebrow, title, description, image, imageAlt }) {
   return (
     <section className="page-hero">
       <img alt={imageAlt} className="page-hero-image" fetchPriority="high" src={image} />
@@ -152,16 +152,16 @@ function PageHero({ route, heroReady, eyebrow, title, description, image, imageA
       <div className="site-shell page-hero-shell">
         <div className="page-hero-content">
           <Breadcrumbs route={route} />
-          <p className={cx('hero-entrance section-eyebrow', heroReady && 'is-ready')} style={{ '--delay': '0ms' }}>
+          <p className="hero-entrance section-eyebrow" style={{ '--delay': '0ms' }}>
             {eyebrow}
           </p>
-          <h1 className={cx('hero-entrance page-title', heroReady && 'is-ready')} style={{ '--delay': '0ms' }}>
+          <h1 className="hero-entrance page-title" style={{ '--delay': '0ms' }}>
             {title}
           </h1>
-          <p className={cx('hero-entrance page-subtitle', heroReady && 'is-ready')} style={{ '--delay': '150ms' }}>
+          <p className="hero-entrance page-subtitle" style={{ '--delay': '150ms' }}>
             {description}
           </p>
-          <HeroActions className={cx('hero-entrance', heroReady && 'is-ready')} style={{ '--delay': '300ms' }} />
+          <HeroActions className="hero-entrance" style={{ '--delay': '300ms' }} />
         </div>
       </div>
     </section>
@@ -452,7 +452,7 @@ function ClosingCta({ title, body }) {
   );
 }
 
-function HomePage({ formState, heroReady, onChange, onSubmit, submittedQuote }) {
+function HomePage({ formState, onChange, onSubmit, submittedQuote }) {
   const serviceRows = SERVICES.map((service) => ({
     label: service.title,
     href: buildServicePath(service.slug),
@@ -463,7 +463,7 @@ function HomePage({ formState, heroReady, onChange, onSubmit, submittedQuote }) 
 
   return (
     <>
-      <HomeHero heroReady={heroReady} />
+      <HomeHero />
       <TrustRail />
 
       <section className="section-shell reveal-section" data-reveal>
@@ -521,13 +521,12 @@ function HomePage({ formState, heroReady, onChange, onSubmit, submittedQuote }) 
   );
 }
 
-function ServicesIndexPage({ heroReady, route }) {
+function ServicesIndexPage({ route }) {
   return (
     <>
       <PageHero
         description="Local moving, long-distance work, packing, specialty handling, loading help, and storage built for Austin-area households and businesses that want one accountable team."
         eyebrow="Service Menu"
-        heroReady={heroReady}
         image="/hero-image.png"
         imageAlt="Quality Moving & Storage crew unloading a truck at a Central Texas home."
         route={route}
@@ -542,7 +541,7 @@ function ServicesIndexPage({ heroReady, route }) {
   );
 }
 
-function ServicePage({ heroReady, route }) {
+function ServicePage({ route }) {
   const service = getServiceBySlug(route.serviceSlug);
 
   return (
@@ -550,7 +549,6 @@ function ServicePage({ heroReady, route }) {
       <PageHero
         description={service.heroDescription}
         eyebrow="Austin Moving Service"
-        heroReady={heroReady}
         image={service.image}
         imageAlt={service.imageAlt}
         route={route}
@@ -587,13 +585,12 @@ function ServicePage({ heroReady, route }) {
   );
 }
 
-function ServiceAreasIndexPage({ heroReady, route }) {
+function ServiceAreasIndexPage({ route }) {
   return (
     <>
       <PageHero
         description="Austin, Round Rock, Cedar Park, Georgetown, Leander, Pflugerville, Kyle, Buda, Lakeway, Manor, Jarrell, Burnet, and Marble Falls."
         eyebrow="Service Areas"
-        heroReady={heroReady}
         image="/hero-image.png"
         imageAlt="Quality Moving & Storage truck serving neighborhoods in Greater Austin."
         route={route}
@@ -624,7 +621,7 @@ function ServiceAreasIndexPage({ heroReady, route }) {
   );
 }
 
-function CityPage({ heroReady, route }) {
+function CityPage({ route }) {
   const city = getCityBySlug(route.citySlug);
   const sameRegion = CITIES.filter((item) => item.regionLabel === city.regionLabel && item.slug !== city.slug).slice(0, 4);
 
@@ -633,7 +630,6 @@ function CityPage({ heroReady, route }) {
       <PageHero
         description={city.heroDescription}
         eyebrow={`${city.name} Service Area`}
-        heroReady={heroReady}
         image={city.image}
         imageAlt={city.imageAlt}
         route={route}
@@ -689,13 +685,12 @@ function CityPage({ heroReady, route }) {
   );
 }
 
-function AboutPage({ heroReady, route }) {
+function AboutPage({ route }) {
   return (
     <>
       <PageHero
         description="19 years in business, licensed and insured, guaranteed quotes, and secure storage support from our Round Rock base."
         eyebrow="About Quality Moving & Storage"
-        heroReady={heroReady}
         image="/austin-tx-moving-storage-warehouse.jpg"
         imageAlt="Secure indoor warehouse facility used by Quality Moving & Storage."
         route={route}
@@ -743,13 +738,12 @@ function AboutPage({ heroReady, route }) {
   );
 }
 
-function FaqPage({ heroReady, route }) {
+function FaqPage({ route }) {
   return (
     <>
       <PageHero
         description="Answers on quotes, scheduling, packing, storage, specialty handling, and the Central Texas service area."
         eyebrow="Frequently Asked Questions"
-        heroReady={heroReady}
         image="/packing.png"
         imageAlt="Mover wrapping a fragile glass item during a packing service."
         route={route}
@@ -782,13 +776,12 @@ function FaqPage({ heroReady, route }) {
   );
 }
 
-function ContactPage({ heroReady, route }) {
+function ContactPage({ route }) {
   return (
     <>
       <PageHero
         description="Call, visit, or send your move details. We serve Austin and the surrounding Central Texas cities from our Round Rock office."
         eyebrow="Contact"
-        heroReady={heroReady}
         image="/storage-service.png"
         imageAlt="Mover walking through secure storage units inside the Quality Moving & Storage facility."
         route={route}
@@ -828,13 +821,12 @@ function ContactPage({ heroReady, route }) {
   );
 }
 
-function QuotePage({ formState, heroReady, onChange, onSubmit, route, submittedQuote }) {
+function QuotePage({ formState, onChange, onSubmit, route, submittedQuote }) {
   return (
     <>
       <PageHero
         description="Takes 60 seconds. No obligation. We'll call you back within the hour."
         eyebrow="Free Guaranteed Quote"
-        heroReady={heroReady}
         image="/hero-image.png"
         imageAlt="Quality Moving & Storage crew unloading a truck during a local move."
         route={route}
@@ -864,13 +856,12 @@ function QuotePage({ formState, heroReady, onChange, onSubmit, route, submittedQ
   );
 }
 
-function NotFoundPage({ heroReady, route }) {
+function NotFoundPage({ route }) {
   return (
     <>
       <PageHero
         description="The page you requested is not here, but the moving company still is."
         eyebrow="404"
-        heroReady={heroReady}
         image="/hero-image.png"
         imageAlt="Quality Moving & Storage truck parked outside a home."
         route={route}
@@ -1042,21 +1033,12 @@ export default function App({ initialPath = '/' }) {
   const route = getRoute(currentPath);
   const [menuOpen, setMenuOpen] = useState(false);
   const [navSolid, setNavSolid] = useState(route.kind !== 'home');
-  const [heroReady, setHeroReady] = useState(false);
   const [formState, setFormState] = useState(INITIAL_FORM_STATE);
   const [submittedQuote, setSubmittedQuote] = useState(null);
 
   useEffect(() => {
     syncDocumentHead(route);
   }, [route]);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      setHeroReady(true);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [route.path]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -1080,6 +1062,28 @@ export default function App({ initialPath = '/' }) {
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('[data-reveal]'));
 
+    sections.forEach((section) => {
+      section.classList.remove('reveal-pending', 'is-visible');
+    });
+
+    if (!sections.length) {
+      return undefined;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      sections.forEach((section) => {
+        section.classList.add('is-visible');
+      });
+
+      document.documentElement.classList.remove('reveal-enhanced');
+      return undefined;
+    }
+
+    document.documentElement.classList.add('reveal-enhanced');
+    const foldThreshold = window.innerHeight * 0.92;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -1097,9 +1101,23 @@ export default function App({ initialPath = '/' }) {
       },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= foldThreshold) {
+        section.classList.add('is-visible');
+        return;
+      }
 
-    return () => observer.disconnect();
+      section.classList.add('reveal-pending');
+      observer.observe(section);
+    });
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove('reveal-enhanced');
+      sections.forEach((section) => {
+        section.classList.remove('reveal-pending');
+      });
+    };
   }, [route.path]);
 
   const handleFormChange = (event) => {
@@ -1119,7 +1137,6 @@ export default function App({ initialPath = '/' }) {
 
   const pageProps = {
     formState,
-    heroReady,
     onChange: handleFormChange,
     onSubmit: handleSubmit,
     route,
