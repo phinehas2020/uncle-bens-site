@@ -10,7 +10,9 @@ import { ContactPage } from './pages/ContactPage';
 import { FAQPage } from './pages/FAQPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { PricingPage } from './pages/PricingPage';
 import { QuotePage } from './pages/QuotePage';
+import { ServiceAreasPage } from './pages/ServiceAreasPage';
 import { ServicesPage } from './pages/ServicesPage';
 
 const AdminLoginPage = lazy(() => import('./pages/AdminLoginPage').then((m) => ({ default: m.AdminLoginPage })));
@@ -40,12 +42,14 @@ function AppLayout() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main
-        className={`flex-1 md:pb-0 ${hideSticky ? '' : 'pb-[5rem]'}`}
+        className={`flex-1 md:pb-0 ${hideSticky ? '' : 'pb-[5.5rem]'}`}
         id="main-content"
       >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/service-areas" element={<ServiceAreasPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/austin-top-movers" element={<AustinTopMoversPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />

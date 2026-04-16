@@ -2,111 +2,145 @@ import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { companyValues, site } from '../data/site';
 
-const companyFacts = [
+const principles = [
   {
-    label: 'Office',
-    value: site.address
-      ? `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`
-      : `${site.officeLabel} serving Austin and nearby Central Texas cities.`,
-  },
-  { label: 'Coverage', value: 'Austin metro and nearby Central Texas cities' },
-  { label: 'Estimate path', value: 'Talk through your move or request a quote to start a written scope review.' },
-];
-
-const processNotes = [
-  {
-    title: 'Tell us the route and the hard parts',
-    text: 'Addresses, timing, stairs, elevators, heavy items, and storage gaps are the details that make the quote useful.',
+    num: '01',
+    title: 'Walkthrough before quote, always.',
+    text: 'A quote is only as good as the information behind it. A 15-minute walkthrough turns a guess into a number you can trust.',
   },
   {
-    title: 'We turn that into a written plan',
-    text: 'The estimate stage is where services get combined, access is flagged, and the next step is made clear before scheduling.',
+    num: '02',
+    title: 'One coordinator, one plan.',
+    text: 'The person who scopes your move is still the person tracking it when the truck leaves. No handoffs between departments.',
   },
   {
-    title: 'Move day follows the same scope',
-    text: 'Packing help, truck timing, storage holds, and final placement should all trace back to the same written plan.',
+    num: '03',
+    title: 'Protection isn\'t an upsell.',
+    text: 'Floor runners, doorframe pads, and corner guards are standard. The crew shows up with them — you don\'t get billed for them.',
+  },
+  {
+    num: '04',
+    title: 'If we can\'t do it right, we say so.',
+    text: 'If the access or timing makes the job unsafe or the scope unrealistic, we tell you before booking. Not after.',
   },
 ];
 
 export function AboutPage() {
-  const introIdentity = site.hasApprovedBusinessName
-    ? `${site.name} is set up`
-    : 'This Austin-area moving team is set up';
-
   return (
     <>
       <SEO
         canonical="/about"
-        title="About"
-        description="Learn how this Austin-area moving team handles written estimates, packing, storage, and move-day coordination across Central Texas."
-        keywords="Austin moving company, packing services, storage solutions, Central Texas movers"
+        title="About Quality Moving & Storage — Austin & Round Rock Movers"
+        description="Quality Moving & Storage is a TXDMV-registered Austin-area moving company. Meet the team behind the written estimates, careful crews, and one-coordinator moves across Central Texas."
+        keywords="Quality Moving Austin, Round Rock moving company, Austin movers about, Texas licensed movers"
       />
 
+      <section className="section-tight pt-16 md:pt-24">
+        <div className="wrap">
+          <p className="eyebrow">About</p>
+          <h1 className="display-xl mt-5 max-w-4xl text-balance">
+            A moving company built on the{' '}
+            <span className="serif-italic" style={{ color: 'var(--color-brand)' }}>boring details</span>{' '}
+            that actually matter.
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-graphite)]">
+            We started Quality Moving & Storage because too many Austin moves
+            were being run like dispatch operations — pass the job, collect
+            the card, move on. A move is one of the most physically chaotic
+            days of a family's year. It deserves more care than that.
+          </p>
+        </div>
+      </section>
+
+      {/* Facts block */}
+      <section className="section-tight">
+        <div className="wrap">
+          <div className="grid gap-6 rounded-3xl border border-[var(--color-line)] surface-bone p-8 sm:grid-cols-3 sm:p-10">
+            <div>
+              <p className="text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">Based in</p>
+              <p className="mt-3 font-display text-2xl text-[var(--color-ink)]">
+                {site.address ? `${site.address.city}, ${site.address.region}` : 'Round Rock, TX'}
+              </p>
+              <p className="mt-1 text-sm text-[var(--color-graphite)]">
+                Serving Austin & Central Texas
+              </p>
+            </div>
+            <div>
+              <p className="text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">Credentials</p>
+              <p className="mt-3 font-display text-2xl text-[var(--color-ink)]">{site.license}</p>
+              <p className="mt-1 text-sm text-[var(--color-graphite)]">Fully insured · written estimates</p>
+            </div>
+            <div>
+              <p className="text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">Scope</p>
+              <p className="mt-3 font-display text-2xl text-[var(--color-ink)]">Local · Long-distance · Storage</p>
+              <p className="mt-1 text-sm text-[var(--color-graphite)]">Homes, apartments, offices, and specialty items</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Principles */}
       <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="max-w-md">
-            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
-              An Austin moving company built around prepared crews and clear handoffs.
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-slate-700">
-              {introIdentity} for people who want the route, timing, and handling explained before
-              the truck shows up. The site focuses on the practical details first: where the move
-              starts, where it ends, what services are attached, and how to reach the office.
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              That means local household moves, office relocations, packing help, storage gaps, and
-              longer routes can be discussed as one job instead of separate bookings.
-            </p>
-          </div>
+        <div className="wrap">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+            <div className="max-w-md">
+              <p className="eyebrow">Principles</p>
+              <h2 className="display-lg mt-5 text-balance">
+                The rules we refuse to <span className="serif-italic">shortcut</span>.
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-[var(--color-graphite)]">
+                These aren't mission-statement bullets. They are the four
+                things that actually separate a careful move from a cheap one.
+              </p>
+            </div>
 
-          <div className="border-t border-slate-200">
-            {companyFacts.map((fact) => (
-              <div className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[180px_1fr]" key={fact.label}>
-                <p className="text-sm font-semibold text-slate-900">{fact.label}</p>
-                <p className="text-sm leading-relaxed text-slate-700">{fact.value}</p>
-              </div>
+            <ol className="space-y-0 divide-y divide-[var(--color-line)] border-y border-[var(--color-line)]">
+              {principles.map((p) => (
+                <li key={p.num} className="grid gap-4 py-6 sm:grid-cols-[80px_1fr] sm:gap-8">
+                  <span className="font-display text-3xl leading-none tnum text-[var(--color-dust)]">{p.num}</span>
+                  <div>
+                    <h3 className="font-display text-2xl leading-snug text-[var(--color-ink)]">{p.title}</h3>
+                    <p className="mt-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{p.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="section surface-paper">
+        <div className="wrap">
+          <h2 className="display-lg max-w-3xl text-balance">
+            What you can expect on move day.
+          </h2>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {companyValues.map((v) => (
+              <article key={v.title} className="rounded-2xl border border-[var(--color-line)] bg-white p-7">
+                <p className="font-display text-2xl text-[var(--color-ink)]">{v.title}</p>
+                <p className="mt-4 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{v.text}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-surface">
-        <div className="site-container">
-          <h2 className="text-balance text-3xl text-slate-900">How we work</h2>
-          <div className="mt-8 border-t border-slate-300">
-            {companyValues.map((value) => (
-              <div className="grid gap-3 border-b border-slate-300 py-5 lg:grid-cols-[220px_1fr]" key={value.title}>
-                <h3 className="text-2xl text-slate-900">{value.title}</h3>
-                <p className="text-base leading-relaxed text-slate-700">{value.text}</p>
-              </div>
-            ))}
+      {/* Closing CTA */}
+      <section className="section">
+        <div className="wrap">
+          <div className="grid gap-8 border-t border-[var(--color-line-strong)] pt-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+            <h2 className="display-md max-w-2xl text-balance">
+              The walkthrough is free, and the written estimate is yours to keep.
+            </h2>
+            <div className="flex flex-col items-start gap-3 lg:items-end">
+              <Link to="/quote" className="btn btn-primary">
+                Request a written estimate
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link to="/contact" className="u-link">Contact the office</Link>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="section border-t border-slate-200 bg-white">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h2 className="text-balance text-4xl text-slate-900">What happens after you reach out.</h2>
-          </div>
-
-          <div className="border-t border-slate-200">
-            {processNotes.map((item) => (
-              <div className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[180px_1fr]" key={item.title}>
-                <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                <p className="text-sm leading-relaxed text-slate-700">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="site-container mt-10 border-t border-slate-200 pt-6">
-          <Link
-            className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-            to="/quote"
-          >
-            Need a written estimate for an upcoming move?
-          </Link>
         </div>
       </section>
     </>

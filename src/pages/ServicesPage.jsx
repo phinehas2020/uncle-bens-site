@@ -1,137 +1,185 @@
 import { Link } from 'react-router-dom';
+import { ArrowUpRight, Home, Package, Truck, Warehouse, Building2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
-import { services } from '../data/site';
+import { services, serviceDetails } from '../data/site';
 
-const serviceIds = ['local-moving', 'packing', 'long-distance', 'storage'];
-const coreServices = services.filter((service) => serviceIds.includes(service.id));
-
-const serviceGuide = {
-  'local-moving': {
-    bestFor: 'Homes, apartments, and office moves inside Austin and nearby cities.',
-    pairedWith: 'Packing help or short-term storage when access or timing changes.',
-    mention: 'Stairs, elevators, loading zones, and anything that affects truck access.',
-  },
-  packing: {
-    bestFor: 'Fragile rooms, partial-home packing, or jobs where time is tight before move day.',
-    pairedWith: 'Local or long-distance moves that need one inventory plan from the start.',
-    mention: 'What you want packed by us, what you are packing yourself, and any specialty items.',
-  },
-  'long-distance': {
-    bestFor: 'Texas cross-state and interstate moves that need one point of contact.',
-    pairedWith: 'Storage holds or staged packing when delivery timing is not locked in yet.',
-    mention: 'Pickup and delivery windows, access at both ends, and any deadline you cannot miss.',
-  },
-  storage: {
-    bestFor: 'Delayed closings, renovation gaps, phased move-ins, and overflow between addresses.',
-    pairedWith: 'Packing or long-distance work when items need to stay organized between stops.',
-    mention: 'How long you expect the hold to last and whether retrieval needs to happen in stages.',
-  },
+const icons = {
+  'local-moving': Home,
+  packing: Package,
+  'long-distance': Truck,
+  storage: Warehouse,
+  'commercial-moving': Building2,
 };
-
-const quoteChecklist = [
-  'List both addresses and your target date window.',
-  'Note access issues like stairs, elevators, parking limits, or long walks from the truck.',
-  'Say whether packing, storage, or specialty-item handling is part of the job.',
-  'Use one inventory list if you are comparing more than one mover.',
-];
 
 export function ServicesPage() {
   return (
     <>
       <SEO
         canonical="/services"
-        title="Moving services"
-        description="Austin-area moving service page for local moving, packing services, long-distance moving, and storage solutions across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway."
-        keywords="moving services, local moving, long-distance moving, packing services, storage solutions"
+        title="Moving Services in Austin — Local, Packing, Storage & Long-Distance"
+        description="Moving services offered by Quality Moving & Storage across Austin, Round Rock, Cedar Park, Pflugerville, Lakeway, and Central Texas. Local moves, packing, storage, long-distance, and commercial relocation."
+        keywords="moving services Austin, local moving, long-distance moving, packing services, storage solutions, commercial moving"
       />
 
-      <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="max-w-md">
-            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
-              Four services, usually planned together.
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-slate-700">
-              Most jobs are a mix of route planning, access coordination, packing, and temporary
-              holding. This page is meant to show how those pieces fit.
-            </p>
-          </div>
-
-          <div className="border-t border-slate-200">
-            <div className="hidden grid-cols-[180px_1fr_1fr_1fr] gap-4 border-b border-slate-200 py-4 text-sm font-semibold text-slate-900 md:grid">
-              <div>Service</div>
-              <div>Good fit for</div>
-              <div>Often paired with</div>
-              <div>Mention this when asking for a quote</div>
-            </div>
-
-            {coreServices.map((service) => (
-              <article className="grid gap-4 border-b border-slate-200 py-5 md:grid-cols-[180px_1fr_1fr_1fr]" key={service.id}>
-                <div>
-                  <p className="text-base font-semibold text-slate-900">{service.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{service.summary}</p>
-                </div>
-                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].bestFor}</p>
-                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].pairedWith}</p>
-                <p className="text-sm leading-relaxed text-slate-700">{serviceGuide[service.id].mention}</p>
-              </article>
-            ))}
-          </div>
+      {/* Header */}
+      <section className="section-tight pb-0 pt-16 md:pt-24">
+        <div className="wrap">
+          <p className="eyebrow">Services</p>
+          <h1 className="display-xl mt-5 max-w-4xl text-balance">
+            Every move is a <span className="serif-italic" style={{ color: 'var(--color-brand)' }}>project</span>. We run it like one.
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-graphite)]">
+            Local routes, packing, storage, and long hauls are rarely separate
+            jobs. We scope and sequence them as one written plan — the same
+            plan the crew follows on move day.
+          </p>
         </div>
       </section>
 
-      <section className="section-surface">
-        <div className="site-container">
-          {coreServices.map((service) => (
-            <article className="grid gap-6 border-t border-slate-300 py-8 first:pt-0 lg:grid-cols-[220px_1fr]" id={service.id} key={service.id}>
-              <div>
-                <p className="text-sm leading-relaxed text-slate-700">{service.details}</p>
-              </div>
-
-              <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-                <div>
-                  <h2 className="text-3xl text-slate-900">{service.title}</h2>
-                  <ul className="mt-5 grid gap-3 text-sm leading-relaxed text-slate-700 sm:grid-cols-2">
-                    {service.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="border-t border-slate-300 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                  <p className="text-sm font-semibold text-slate-900">Planning note</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                    {serviceGuide[service.id].mention}
-                  </p>
-                  <Link
-                    className="mt-4 inline-flex text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    to="/quote"
+      {/* Services jump index */}
+      <section className="section-tight pt-10">
+        <div className="wrap">
+          <ul className="flex flex-wrap gap-2">
+            {services.map((s) => {
+              const Icon = icons[s.id] || Home;
+              return (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-line-strong)] bg-white px-4 py-2 text-sm text-[var(--color-graphite)] transition-colors hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]"
                   >
-                    Request a quote for {service.title.toLowerCase()}
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
+                    <Icon className="h-4 w-4" style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
+                    {s.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
-      <section className="section border-t border-slate-200 bg-white">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <h2 className="text-balance text-4xl text-slate-900">
-              If you are comparing movers, keep the quote inputs the same.
-            </h2>
-          </div>
+      {/* Service blocks */}
+      <section className="section pt-10">
+        <div className="wrap space-y-24 lg:space-y-32">
+          {services.map((service, idx) => {
+            const Icon = icons[service.id] || Home;
+            const detail = serviceDetails.find((d) => d.id === service.id);
+            const flip = idx % 2 === 1;
+            return (
+              <article key={service.id} id={service.id} className="scroll-mt-24">
+                <div className={`grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16 ${flip ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+                  <div className="relative overflow-hidden rounded-3xl">
+                    {service.image ? (
+                      <img
+                        alt={service.imageAlt || service.title}
+                        className="aspect-[4/5] w-full object-cover"
+                        decoding="async"
+                        loading="lazy"
+                        src={service.image}
+                      />
+                    ) : (
+                      <div className="aspect-[4/5] w-full surface-paper" />
+                    )}
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,20,16,0.35), transparent 50%)' }} aria-hidden="true" />
+                    <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] backdrop-blur">
+                      <Icon className="h-3.5 w-3.5" style={{ color: 'var(--color-brand)' }} aria-hidden="true" />
+                      {service.shortTitle || service.title}
+                    </div>
+                  </div>
 
-          <ol className="grid gap-4">
-            {quoteChecklist.map((item, index) => (
-              <li className="grid gap-3 border-t border-slate-200 py-4 sm:grid-cols-[28px_1fr]" key={item}>
-                <span className="font-semibold text-slate-900">{index + 1}.</span>
-                <span className="text-base leading-relaxed text-slate-700">{item}</span>
-              </li>
-            ))}
-          </ol>
+                  <div>
+                    <p className="eyebrow">Service · {String(idx + 1).padStart(2, '0')}</p>
+                    <h2 className="display-lg mt-4 text-balance">{service.title}</h2>
+                    <p className="mt-5 text-lg leading-relaxed text-[var(--color-graphite)]">
+                      {detail?.intro || service.summary}
+                    </p>
+
+                    {detail?.details?.length ? (
+                      <div className="mt-6 space-y-4 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+                        {detail.details.slice(0, 2).map((p, i) => <p key={i}>{p}</p>)}
+                      </div>
+                    ) : null}
+
+                    <ul className="mt-8 grid gap-3 text-sm text-[var(--color-graphite)] sm:grid-cols-2">
+                      {service.highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-2.5">
+                          <span aria-hidden="true" className="mt-1.5 h-1 w-1 shrink-0 rounded-full" style={{ background: 'var(--color-brand)' }} />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {detail?.related?.length ? (
+                      <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-stone)]">
+                        <span className="font-medium text-[var(--color-ink)]">Often paired with:</span>
+                        {detail.related.map((id) => {
+                          const related = services.find((s) => s.id === id);
+                          if (!related) return null;
+                          return (
+                            <a key={id} href={`#${id}`} className="u-link">
+                              {related.title}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <Link to="/quote" className="btn btn-primary">
+                        Quote this service
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                      <Link to="/contact" className="btn btn-ghost">
+                        Ask a question
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {detail?.faqs?.length ? (
+                  <div className="mt-12 rounded-2xl border border-[var(--color-line)] surface-bone p-6 sm:p-8">
+                    <p className="eyebrow">Common questions</p>
+                    <dl className="mt-5 divide-y divide-[var(--color-line)]">
+                      {detail.faqs.map((f) => (
+                        <div key={f.question} className="grid gap-2 py-4 sm:grid-cols-[1fr_2fr] sm:gap-8">
+                          <dt className="font-display text-lg text-[var(--color-ink)]">{f.question}</dt>
+                          <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{f.answer}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Comparison CTA */}
+      <section className="section surface-ink grain">
+        <div className="wrap">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div>
+              <p className="eyebrow" style={{ color: 'var(--color-brand-soft)' }}>Comparing movers?</p>
+              <h2 className="display-lg mt-5 text-balance" style={{ color: 'var(--color-cream)' }}>
+                Use the same inventory list for every quote.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80">
+                If one mover is quoting a 2-bedroom apartment and another is
+                quoting a 3-bedroom home with stairs, the comparison is already
+                broken. We wrote a plain-English guide for comparing Austin movers fairly.
+              </p>
+            </div>
+            <div className="flex flex-col items-start gap-3 lg:items-end">
+              <Link to="/austin-top-movers" className="btn btn-brand">
+                Read the Austin movers guide
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link to="/pricing" className="text-sm font-medium text-white/85 underline underline-offset-4 decoration-white/30 hover:decoration-[var(--color-brand-soft)]">
+                See typical Austin moving costs
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>

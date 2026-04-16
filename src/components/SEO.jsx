@@ -11,19 +11,13 @@ export function SEO({
   imageAlt,
   article,
   noindex = false,
+  children,
 }) {
   const siteUrl = site.domain;
-  const shouldPublishOrganizationIdentity = site.hasApprovedBusinessName;
   const titleSuffix = site.seoTitleSuffix;
   const withSiteOrigin = (value) => {
-    if (!value) {
-      return value;
-    }
-
-    if (/^https?:\/\//.test(value)) {
-      return value;
-    }
-
+    if (!value) return value;
+    if (/^https?:\/\//.test(value)) return value;
     return siteUrl ? `${siteUrl}${value}` : value;
   };
 
@@ -31,13 +25,13 @@ export function SEO({
   const fallbackDescription = site.description;
   const metaDescription = description || fallbackDescription;
   const fullTitle = title
-    ? (title.includes(titleSuffix) ? title : `${title} | ${titleSuffix}`)
-    : titleSuffix;
+    ? title.includes(titleSuffix)
+      ? title
+      : `${title} | ${site.shortName || site.name} — ${titleSuffix}`
+    : `${site.name} — ${titleSuffix}`;
   const fullCanonical = canonical ? withSiteOrigin(canonical) : siteUrl || '/';
   const ogImage = image ? withSiteOrigin(image) : defaultImage;
-  const ogImageAlt = imageAlt || `${site.shortName} helping with moves across Central Texas`;
-  const ogImageWidth = 1200;
-  const ogImageHeight = 630;
+  const ogImageAlt = imageAlt || `${site.shortName} — Austin and Central Texas movers`;
 
   const articleSchema = article
     ? {
@@ -48,22 +42,18 @@ export function SEO({
         image: ogImage,
         datePublished: article.publishedTime,
         dateModified: article.modifiedTime || article.publishedTime,
-        ...(shouldPublishOrganizationIdentity
-          ? {
-              author: {
-                '@type': 'Organization',
-                name: site.name,
-              },
-              publisher: {
-                '@type': 'Organization',
-                name: site.name,
-                logo: {
-                  '@type': 'ImageObject',
-                  url: withSiteOrigin('/logo.svg'),
-                },
-              },
-            }
-          : {}),
+        author: {
+          '@type': 'Organization',
+          name: site.name,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: site.name,
+          logo: {
+            '@type': 'ImageObject',
+            url: withSiteOrigin('/logo.svg'),
+          },
+        },
       }
     : null;
 
@@ -73,8 +63,8 @@ export function SEO({
       <meta content={metaDescription} name="description" />
       {keywords ? <meta content={keywords} name="keywords" /> : null}
       <link href={fullCanonical} rel="canonical" />
-      {shouldPublishOrganizationIdentity ? <meta content={site.name} name="author" /> : null}
-      <meta content="#ffffff" name="theme-color" />
+      <meta content={site.name} name="author" />
+      <meta content="#faf5ea" name="theme-color" />
 
       {noindex && <meta content="noindex, nofollow" name="robots" />}
 
@@ -84,9 +74,9 @@ export function SEO({
       <meta content={metaDescription} property="og:description" />
       <meta content={ogImage} property="og:image" />
       <meta content={ogImageAlt} property="og:image:alt" />
-      <meta content={String(ogImageWidth)} property="og:image:width" />
-      <meta content={String(ogImageHeight)} property="og:image:height" />
-      {shouldPublishOrganizationIdentity ? <meta content={site.name} property="og:site_name" /> : null}
+      <meta content="1200" property="og:image:width" />
+      <meta content="630" property="og:image:height" />
+      <meta content={site.name} property="og:site_name" />
       <meta content="en_US" property="og:locale" />
 
       <meta content="summary_large_image" name="twitter:card" />
@@ -108,6 +98,83 @@ export function SEO({
       {articleSchema && (
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       )}
+
+      {children}
+    </Helmet>
+  );
+}
+
+/**
+ * LocalBusiness + MovingCompany structured data.
+ * Render once on the home page for strongest local SEO signals.
+ */
+export function LocalBusinessSchema() {
+  const phone = site.phone?.display;
+  const address = site.address;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'MovingCompany',
+    '@id': `${site.domain}/#organization`,
+    name: site.name,
+    description: site.description,
+    url: site.domain,
+    image: `${site.domain}/og-image.png`,
+    logo: `${site.domain}/logo.svg`,
+    priceRange: '$$',
+    ...(phone ? { telephone: phone } : {}),
+    ...(site.email ? { email: site.email } : {}),
+    ...(address
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: address.street,
+            addressLocality: address.city,
+            addressRegion: address.region,
+            postalCode: address.postalCode,
+            addressCountry: address.country || 'US',
+          },
+        }
+      : {}),
+    areaServed: site.serviceAreas.map((a) => ({
+      '@type': 'City',
+      name: `${a}, TX`,
+    })),
+    openingHoursSpecification: site.hours.specification,
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Moving and storage services',
+      itemListElement: [
+        'Local moving', 'Long-distance moving', 'Packing services', 'Storage solutions', 'Commercial relocation',
+      ].map((name, i) => ({
+        '@type': 'Offer',
+        position: i + 1,
+        itemOffered: { '@type': 'Service', name, provider: { '@type': 'MovingCompany', name: site.name } },
+      })),
+    },
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(data)}</script>
+    </Helmet>
+  );
+}
+
+export function BreadcrumbSchema({ items }) {
+  if (!items?.length) return null;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: it.name,
+      item: it.url?.startsWith('http') ? it.url : `${site.domain}${it.url}`,
+    })),
+  };
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(data)}</script>
     </Helmet>
   );
 }

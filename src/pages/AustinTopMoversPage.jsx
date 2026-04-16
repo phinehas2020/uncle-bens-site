@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import {
   austinMoverFaqs,
@@ -12,98 +13,98 @@ import {
 } from '../data/austinTopMovers';
 import { publicContact, site } from '../data/site';
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: austinMoverFaqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer,
-    },
-  })),
-};
-
 export function AustinTopMoversPage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: austinMoverFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  };
+
   return (
     <>
       <SEO
         canonical="/austin-top-movers"
-        description="A detailed Austin movers shortlist with public review signals, quote questions, and a practical checklist for comparing moving companies in 2026."
-        title="Top Movers in Austin (2026)"
-        keywords="top movers in Austin, best Austin movers, Austin moving companies, Austin moving quotes"
+        title="Top Movers in Austin, TX (2026) — Guide & Comparison"
+        description="An honest guide to the top-rated moving companies in Austin, Texas, with review data, quote questions, and a checklist for comparing movers fairly."
+        keywords="top movers Austin, best Austin moving companies, Austin movers ranked, Austin moving quotes"
         article={{
           publishedTime: `${austinTopMoversUpdatedAt}T00:00:00-06:00`,
           modifiedTime: `${austinTopMoversUpdatedAt}T00:00:00-06:00`,
         }}
       />
-
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
-      <section className="section">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <div className="max-w-md">
-            <h1 className="text-balance text-4xl text-slate-900 sm:text-5xl">
-              Top movers in Austin: a public shortlist and a better quote checklist.
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-slate-700">
-              This page is for people comparing Austin movers who want something more useful than a
-              generic best-of list. We reviewed public ranking pages, review marketplaces, and
-              credential sources, then turned that into a shortlist you can actually use.
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              Last updated: March 5, 2026. The names below are a starting point for quotes, not a
-              substitute for a walkthrough and written scope.
-            </p>
-          </div>
+      <section className="section-tight pt-16 md:pt-24">
+        <div className="wrap">
+          <p className="eyebrow">Austin movers guide · Updated {austinTopMoversUpdatedAt}</p>
+          <h1 className="display-xl mt-5 max-w-5xl text-balance">
+            The top movers in <span className="serif-italic" style={{ color: 'var(--color-brand)' }}>Austin</span>, by the numbers.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--color-graphite)]">
+            A clear-eyed shortlist of Austin movers, pulled from public review data, credential
+            sources, and ranking marketplaces. Use it to build a better comparison — not to rank us.
+          </p>
+        </div>
+      </section>
 
-          <div className="border-t border-slate-200">
+      {/* Methodology */}
+      <section className="section-tight">
+        <div className="wrap">
+          <div className="grid gap-4 md:grid-cols-3">
             {austinMoverMethodology.map((item) => (
-              <div className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[160px_1fr]" key={item.label}>
-                <div>
-                  <p className="text-3xl text-slate-900">{item.value}</p>
-                  <p className="mt-1 text-sm font-semibold text-slate-900">{item.label}</p>
-                </div>
-                <p className="text-sm leading-relaxed text-slate-700">{item.detail}</p>
+              <div key={item.label} className="rounded-2xl border border-[var(--color-line)] surface-bone p-6">
+                <p className="font-display text-4xl leading-none text-[var(--color-ink)] tnum">{item.value}</p>
+                <p className="mt-3 text-sm font-medium text-[var(--color-ink)]">{item.label}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-graphite)]">{item.detail}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-surface">
-        <div className="site-container">
-          <div className="max-w-3xl">
-            <h2 className="text-balance text-4xl text-slate-900">Austin movers worth comparing.</h2>
-          </div>
+      {/* Ranked list */}
+      <section className="section">
+        <div className="wrap">
+          <p className="eyebrow">Ranked shortlist</p>
+          <h2 className="display-lg mt-5 max-w-2xl text-balance">
+            Four Austin movers worth a call.
+          </h2>
 
-          <div className="mt-8 border-t border-slate-300">
-            {austinTopMovers.map((mover, index) => (
-              <article className="grid gap-6 border-b border-slate-300 py-8 lg:grid-cols-[72px_1fr_0.7fr]" key={mover.name}>
-                <div className="text-2xl text-slate-900">{String(index + 1).padStart(2, '0')}</div>
-
-                <div>
-                  <p className="text-sm text-slate-600">{mover.snapshot}</p>
-                  <h3 className="mt-2 text-2xl text-slate-900">{mover.name}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-slate-700">{mover.summary}</p>
-
-                  <div className="mt-5 grid gap-3">
-                    {mover.publicSignals.map((signal) => (
-                      <div className="text-sm leading-relaxed text-slate-700" key={signal}>
-                        {signal}
-                      </div>
-                    ))}
+          <div className="mt-12 space-y-6">
+            {austinTopMovers.map((mover, idx) => (
+              <article key={mover.name} className="overflow-hidden rounded-3xl border border-[var(--color-line)] bg-white">
+                <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[auto_1.2fr_1fr]">
+                  <div className="shrink-0">
+                    <p className="font-display text-5xl leading-none tnum text-[var(--color-dust)]">
+                      {String(idx + 1).padStart(2, '0')}
+                    </p>
                   </div>
-                </div>
+                  <div>
+                    <p className="text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">{mover.snapshot}</p>
+                    <h3 className="mt-2 font-display text-2xl text-[var(--color-ink)] sm:text-3xl">{mover.name}</h3>
+                    <p className="mt-4 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{mover.summary}</p>
 
-                <div className="border-t border-slate-300 pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                  <p className="text-sm font-semibold text-slate-900">Best fit</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{mover.bestFor}</p>
-                  <p className="mt-5 text-sm font-semibold text-slate-900">Verify before booking</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{mover.watchFor}</p>
+                    <ul className="mt-5 grid gap-2 text-sm text-[var(--color-graphite)]">
+                      {mover.publicSignals.map((s) => (
+                        <li key={s} className="flex items-start gap-2.5">
+                          <span aria-hidden="true" className="mt-1.5 h-1 w-1 shrink-0 rounded-full" style={{ background: 'var(--color-brand)' }} />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <aside className="rounded-2xl surface-bone p-5 lg:border-l lg:border-[var(--color-line)]">
+                    <p className="text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">Best fit</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-graphite)]">{mover.bestFor}</p>
+                    <p className="mt-5 text-[0.75rem] uppercase tracking-[0.14em] text-[var(--color-stone)]">Verify before booking</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-graphite)]">{mover.watchFor}</p>
+                  </aside>
                 </div>
               </article>
             ))}
@@ -111,96 +112,86 @@ export function AustinTopMoversPage() {
         </div>
       </section>
 
-      <section className="section border-t border-slate-200 bg-white">
-        <div className="site-container grid gap-10 lg:grid-cols-[1fr_0.9fr]">
-          <div>
-            <h2 className="text-balance text-4xl text-slate-900">
-              How to compare Austin moving quotes without wasting a week.
-            </h2>
-            <div className="mt-8 border-t border-slate-200">
-              {austinMoverSelectionChecklist.map((item) => (
-                <div className="grid gap-3 border-b border-slate-200 py-5 lg:grid-cols-[220px_1fr]" key={item.title}>
-                  <h3 className="text-lg text-slate-900">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-slate-700">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold text-slate-900">Red flags</p>
-            <div className="mt-6 border-t border-slate-200">
-              {austinMoverRedFlags.map((flag) => (
-                <div className="border-b border-slate-200 py-4 text-sm leading-relaxed text-slate-700" key={flag}>
-                  {flag}
-                </div>
-              ))}
+      {/* Checklist + flags */}
+      <section className="section surface-paper">
+        <div className="wrap">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="eyebrow">Compare fairly</p>
+              <h2 className="display-lg mt-5 text-balance">
+                Don't compare movers — compare <span className="serif-italic">quotes</span>.
+              </h2>
+              <ol className="mt-10 space-y-0 divide-y divide-[var(--color-line)] border-y border-[var(--color-line)]">
+                {austinMoverSelectionChecklist.map((item, i) => (
+                  <li key={item.title} className="grid gap-4 py-6 sm:grid-cols-[70px_1fr] sm:gap-8">
+                    <span className="font-display text-2xl leading-none tnum text-[var(--color-dust)]">{String(i + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h3 className="font-display text-xl leading-snug text-[var(--color-ink)]">{item.title}</h3>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{item.detail}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            <div className="mt-8 border-t border-slate-200 pt-5">
-              <p className="text-sm font-semibold text-slate-900">How to use this page with our team</p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                If you are also considering our Austin-area moving team, use the same checklist on
-                us that you use for every other mover on this page. That keeps the comparison
-                grounded in scope, route, and written estimate quality instead of marketing copy.
-              </p>
-              <div className="mt-4 flex flex-col items-start gap-3">
-                <Link
-                  className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                  to="/quote"
-                >
-                  Request our written quote
-                </Link>
-                {publicContact.hasPhone ? (
-                  <a
-                    className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    href={publicContact.phoneHref}
-                  >
-                    Call {site.phone.display}
-                  </a>
-                ) : (
-                  <Link
-                    className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    to="/contact"
-                  >
-                    Talk through your move
-                  </Link>
-                )}
+            <aside>
+              <p className="eyebrow">Red flags</p>
+              <h3 className="display-md mt-5 text-balance">If you see these, walk away.</h3>
+              <ul className="mt-8 space-y-3">
+                {austinMoverRedFlags.map((flag) => (
+                  <li key={flag} className="rounded-xl border border-[var(--color-line)] bg-white p-4 text-sm leading-relaxed text-[var(--color-graphite)]">
+                    {flag}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-10 rounded-2xl border border-[var(--color-ink)] bg-[var(--color-ink)] p-6 text-white">
+                <p className="font-display text-xl text-[var(--color-cream)]">Run the list on us too.</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Use the same checklist on our estimate. If anything is missing or vague, push back.
+                </p>
+                <div className="mt-5 flex flex-col items-start gap-2">
+                  <Link to="/quote" className="btn btn-brand">Request our written quote</Link>
+                  {publicContact.hasPhone ? (
+                    <a href={publicContact.phoneHref} className="text-sm text-white/80 underline underline-offset-4 decoration-white/30 hover:decoration-[var(--color-brand-soft)]">
+                      Or call {site.phone.display}
+                    </a>
+                  ) : null}
+                </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
 
-      <section className="section-surface">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+      {/* Sources + FAQ */}
+      <section className="section">
+        <div className="wrap grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <h2 className="text-balance text-4xl text-slate-900">Source notes and methodology.</h2>
-            <div className="mt-8 border-t border-slate-300">
-              {austinTopMoverResearchSources.map((source) => (
-                <div className="border-b border-slate-300 py-5" key={source.url}>
-                  <a
-                    className="text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-accent"
-                    href={source.url}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {source.title}
+            <p className="eyebrow">Sources</p>
+            <h2 className="display-md mt-5 text-balance">Methodology & references.</h2>
+            <ul className="mt-8 divide-y divide-[var(--color-line)] border-y border-[var(--color-line)]">
+              {austinTopMoverResearchSources.map((s) => (
+                <li key={s.url} className="py-5">
+                  <a className="inline-flex items-center gap-1.5 font-medium text-[var(--color-ink)] underline underline-offset-4 decoration-[var(--color-line-strong)] hover:decoration-[var(--color-brand)]" href={s.url} rel="noopener noreferrer" target="_blank">
+                    {s.title}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </a>
-                  <p className="mt-2 text-sm text-slate-600">{source.snapshot}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{source.note}</p>
-                </div>
+                  <p className="mt-1 text-xs text-[var(--color-stone)]">{s.snapshot}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--color-graphite)]">{s.note}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div>
-            <h2 className="text-balance text-3xl text-slate-900">Questions people ask</h2>
-            <div className="mt-8 border-t border-slate-300">
-              {austinMoverFaqs.map((faq) => (
-                <div className="border-b border-slate-300 py-5" key={faq.question}>
-                  <h3 className="text-xl text-slate-900">{faq.question}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-700">{faq.answer}</p>
+            <p className="eyebrow">Questions people ask</p>
+            <h2 className="display-md mt-5 text-balance">FAQ about choosing Austin movers.</h2>
+            <div className="mt-8 divide-y divide-[var(--color-line)] border-y border-[var(--color-line)]">
+              {austinMoverFaqs.map((f) => (
+                <div key={f.question} className="py-6">
+                  <h3 className="font-display text-xl leading-snug text-[var(--color-ink)]">{f.question}</h3>
+                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{f.answer}</p>
                 </div>
               ))}
             </div>

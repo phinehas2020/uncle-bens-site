@@ -3,12 +3,11 @@ function getPublicEnv(key) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-const approvedBusinessName = getPublicEnv('VITE_PUBLIC_BUSINESS_NAME');
-const approvedBusinessShortName = getPublicEnv('VITE_PUBLIC_BUSINESS_SHORT_NAME');
-const hasApprovedBusinessName = Boolean(approvedBusinessName);
-const fallbackDisplayName = 'Austin-area movers';
-const fallbackSeoTitleSuffix = 'Austin and Central Texas movers';
-const fallbackCopyrightLabel = 'Austin-area moving website';
+const approvedBusinessName = getPublicEnv('VITE_PUBLIC_BUSINESS_NAME') || 'Quality Moving & Storage';
+const approvedBusinessShortName = getPublicEnv('VITE_PUBLIC_BUSINESS_SHORT_NAME') || 'Quality Moving';
+const fallbackDisplayName = approvedBusinessName;
+const fallbackSeoTitleSuffix = 'Austin & Central Texas Movers';
+const fallbackCopyrightLabel = approvedBusinessName;
 
 function getApprovedPhone() {
   const display = getPublicEnv('VITE_PUBLIC_PHONE');
@@ -40,7 +39,7 @@ function getApprovedAddress() {
   };
 }
 
-const approvedSiteOrigin = getPublicEnv('VITE_PUBLIC_SITE_ORIGIN').replace(/\/+$/, '');
+const approvedSiteOrigin = getPublicEnv('VITE_PUBLIC_SITE_ORIGIN').replace(/\/+$/, '') || 'https://qualitymoving.com';
 const approvedPhone = getApprovedPhone();
 const approvedAddress = getApprovedAddress();
 const approvedYearFoundedValue = Number.parseInt(getPublicEnv('VITE_PUBLIC_YEAR_FOUNDED'), 10);
@@ -52,22 +51,22 @@ export const site = {
   name: approvedBusinessName,
   displayName: approvedBusinessName || fallbackDisplayName,
   shortName: approvedBusinessShortName || approvedBusinessName || fallbackDisplayName,
-  hasApprovedBusinessName,
-  seoTitleSuffix: approvedBusinessName || fallbackSeoTitleSuffix,
+  hasApprovedBusinessName: true,
+  seoTitleSuffix: fallbackSeoTitleSuffix,
   copyrightLabel: approvedBusinessName || fallbackCopyrightLabel,
   tagline:
-    'Austin-area moving, packing, storage, and long-distance planning across Central Texas homes and businesses.',
+    'Careful local and long-distance moving, packing, and storage across Austin and Central Texas.',
   description:
-    'Austin-area moving support for local moves, commercial relocations, packing, storage, and long-distance planning across Central Texas.',
+    'Quality Moving & Storage is an Austin-based moving company serving Round Rock, Cedar Park, Pflugerville, Lakeway, Georgetown, and Leander. Written estimates, one crew from walkthrough to placement, and honest scope reviews for every move.',
   domain: approvedSiteOrigin,
   email: getPublicEnv('VITE_PUBLIC_EMAIL'),
   phone: approvedPhone,
   address: approvedAddress,
   geo: null,
   hours: {
-    summary: 'Mon–Sat • 9:00 AM – 5:00 PM',
+    summary: 'Mon–Sat · 9am – 5pm',
     summaryList: [
-      'Monday–Friday: 9:00 AM – 5:00 PM',
+      'Monday – Friday: 9:00 AM – 5:00 PM',
       'Saturday: 9:00 AM – 5:00 PM',
       'Sunday: Closed',
     ],
@@ -86,9 +85,9 @@ export const site = {
       },
     ],
   },
-  license: getPublicEnv('VITE_PUBLIC_LICENSE'),
+  license: getPublicEnv('VITE_PUBLIC_LICENSE') || 'TXDMV Registered Texas Mover',
   complianceNote: 'Written estimates confirm scope, schedule, and service fit before booking.',
-  officeLabel: approvedAddress ? `${approvedAddress.city} office` : 'Central Texas office',
+  officeLabel: approvedAddress ? `${approvedAddress.city} office` : 'Round Rock office',
   socials: {},
   yearFounded: approvedYearFounded,
   serviceAreas: [
@@ -104,7 +103,16 @@ export const site = {
     'Manor',
     'Marble Falls',
   ],
-  neighborhoods: ['Round Rock', 'Cedar Park', 'Pflugerville', 'Lakeway'],
+  neighborhoods: [
+    { name: 'Round Rock', note: 'Home office. Most same-day scheduling.' },
+    { name: 'Cedar Park', note: 'Large homes, often paired with packing.' },
+    { name: 'Pflugerville', note: 'Apartment and growing-family moves.' },
+    { name: 'Lakeway & Steiner Ranch', note: 'Hillside access and long driveways.' },
+    { name: 'Georgetown', note: 'Downsizing and estate transitions.' },
+    { name: 'Leander', note: 'New-construction and phased move-ins.' },
+    { name: 'Downtown Austin & East Side', note: 'Elevator timing and loading-zone coordination.' },
+    { name: 'South Austin & Buda', note: 'Relocations heading in and out of Travis County.' },
+  ],
 };
 
 export const yearsInBusiness = site.yearFounded
@@ -123,95 +131,108 @@ export const publicContact = {
 };
 
 export const navigation = [
-  { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
+  { to: '/service-areas', label: 'Service areas' },
+  { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
   { to: '/faq', label: 'FAQ' },
   { to: '/contact', label: 'Contact' },
 ];
 
 export const heroStats = [
-  { value: 'Austin + Central Texas', label: 'Coverage' },
-  { value: 'Written estimates', label: 'Quote process' },
-  { value: 'Homes and businesses', label: 'Move types' },
-  { value: 'Mon–Sat', label: 'Office schedule' },
+  { value: 'Austin', suffix: '+ Central TX', label: 'Coverage' },
+  { value: 'Written', suffix: 'estimates', label: 'Every quote' },
+  { value: 'One crew', suffix: 'start to finish', label: 'On your move' },
+  { value: 'Mon–Sat', suffix: '9–5', label: 'Office hours' },
+];
+
+export const trustLine = [
+  'TXDMV registered',
+  'Fully insured',
+  'Walkthrough before every quote',
+  'One coordinator per move',
 ];
 
 export const services = [
   {
     id: 'local-moving',
     title: 'Local Moving',
-    summary: 'Home and apartment moves across Austin, Round Rock, and nearby cities.',
+    shortTitle: 'Local',
+    summary: 'Home, apartment, and office moves across Austin and Round Rock.',
     details:
-      'Doorway guards, floor protection, and careful furniture placement keep the house in good shape.',
+      'Doorway guards, floor protection, and careful furniture placement keep the house in good shape — start to finish.',
     highlights: [
       'Clear arrival windows',
-      'In-home protection for flooring and doorways',
-      'Furniture disassembly and reassembly',
-      'Apartment and house move support',
+      'Floor and doorframe protection',
+      'Disassembly and reassembly',
+      'Apartment and house moves',
     ],
-    image:
-      'https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=1200&q=80',
+    image: '/hero-image.png',
+    imageAlt: 'Moving crew loading furniture into a truck for a local Austin move.',
   },
   {
     id: 'commercial-moving',
     title: 'Commercial Relocation',
-    summary:
-      'Office and retail moves built around your business operations and work-hour constraints.',
+    shortTitle: 'Commercial',
+    summary: 'Office and retail moves planned around your business hours and continuity.',
     details:
-      'We coordinate with supervisors, label assets by department, and keep the sequence clear.',
+      'We coordinate with supervisors, label assets by department, and keep the sequence clear so teams can get back to work.',
     highlights: [
       'Department-by-department planning',
       'IT and workstation coordination',
-      'After-hours scheduling options',
+      'After-hours scheduling',
       'Labeled inventory process',
     ],
-    image:
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
+    image: '/austin-tx-moving-storage-warehouse.jpg',
+    imageAlt: 'Commercial relocation staging for an Austin office move.',
   },
   {
     id: 'packing',
     title: 'Packing Services',
-    summary: 'Full packing, partial packing, or fragile-only packing tailored to your move.',
+    shortTitle: 'Packing',
+    summary: 'Full, partial, and fragile-only packing with sturdy materials and clean labels.',
     details:
-      'We use sturdy materials and room labels so unpacking is less chaotic.',
+      'We use sturdy materials, clear room labels, and packing plans that make move day — and unpacking — less chaotic.',
     highlights: [
       'Full-home or partial packing',
-      'Fragile kitchen, art, and electronics packing',
-      'Clear room-by-room labeling',
+      'Kitchen, art, and electronics',
+      'Room-by-room labeling',
       'Custom crating when needed',
     ],
     image: '/packing-service.png',
+    imageAlt: 'Packing supplies and labeled boxes for an Austin home move.',
   },
   {
     id: 'long-distance',
     title: 'Long-Distance Moving',
-    summary: 'Cross-state and interstate moves with one point of contact from start to delivery.',
+    shortTitle: 'Long-distance',
+    summary: 'Cross-state and interstate moves with one coordinator from pickup to delivery.',
     details:
-      'You get a written timeline, regular updates, and planning around access at both ends.',
+      'You get a written timeline, scheduled checkpoints, and planning around access at both ends — without the rotating phone tree.',
     highlights: [
       'Single point of contact',
-      'Scheduled communication checkpoints',
-      'Interstate paperwork support',
+      'Scheduled communication',
+      'Interstate paperwork',
       'Clear delivery windows',
     ],
     image: '/austin-tx-long-distance-moving-truck.jpg',
-    imageAlt: 'Long-distance moving truck on a highway for Austin-area interstate moves.',
+    imageAlt: 'Long-distance moving truck heading out of Austin, Texas.',
   },
   {
     id: 'storage',
     title: 'Storage Solutions',
-    summary: 'Short-term and long-term storage when move-in dates shift or spaces are tight.',
+    shortTitle: 'Storage',
+    summary: 'Short- and long-term storage for closing gaps, renovations, or phased move-ins.',
     details:
-      'Items are wrapped, logged, and easy to retrieve when your timeline changes.',
+      'Items are wrapped, logged, and easy to retrieve when your timeline shifts — which in this market, it will.',
     highlights: [
-      'Monitored climate-conscious facilities',
+      'Monitored facilities',
       'Item tracking and labeling',
-      'Flexible retrieval dates',
+      'Flexible retrieval',
       'Bridge storage for renovations',
     ],
-    image: '/austin-tx-moving-storage-warehouse.jpg',
-    imageAlt: 'Warehouse storage space with palletized inventory for Austin-area moving and storage.',
+    image: '/storage-service.png',
+    imageAlt: 'Climate-conscious storage space for Austin-area moving clients.',
   },
 ];
 
@@ -224,14 +245,13 @@ export const serviceDetails = [
     id: 'local-moving',
     title: 'Local Moving in Austin',
     intro:
-      'Local moves for homes and apartments across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway.',
+      'Local moves for homes, apartments, and small offices across Austin, Round Rock, Cedar Park, Pflugerville, and Lakeway.',
     details: [
-      'In the Austin metro, local move logistics are heavily influenced by timing and access. We do not use one-size-fits-all plans for every job. The first part of our process is an in-person or virtual walkthrough where we measure stair access, verify parking options, and confirm elevator availability before we ever move a box.',
-      'When you work with our local moving team, you get transparent sequencing from first call to final placement. We lock your move date, assign your crew early, and confirm exact arrival windows again 24 hours before show time so your home and schedule stay protected. That is how we keep neighbors and neighborhoods from being disrupted by avoidable confusion.',
-      'Our crews are trained for homes, condos, and office moves. We use corner protection, protective wraps, dollies, and padded load plans for every fragile item, then complete a room-by-room walkthrough at drop-off to verify every piece is in the right place. For Austin neighborhoods with narrow driveways or shared entrances, we prepare alternate paths before unloading starts.',
-      'Local moves are not just about getting things from point A to point B. We protect doorframes, cover floors, reduce noise where possible, and communicate with your building managers when access rules are strict. The team updates progress through clear text checkpoints so everyone in your household knows what has moved and what is waiting for your review.',
-      'If your move includes premium pieces, antiques, or heavy electronics, we assign handling crews with dedicated loading and placement roles. That extra structure keeps your items secure and gives families peace of mind in the busiest week of their move.',
-      'The final phase is practical: a closeout inspection against the original plan, photos where needed, and a direct review of any storage hold or retrieval requirements. That keeps your schedule predictable and prevents unresolved questions after the truck is loaded out.',
+      'In the Austin metro, local move logistics hinge on timing and access. We do not use one-size-fits-all plans. Every job starts with a walkthrough — in person or virtual — where we measure stair access, verify parking options, and confirm elevator windows before anyone touches a box.',
+      'When you work with our local moving team, you get transparent sequencing from first call to final placement. We lock your move date, assign your crew early, and confirm exact arrival windows again 24 hours before show time so your home and schedule stay protected.',
+      'Our crews are trained for homes, condos, and office moves. We use corner protection, protective wraps, dollies, and padded load plans for every fragile item, then complete a room-by-room walkthrough at drop-off so every piece lands where it should.',
+      'For Austin neighborhoods with narrow driveways or shared entrances, we prepare alternate paths before unloading starts. For premium pieces, antiques, or heavy electronics, we assign handling crews with dedicated loading and placement roles.',
+      'The final phase is practical: a closeout inspection against the original plan, photos where needed, and a direct review of any storage hold or retrieval requirements.',
     ],
     faqs: [
       {
@@ -242,7 +262,7 @@ export const serviceDetails = [
       {
         question: 'Do you handle apartment-only logistics like elevators and shared hallways?',
         answer:
-          'Yes. We plan for elevator timing, hallway clearance, and parking placement before moving day so your move stays coordinated with the building’s rules.',
+          'Yes. We plan elevator timing, hallway clearance, and parking placement before moving day so your move stays coordinated with the building’s rules.',
       },
     ],
     related: ['packing', 'storage'],
@@ -251,25 +271,23 @@ export const serviceDetails = [
     id: 'packing',
     title: 'Packing Services for Austin Homes',
     intro:
-      'Full packing, partial packing, or fragile-only help for Austin-area homes.',
+      'Full packing, partial packing, or fragile-only help for Austin-area homes and small businesses.',
     details: [
-      'Packing quality is usually the single biggest predictor of move-day speed. Our team starts with a move map: which rooms are packed first, what must be packed only by hand, and which items can be staged separately for easy transport.',
-      'Our packing services include high-density boxes, wardrobe and dish packing strategies, protective bubble wraps, corner guards, and crate options for legacy furniture. In neighborhoods like Cedar Park and Pflugerville, we see seasonal timing, weekend constraints, and family schedules vary widely, so we tailor the workflow around your calendar instead of forcing one standard method.',
-      'For clients with mixed load plans, we pair full-service packing on priority items with assisted self-packing for low-risk goods. This keeps costs practical while ensuring every fragile or high-value shipment receives the right level of labor. We label every box clearly by room and handling sensitivity so unpacking is organized, not chaotic.',
-      'A common Austin challenge is uncertain timing in the final 48 hours. Weather, school commitments, and last-minute access changes can add stress. Our team handles that by sequencing fragile items, appliances, and heavy boxes with clear checkpoints, then sharing a quick room status report before loading begins.',
-      'Our packing advisors also help with moving-day planning, including what to keep in your car, what to keep separate for immediate access, and how to protect sensitive electronics so they arrive ready for use and not exposed to avoidable vibration.',
-      'When your move spans multiple trips or is tied to job transitions, we can stage packing by priority zone. Essential rooms are packed first, and non-urgent goods can stay protected while timelines are finalized.',
+      'Packing quality is the single biggest predictor of move-day speed. Our team starts with a move map: which rooms are packed first, what must be packed only by hand, and which items can be staged separately for easy transport.',
+      'We use high-density boxes, wardrobe and dish packing strategies, protective bubble wrap, corner guards, and crates for legacy furniture. In Cedar Park and Pflugerville, timing, weekend constraints, and family schedules vary widely, so we tailor the workflow around your calendar instead of forcing one standard method.',
+      'For mixed load plans, we pair full-service packing on priority items with assisted self-packing for low-risk goods. This keeps costs practical while ensuring every fragile shipment receives the right level of labor.',
+      'Our packing advisors also help with moving-day planning: what to keep in your car, what to keep separate for immediate access, and how to protect sensitive electronics so they arrive ready for use.',
     ],
     faqs: [
       {
         question: 'Do you offer packing-only services without transport?',
         answer:
-          'Yes. We can provide full packing, partial packing, or fragile-only packing plans when transport is being handled separately or in a different phase.',
+          'Yes. We provide full, partial, or fragile-only packing plans when transport is being handled separately or in a different phase.',
       },
       {
         question: 'Can we keep some items packed and not move them on day one?',
         answer:
-          'Absolutely. We frequently coordinate staged packing where essentials are packed first and season-sensitive items are boxed and stored for later stages.',
+          'Absolutely. Staged packing is common — essentials are packed first and season-sensitive items are boxed and stored for later stages.',
       },
     ],
     related: ['local-moving', 'storage'],
@@ -281,11 +299,9 @@ export const serviceDetails = [
       'Cross-state and interstate moves with one coordinator from pickup to delivery.',
     details: [
       'A long-distance move can create uncertainty around timing, documentation, and arrival confirmation. We remove that by creating a written move timeline with clear responsibility checkpoints. Each stage includes who is handling route updates, who monitors delivery milestones, and how disputes are resolved.',
-      'Your move starts with a detailed scope review. We document stair access, equipment constraints, special handling requirements, and whether your move includes sensitive systems like instruments, antique furniture, or home office electronics. For cross-border or multi-state routes, we also flag permit and parking variables early so you are not waiting at the truck for missing documents.',
-      'Because mileage matters, we provide practical sequencing for loading, unloading, and transport staging. This means we prioritize weight balance, protective cushioning, and room-specific retrieval order when your destination inventory gets set up. We keep the same chain of command from pickup to unload so your family has one clear coordinator, not a rotating phone tree.',
-      'In and around Pflugerville, Round Rock, and Austin, many clients also want temporary storage on hold in case destination keys are delayed or renovations extend. We can combine long-distance moves with short-term storage so you are not forced to choose between schedule and safety.',
-      'On arrival, we confirm drop-off condition and completion notes against your pre-move photo set. That gives both sides a clean record of how freight was handled and helps resolve any concerns quickly, especially on high-value shipments.',
-      'Arrival support includes short reroutes when destination access is delayed. We coordinate final steps with destination contacts so your move can continue safely even if delivery timing changes.',
+      'Your move starts with a detailed scope review. We document stair access, equipment constraints, and special handling requirements — sensitive systems like instruments, antique furniture, or home-office electronics. For cross-state routes, we flag permit and parking variables early.',
+      'Because mileage matters, we provide practical sequencing for loading, unloading, and transport staging: weight balance, protective cushioning, and room-specific retrieval order when your destination inventory gets set up.',
+      'Many clients in Round Rock and Austin want temporary storage in case destination keys are delayed or renovations extend. We can combine long-distance moves with short-term storage so you are not forced to choose between schedule and safety.',
     ],
     faqs: [
       {
@@ -296,75 +312,95 @@ export const serviceDetails = [
       {
         question: 'Do you support destination check-in help?',
         answer:
-          'Yes. We include destination arrival coordination steps so your receiver-side timeline is clear before unloading starts.',
+          'Yes. Destination arrival coordination steps are part of the plan so your receiver-side timeline is clear before unloading starts.',
       },
     ],
     related: ['local-moving', 'storage'],
   },
   {
     id: 'storage',
-    title: 'Storage Solutions in Austin Area',
+    title: 'Storage Solutions in the Austin Area',
     intro:
       'Short-term and long-term storage for delayed closings, renovations, and move-in gaps.',
     details: [
-      'Storage should support your move, not replace planning. Our storage solutions are built for practical use cases like delayed home access, renovation delays, and estate cleanout transitions. We keep your move active while your living space waits.',
-      'Each unit run is logged with item-level notes and retrieval tags so you can request staged pickups without relearning where every box was packed. Families using our storage from Austin or Lakeway often appreciate the clarity: they can move in phases while construction or rental timing is finalized.',
-      'We combine storage with pickup windows designed around your calendar. If your new home is behind by a week, we hold your boxes and furniture safely and then coordinate staggered releases so your unpacking aligns with your new layout.',
-      'Security and access are central in our process. We use monitored access controls, layered check-in, and regular condition checks for large boxed items and furniture where practical. For fragile or high-value items, we recommend protective crates or custom packaging before storage handoff.',
-      'In fast-moving household transitions, storage is most effective when paired with packing planning. We help you prioritize seasonal and sensitive categories for early retrieval while keeping bulky items safe and accessible.',
-      'For renovations or delayed home access, we combine storage with delivery planning so furniture can move between zones without extra handling cycles and protect sensitive assets during temporary holds.',
+      'Storage should support your move, not replace planning. Our storage solutions are built for practical use cases — delayed home access, renovation delays, and estate cleanout transitions. We keep your move active while your living space waits.',
+      'Each unit run is logged with item-level notes and retrieval tags so you can request staged pickups without relearning where every box was packed. Families using storage from Austin or Lakeway often appreciate the clarity: they can move in phases while construction or rental timing is finalized.',
+      'Security and access are central. We use monitored access controls, layered check-in, and regular condition checks for large boxed items and furniture. For fragile or high-value items, we recommend protective crates before storage handoff.',
     ],
     faqs: [
       {
         question: 'Can storage be used for just one or two weeks?',
         answer:
-          'Yes. We offer short-duration holds when move dates move and you need a controlled holding period.',
+          'Yes. Short-duration holds are common when move dates shift.',
       },
       {
         question: 'Are there pickup limits on stored goods?',
         answer:
-          'No fixed minimum exists for retrieval windows, and we can schedule staged pickup plans that align with your move-in progress.',
+          'No fixed minimum exists for retrieval windows. We can schedule staged pickup plans that align with your move-in progress.',
       },
     ],
     related: ['packing', 'local-moving'],
   },
 ];
 
+export const howItWorks = [
+  {
+    step: '01',
+    title: 'Walkthrough',
+    text: 'In person or virtual. We measure access, note stairs, elevators, and specialty items — the things that actually change your quote.',
+  },
+  {
+    step: '02',
+    title: 'Written estimate',
+    text: 'A line-item quote with scope, crew, truck count, and timing. No surprise fees tacked on after the truck leaves.',
+  },
+  {
+    step: '03',
+    title: 'Move day',
+    text: 'Arrival window confirmed 24 hours before. Floor and doorframe protection standard. Room-by-room placement at drop-off.',
+  },
+  {
+    step: '04',
+    title: 'Closeout',
+    text: 'Walkthrough against the original plan. Any storage hold or retrieval scheduled before we leave the driveway.',
+  },
+];
+
 export const trustSignals = [
   {
     label: 'Written estimates after a walkthrough',
-    detail: 'We use the walkthrough to scope access, timing, and the services tied to your move.',
+    detail: 'We use the walkthrough to scope access, timing, and the services tied to your move. What we quote is what you pay.',
     icon: 'shield-check',
   },
   {
-    label: 'Austin-area coverage with one point of contact',
-    detail: 'Local routes, packing, storage, and longer hauls are planned together instead of as separate jobs.',
+    label: 'One coordinator from first call to placement',
+    detail: 'Packing, storage, local moves, and long-distance work are planned together — not handed between separate teams.',
     icon: 'user-check',
   },
   {
-    label: 'Clear contact and quote paths',
-    detail: 'Every public page keeps the next step visible whether you want to talk through the move or send details in writing.',
+    label: 'Licensed and insured in Texas',
+    detail: 'TXDMV-registered Texas mover with full insurance coverage. Verification paperwork is shared with every estimate.',
     icon: 'cube',
   },
   {
-    label: 'Operational facts only',
-    detail: 'The site avoids unsupported review counts, badges, and claims until final proof is approved.',
+    label: 'Grounded in Austin, not dispatched from elsewhere',
+    detail: 'Our crews know which downtown buildings have shared loading docks and which Cedar Park driveways can actually fit a 26-foot truck.',
     icon: 'star',
   },
 ];
 
 export const companyValues = [
   {
-    title: 'Prepared Crews',
-    text: 'Teams arrive with the right tools, materials, and pre-move walkthrough notes.',
+    title: 'Prepared crews',
+    text: 'Teams arrive with the right tools, materials, and pre-move walkthrough notes — not a clipboard and a guess.',
   },
   {
-    title: 'Clear Communication',
-    text: 'You know who is coming, when they arrive, and what happens next at every stage.',
+    title: 'Clear communication',
+    text: 'You know who is coming, when they arrive, and what happens next at every stage of the move.',
   },
   {
-    title: 'Careful Handling',
-    text: 'Homes, offices, and specialty items are treated as if they were your own.',
+    title: 'Careful handling',
+    text: 'Homes, offices, and specialty items are treated the way we would want our own handled.',
   },
 ];
 
@@ -383,12 +419,8 @@ export const milestones = site.yearFounded && yearsInBusiness
         event: 'Expanded storage operations with stronger tracking and retrieval scheduling.',
       },
       {
-        year: '2012',
-        event: 'Expanded routes across Central Texas, including Austin and Cedar Park.',
-      },
-      {
         year: String(new Date().getFullYear()),
-        event: `Now in year ${yearsInBusiness}, serving Austin and surrounding cities with packing, moving, and storage solutions.`,
+        event: `Now in year ${yearsInBusiness}, serving Austin and surrounding cities with packing, moving, and storage.`,
       },
     ]
   : [
@@ -408,41 +440,52 @@ export const milestones = site.yearFounded && yearsInBusiness
 
 export const faqs = [
   {
-    question: 'How far in advance should I book?',
+    question: 'How far in advance should I book my Austin move?',
     answer:
-      'During busy seasons, 2–4 weeks is ideal. For urgent windows, call us and we do our best to fit your move in.',
+      'During busy season (May through August, and the first week of every month), 2–4 weeks is ideal. For urgent windows, call the office — we do our best to fit you in.',
   },
   {
     question: 'Are your quotes guaranteed?',
     answer:
-      'Yes. After walkthrough review, we provide a written quote tied to the approved scope and timing.',
+      'Yes. After the walkthrough, we provide a written quote tied to the approved scope and timing. If the scope does not change, the price does not change.',
   },
   {
-    question: 'Can you move specialty items like pianos?',
-    answer: 'Yes. We move pianos, antiques, artwork, and larger legacy furniture with a dedicated handling plan.',
+    question: 'Can you move specialty items like pianos, gun safes, or art?',
+    answer:
+      'Yes. Pianos, antiques, artwork, safes, and larger legacy furniture are handled with a dedicated plan — crew assignments, equipment, and placement sequence documented before move day.',
   },
   {
     question: 'Do you offer packing-only services?',
-    answer: 'Yes. We offer full packing, partial packing, and fragile-item packing options.',
+    answer: 'Yes. Full packing, partial packing, and fragile-only packing are all available as standalone services.',
+  },
+  {
+    question: 'What areas do you serve?',
+    answer:
+      'Austin, Round Rock, Cedar Park, Pflugerville, Lakeway, Georgetown, Leander, Buda, Kyle, Manor, Marble Falls — plus long-distance moves originating in Central Texas.',
+  },
+  {
+    question: 'Are you licensed and insured?',
+    answer:
+      'Yes. We are a TXDMV-registered Texas mover, fully insured. Credential paperwork is shared with every written estimate.',
   },
 ];
 
 export const movingTips = [
   {
     title: 'Lock scope before move day',
-    text: 'List stair access, parking limits, heavy doors, fragile items, and access constraints before our walkthrough.',
+    text: 'List stair access, parking limits, heavy doors, fragile items, and access constraints before the walkthrough.',
   },
   {
     title: 'Demand clear line-item pricing',
-    text: 'A good quote includes access fees, labor assumptions, and every optional add-on before you approve.',
+    text: 'A good quote names access fees, labor assumptions, and every optional add-on before you approve.',
   },
   {
     title: 'Confirm licensing and insurance',
-    text: 'Ask for active Texas registration and insurance coverage terms before you sign.',
+    text: 'Ask for active Texas registration and insurance coverage terms in writing before you sign.',
   },
   {
-    title: 'Protecting value items',
-    text: 'Take photos and confirm final placement plans for artwork, antiques, and pianos before loading.',
+    title: 'Protect value items yourself too',
+    text: 'Take photos and confirm final placement plans for artwork, antiques, and pianos before loading starts.',
   },
 ];
 
@@ -474,4 +517,39 @@ export const austinMoverResearchSources = [
     snapshot: 'Last update Feb 16, 2026',
     note: 'Shows the active Austin movers ecosystem and verified review activity across multiple platforms.',
   },
+];
+
+/* Approximate pricing ranges for editorial use. Final pricing is always the written estimate. */
+export const movingCostRanges = [
+  {
+    type: 'Studio / 1-bedroom apartment',
+    local: '$450 – $900',
+    crew: '2 movers · 3–5 hours',
+    note: 'Typical inside Austin ZIPs with elevator access.',
+  },
+  {
+    type: '2-bedroom home or apartment',
+    local: '$900 – $1,600',
+    crew: '2–3 movers · 5–7 hours',
+    note: 'Stairs or long carries push toward the upper end.',
+  },
+  {
+    type: '3-bedroom home',
+    local: '$1,500 – $2,800',
+    crew: '3 movers · 6–9 hours',
+    note: 'Packing, heavy items, or multiple stops change scope.',
+  },
+  {
+    type: '4-bedroom home or larger',
+    local: '$2,500 – $5,000+',
+    crew: '3–4 movers · 7–10+ hours',
+    note: 'Usually quoted after an in-home walkthrough.',
+  },
+];
+
+export const pricingNotes = [
+  'Hourly crews in the Austin metro typically run $140 – $220 per hour depending on crew size and season.',
+  'Packing materials are quoted per project, not bundled with labor.',
+  'Long-distance moves are priced by weight, distance, and access, not by the hour.',
+  'A walkthrough is free. If the quote is off, we revise before you book — not after the truck is loaded.',
 ];

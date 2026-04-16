@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button } from './Button';
 import { getLeadEndpoint, hasLeadEndpoint, submitLead } from '../lib/submitLead';
 import { publicContact } from '../data/site';
 
@@ -41,13 +40,11 @@ const moveTypeOptions = [
 
 function getInitialState(variant, routeState) {
   const initialState = variant === 'quote' ? { ...quoteInitialState } : { ...contactInitialState };
-
   if (variant === 'quote' && routeState?.fromHero) {
     initialState.name = typeof routeState.name === 'string' ? routeState.name : '';
     initialState.phone = typeof routeState.phone === 'string' ? routeState.phone : '';
     initialState.moveDate = typeof routeState.moveDate === 'string' ? routeState.moveDate : '';
   }
-
   return initialState;
 }
 
@@ -56,73 +53,38 @@ function validateForm(formData, variant) {
   const phoneDigits = formData.phone.replace(/\D/g, '');
   const email = formData.email.trim();
 
-  if (!formData.name.trim()) {
-    errors.name = 'Enter your name so we know who to reply to.';
-  }
-
-  if (!phoneDigits && !email) {
-    errors.contact = 'Add a phone number or email address so we can get back to you.';
-  }
-
-  if (phoneDigits && phoneDigits.length < 10) {
-    errors.phone = 'Use a full phone number with at least 10 digits.';
-  }
-
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.email = 'Enter a valid email address.';
-  }
+  if (!formData.name.trim()) errors.name = 'Add your name so we know who to reply to.';
+  if (!phoneDigits && !email) errors.contact = 'Add a phone number or email address.';
+  if (phoneDigits && phoneDigits.length < 10) errors.phone = 'Enter a 10-digit phone number.';
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Enter a valid email address.';
 
   if (variant === 'quote') {
-    if (!/^\d{5}$/.test(formData.fromZip.trim())) {
-      errors.fromZip = 'Enter a 5-digit origin ZIP code.';
-    }
-
-    if (!/^\d{5}$/.test(formData.toZip.trim())) {
-      errors.toZip = 'Enter a 5-digit destination ZIP code.';
-    }
-
-    if (!formData.moveDate) {
-      errors.moveDate = 'Choose your preferred move date or the closest target date.';
-    }
-
-    if (!formData.notes.trim()) {
-      errors.notes = 'Add a few move details like home size, stairs, elevators, or specialty items.';
-    }
+    if (!/^\d{5}$/.test(formData.fromZip.trim())) errors.fromZip = 'Enter a 5-digit origin ZIP.';
+    if (!/^\d{5}$/.test(formData.toZip.trim())) errors.toZip = 'Enter a 5-digit destination ZIP.';
+    if (!formData.moveDate) errors.moveDate = 'Pick a target move date.';
+    if (!formData.notes.trim()) errors.notes = 'Share a few move details (home size, stairs, etc.).';
   } else if (!formData.notes.trim()) {
-    errors.notes = 'Tell us what you need help with so we can reply usefully.';
+    errors.notes = 'Tell us what you need help with.';
   }
 
   return errors;
 }
 
-function getFieldClass(error) {
-  return `w-full rounded-md border bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900 ${
-    error ? 'border-red-300' : 'border-slate-300'
-  }`;
-}
-
 function FieldError({ id, message }) {
-  if (!message) {
-    return null;
-  }
-
+  if (!message) return null;
   return (
-    <p className="mt-2 text-sm text-red-700" id={id}>
-      {message}
-    </p>
+    <p className="mt-1.5 text-xs text-[var(--color-danger)]" id={id}>{message}</p>
   );
 }
 
 function getOfflineMessage() {
   if (publicContact.hasPhone && publicContact.hasEmail) {
-    return 'Online form delivery is not connected in this environment. Please call or email us directly.';
+    return 'Online form delivery is not configured yet. Please call or email us directly.';
   }
-
   if (publicContact.hasPhone) {
-    return 'Online form delivery is not connected in this environment. Please call us directly or use the full quote path.';
+    return 'Online form delivery is not configured yet. Please call directly.';
   }
-
-  return 'Online form delivery is not connected in this environment. Please use the quote path or try again when direct contact details are published.';
+  return 'Online form delivery is not configured yet. Please try the quote path.';
 }
 
 export function ContactForm({ endpoint = '', variant = 'contact' }) {
@@ -138,18 +100,12 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => {
-      if (!prev[name] && !((name === 'phone' || name === 'email') && prev.contact)) {
-        return prev;
-      }
-
+      if (!prev[name] && !((name === 'phone' || name === 'email') && prev.contact)) return prev;
       const next = { ...prev };
       delete next[name];
-      if (name === 'phone' || name === 'email') {
-        delete next.contact;
-      }
+      if (name === 'phone' || name === 'email') delete next.contact;
       return next;
     });
-
     if (status !== 'idle') {
       setStatus('idle');
       setSubmitMessage('');
@@ -160,13 +116,11 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
     event.preventDefault();
     const nextErrors = validateForm(formData, variant);
     setErrors(nextErrors);
-
     if (Object.keys(nextErrors).length > 0) {
       setStatus('error');
-      setSubmitMessage('Please fix the highlighted fields and try again.');
+      setSubmitMessage('Fix the highlighted fields to continue.');
       return;
     }
-
     setStatus('submitting');
     setSubmitMessage('');
 
@@ -178,17 +132,14 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
 
     try {
       await submitLead(
-        {
-          formType: variant === 'quote' ? 'quote' : 'contact',
-          ...formData,
-        },
+        { formType: variant === 'quote' ? 'quote' : 'contact', ...formData },
         formEndpoint,
       );
       setStatus('success');
       setSubmitMessage(
         variant === 'quote'
-          ? 'Thanks. Your quote request was sent and the office can follow up with the next step.'
-          : 'Thanks. Your message was sent and we will reply as soon as we can.',
+          ? 'Got it. Your estimate request is in. We\'ll reply within one business day.'
+          : 'Got it. Your message is in. We\'ll reply within one business day.',
       );
       setErrors({});
       setFormData(getInitialState(variant));
@@ -199,31 +150,30 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
   };
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-5" onSubmit={handleSubmit} noValidate>
       {!canSubmitOnline && (
-        <p className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status">
-          {getOfflineMessage()} You can still review the form before the approved delivery path is
-          connected.
+        <p className="rounded-lg bg-[var(--color-warning-bg)] px-4 py-3 text-sm text-[var(--color-graphite)]" role="status">
+          {getOfflineMessage()}
         </p>
       )}
 
       {errors.contact && (
-        <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" id={`${variant}-contact-error`}>
+        <p className="rounded-lg border border-[color-mix(in_srgb,var(--color-danger)_35%,white)] bg-[color-mix(in_srgb,var(--color-danger)_8%,white)] px-4 py-3 text-sm text-[var(--color-danger)]" id={`${variant}-contact-error`}>
           {errors.contact}
         </p>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Name</span>
+          <span className="field-label">Name</span>
           <input
             autoComplete="name"
             aria-describedby={errors.name ? `${variant}-name-error` : undefined}
             aria-invalid={errors.name ? 'true' : 'false'}
-            className={getFieldClass(errors.name)}
+            className="field"
             name="name"
             onChange={handleChange}
-            placeholder="Your name"
+            placeholder="Jane Sanchez"
             required
             type="text"
             value={formData.name}
@@ -231,19 +181,14 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
           <FieldError id={`${variant}-name-error`} message={errors.name} />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">Phone</span>
+          <span className="field-label">Phone</span>
           <input
             autoComplete="tel"
-            aria-describedby={
-              [errors.phone ? `${variant}-phone-error` : '', errors.contact ? `${variant}-contact-error` : '']
-                .filter(Boolean)
-                .join(' ') || undefined
-            }
             aria-invalid={errors.phone || errors.contact ? 'true' : 'false'}
-            className={getFieldClass(errors.phone || errors.contact)}
+            className="field"
             name="phone"
             onChange={handleChange}
-            placeholder="(512) 555-0101"
+            placeholder="(512) 555-0110"
             type="tel"
             value={formData.phone}
           />
@@ -252,16 +197,11 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
       </div>
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-slate-700">Email</span>
+        <span className="field-label">Email</span>
         <input
           autoComplete="email"
-          aria-describedby={
-            [errors.email ? `${variant}-email-error` : '', errors.contact ? `${variant}-contact-error` : '']
-              .filter(Boolean)
-              .join(' ') || undefined
-          }
           aria-invalid={errors.email || errors.contact ? 'true' : 'false'}
-          className={getFieldClass(errors.email || errors.contact)}
+          className="field"
           name="email"
           onChange={handleChange}
           placeholder="you@example.com"
@@ -275,28 +215,18 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
         <>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Move type</span>
-              <select
-                aria-invalid="false"
-                className={getFieldClass(false)}
-                name="moveType"
-                onChange={handleChange}
-                required
-                value={formData.moveType}
-              >
-                {moveTypeOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
+              <span className="field-label">Move type</span>
+              <select className="field" name="moveType" onChange={handleChange} required value={formData.moveType}>
+                {moveTypeOptions.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
                 ))}
               </select>
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Preferred move date</span>
+              <span className="field-label">Preferred move date</span>
               <input
-                aria-describedby={errors.moveDate ? `${variant}-moveDate-error` : undefined}
                 aria-invalid={errors.moveDate ? 'true' : 'false'}
-                className={getFieldClass(errors.moveDate)}
+                className="field"
                 name="moveDate"
                 onChange={handleChange}
                 type="date"
@@ -308,11 +238,10 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Origin ZIP</span>
+              <span className="field-label">Origin ZIP</span>
               <input
-                aria-describedby={errors.fromZip ? `${variant}-fromZip-error` : undefined}
                 aria-invalid={errors.fromZip ? 'true' : 'false'}
-                className={getFieldClass(errors.fromZip)}
+                className="field"
                 inputMode="numeric"
                 name="fromZip"
                 onChange={handleChange}
@@ -323,11 +252,10 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
               <FieldError id={`${variant}-fromZip-error`} message={errors.fromZip} />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-sm font-semibold text-slate-700">Destination ZIP</span>
+              <span className="field-label">Destination ZIP</span>
               <input
-                aria-describedby={errors.toZip ? `${variant}-toZip-error` : undefined}
                 aria-invalid={errors.toZip ? 'true' : 'false'}
-                className={getFieldClass(errors.toZip)}
+                className="field"
                 inputMode="numeric"
                 name="toZip"
                 onChange={handleChange}
@@ -341,59 +269,56 @@ export function ContactForm({ endpoint = '', variant = 'contact' }) {
         </>
       ) : (
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-slate-700">What do you need help with?</span>
-          <select
-            className={getFieldClass(false)}
-            name="subject"
-            onChange={handleChange}
-            value={formData.subject}
-          >
-            {subjectOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+          <span className="field-label">What can we help with?</span>
+          <select className="field" name="subject" onChange={handleChange} value={formData.subject}>
+            {subjectOptions.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </select>
         </label>
       )}
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-slate-700">
+        <span className="field-label">
           {variant === 'quote' ? 'Move details' : 'Message'}
         </span>
         <textarea
-          aria-describedby={errors.notes ? `${variant}-notes-error` : undefined}
           aria-invalid={errors.notes ? 'true' : 'false'}
-          className={getFieldClass(errors.notes)}
+          className="field"
           name="notes"
           onChange={handleChange}
           placeholder={
             variant === 'quote'
               ? 'Home size, stairs, elevators, storage needs, specialty items, or anything else that affects the move...'
-              : 'Tell us your question, your service area, or what kind of move you are planning...'
+              : 'Tell us your question, service area, or the kind of move you\'re planning...'
           }
-          rows={4}
+          rows={5}
           value={formData.notes}
         />
         <FieldError id={`${variant}-notes-error`} message={errors.notes} />
       </label>
 
-      <Button className="w-full min-h-12" disabled={status === 'submitting'} size="lg" type="submit" variant="primary">
+      <button
+        type="submit"
+        disabled={status === 'submitting'}
+        className="btn btn-primary w-full"
+      >
         {status === 'submitting'
           ? 'Sending…'
           : variant === 'quote'
-            ? 'Send my quote request'
-            : 'Send my message'}
-      </Button>
+            ? 'Send my estimate request'
+            : 'Send message'}
+        <span aria-hidden="true">→</span>
+      </button>
 
       {status === 'success' && submitMessage && (
-        <p className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700" role="status">
+        <p className="rounded-lg bg-[var(--color-bone)] px-4 py-3 text-sm text-[var(--color-graphite)]" role="status">
           {submitMessage}
         </p>
       )}
 
       {status === 'error' && submitMessage && (
-        <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <p className="rounded-lg border border-[color-mix(in_srgb,var(--color-danger)_35%,white)] bg-[color-mix(in_srgb,var(--color-danger)_8%,white)] px-4 py-3 text-sm text-[var(--color-danger)]" role="alert">
           {submitMessage}
         </p>
       )}

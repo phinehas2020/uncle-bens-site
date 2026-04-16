@@ -1,173 +1,173 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Truck } from 'lucide-react';
+import { Phone, Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { navigation, publicContact, site } from '../data/site';
 
-function MenuIcon({ open }) {
+function Wordmark({ onClick, className = '' }) {
   return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
-      <path
-        d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'}
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
+    <Link onClick={onClick} to="/" className={cn('group inline-flex items-baseline gap-2.5', className)} aria-label={`${site.displayName} — home`}>
+      <span
+        aria-hidden="true"
+        className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+        style={{ background: 'var(--color-brand)' }}
       />
-    </svg>
+      <span className="font-display text-[1.375rem] leading-none tracking-[-0.025em] text-[var(--color-ink)] sm:text-2xl">
+        {site.shortName}
+      </span>
+    </Link>
   );
 }
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const closeMenu = () => setMobileOpen(false);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header
+      className={cn(
+        'sticky top-0 z-40 transition-[background,backdrop-filter,border-color] duration-200',
+        scrolled
+          ? 'border-b border-[var(--color-line)] bg-[color-mix(in_srgb,var(--color-cream)_92%,transparent)] backdrop-blur-md'
+          : 'border-b border-transparent bg-[var(--color-cream)]',
+      )}
+    >
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-ink)] focus:px-4 focus:py-2 focus:text-[var(--color-cream)]"
         href="#main-content"
       >
         Skip to main content
       </a>
 
-      <div className="site-container py-4 lg:py-5">
-        <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <div className="flex items-start justify-between gap-4">
-            <Link
-              className="group inline-flex max-w-xl items-start gap-3 leading-tight"
-              onClick={closeMenu}
-              to="/"
-            >
-              <Truck className="mt-1 h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-hover:translate-x-0.5" />
-              <div className="min-w-0">
-                <div className="text-xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-[1.35rem]">
-                  {site.displayName}
-                </div>
-                <div className="mt-1 text-sm leading-relaxed text-slate-600">
-                  {site.officeLabel}. Austin-area moving, packing, storage, and long-distance work.
-                </div>
-              </div>
-            </Link>
+      <div className="wrap flex h-16 items-center justify-between gap-6 md:h-20">
+        <Wordmark onClick={closeMenu} />
 
-            <button
-              aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 transition-colors hover:border-slate-900 md:hidden"
-              onClick={() => setMobileOpen((open) => !open)}
-              type="button"
-            >
-              <MenuIcon open={mobileOpen} />
-            </button>
-          </div>
+        <nav aria-label="Primary" className="hidden md:block">
+          <ul className="flex items-center gap-7 text-[0.9375rem]">
+            {navigation.map((item) => {
+              const active = location.pathname === item.to;
+              return (
+                <li key={item.to}>
+                  <Link
+                    className={cn(
+                      'relative py-1 transition-colors',
+                      active
+                        ? 'text-[var(--color-ink)] font-medium'
+                        : 'text-[var(--color-stone)] hover:text-[var(--color-ink)]',
+                    )}
+                    to={item.to}
+                  >
+                    {item.label}
+                    {active && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute -bottom-0.5 left-0 h-[2px] w-full"
+                        style={{ background: 'var(--color-brand)' }}
+                      />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-          <div className="hidden md:flex md:flex-col md:items-end md:gap-3 xl:flex-row xl:items-center xl:gap-8">
-            <nav aria-label="Primary" className="min-w-0">
-              <ul className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
-                {navigation.map((item) => (
-                  <li key={item.to}>
-                    <Link
-                      className={cn(
-                        'transition-colors',
-                        location.pathname === item.to
-                          ? 'font-semibold text-slate-900'
-                          : 'text-slate-600 hover:text-slate-900',
-                      )}
-                      onClick={closeMenu}
-                      to={item.to}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+        <div className="hidden items-center gap-3 md:flex">
+          {publicContact.hasPhone ? (
+            <a
+              className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-[var(--color-ink)] hover:text-[var(--color-brand)]"
+              href={publicContact.phoneHref}
+            >
+              <Phone aria-hidden="true" className="h-4 w-4" style={{ color: 'var(--color-brand)' }} />
+              {site.phone.display}
+            </a>
+          ) : null}
+          <Link to="/quote" className="btn btn-primary btn-sm">
+            Get a free quote
+          </Link>
+        </div>
+
+        <button
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-line-strong)] text-[var(--color-ink)] md:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          type="button"
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {mobileOpen ? (
+        <div className="md:hidden">
+          <div className="wrap border-t border-[var(--color-line)] pb-8 pt-6">
+            <nav aria-label="Mobile primary">
+              <ul className="grid gap-1 text-lg">
+                {navigation.map((item) => {
+                  const active = location.pathname === item.to;
+                  return (
+                    <li key={item.to}>
+                      <Link
+                        className={cn(
+                          'flex items-center justify-between py-3 border-b border-[var(--color-line)]',
+                          active ? 'font-medium text-[var(--color-ink)]' : 'text-[var(--color-graphite)]',
+                        )}
+                        onClick={closeMenu}
+                        to={item.to}
+                      >
+                        <span>{item.label}</span>
+                        <span aria-hidden="true" className="text-[var(--color-dust)]">→</span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
 
-            <div className="flex flex-col items-end text-right">
+            <div className="mt-6 flex flex-col gap-3">
+              <Link to="/quote" onClick={closeMenu} className="btn btn-primary w-full">
+                Get a free quote
+              </Link>
               {publicContact.hasPhone ? (
                 <a
-                  className="text-base font-semibold text-slate-900 transition-colors hover:text-accent"
+                  className="btn btn-ghost w-full"
                   href={publicContact.phoneHref}
+                  onClick={closeMenu}
                 >
-                  {site.phone.display}
+                  <Phone aria-hidden="true" className="h-4 w-4" />
+                  Call {site.phone.display}
                 </a>
               ) : (
-                <Link
-                  className="text-base font-semibold text-slate-900 transition-colors hover:text-accent"
-                  to="/contact"
-                >
+                <Link to="/contact" onClick={closeMenu} className="btn btn-ghost w-full">
                   Talk through your move
                 </Link>
               )}
-              <Link
-                className="mt-1 text-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-900"
-                to="/quote"
-              >
-                Start a written estimate
-              </Link>
             </div>
+
+            <p className="mt-6 text-sm text-[var(--color-stone)]">
+              {site.officeLabel} · {site.hours.summary}
+            </p>
           </div>
         </div>
-
-        {mobileOpen ? (
-          <div className="mt-5 border-t border-slate-200 pt-5 md:hidden">
-            <nav aria-label="Mobile primary">
-              <ul className="grid gap-3 text-base">
-                {navigation.map((item) => (
-                  <li key={item.to}>
-                    <Link
-                      className={cn(
-                        'block',
-                        location.pathname === item.to
-                          ? 'font-semibold text-slate-900'
-                          : 'text-slate-600',
-                      )}
-                      onClick={closeMenu}
-                      to={item.to}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="mt-5 border-t border-slate-200 pt-4 text-sm">
-              <p className="text-slate-600">
-                {site.officeLabel} • {site.hours.summary}
-              </p>
-
-              <div className="mt-4 flex flex-col gap-2">
-                {publicContact.hasPhone ? (
-                  <a
-                    className="font-semibold text-slate-900"
-                    href={publicContact.phoneHref}
-                    onClick={closeMenu}
-                  >
-                    Call {site.phone.display}
-                  </a>
-                ) : (
-                  <Link
-                    className="font-semibold text-slate-900"
-                    onClick={closeMenu}
-                    to="/contact"
-                  >
-                    Talk through your move
-                  </Link>
-                )}
-                <Link
-                  className="text-slate-600 underline decoration-slate-300 underline-offset-4"
-                  onClick={closeMenu}
-                  to="/quote"
-                >
-                  Request a written estimate
-                </Link>
-              </div>
-            </div>
-          </div>
-        ) : null}
-      </div>
+      ) : null}
     </header>
   );
 }
