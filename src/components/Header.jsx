@@ -2,18 +2,25 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Phone, Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { BrandSeal } from './BrandMark';
 import { navigation, publicContact, site } from '../data/site';
 
 function Wordmark({ onClick, className = '' }) {
   return (
-    <Link onClick={onClick} to="/" className={cn('group inline-flex items-baseline gap-2.5', className)} aria-label={`${site.displayName} — home`}>
-      <span
-        aria-hidden="true"
-        className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
-        style={{ background: 'var(--color-brand)' }}
-      />
-      <span className="font-display text-[1.375rem] leading-none tracking-[-0.025em] text-[var(--color-ink)] sm:text-2xl">
-        {site.shortName}
+    <Link
+      onClick={onClick}
+      to="/"
+      className={cn('group inline-flex items-center gap-3', className)}
+      aria-label={`${site.displayName} — home`}
+    >
+      <BrandSeal size={36} color="var(--color-ink)" className="shrink-0 transition-transform duration-500 group-hover:rotate-[20deg]" />
+      <span className="leading-tight">
+        <span className="block font-display text-[1.3rem] tracking-[-0.025em] text-[var(--color-ink)] sm:text-[1.375rem]">
+          {site.shortName}
+        </span>
+        <span className="block text-[0.64rem] uppercase tracking-[0.2em] text-[var(--color-stone)]">
+          Austin & Central TX
+        </span>
       </span>
     </Link>
   );

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { BrandSeal } from '../components/BrandMark';
 import { companyValues, site } from '../data/site';
 
 const principles = [
@@ -35,22 +36,45 @@ export function AboutPage() {
         keywords="Quality Moving Austin, Round Rock moving company, Austin movers about, Texas licensed movers"
       />
 
-      <section className="section-tight pt-16 md:pt-24">
-        <div className="wrap">
-          <p className="eyebrow">About</p>
+      <section className="relative overflow-hidden pt-16 md:pt-24">
+        <BrandSeal
+          size={280}
+          className="pointer-events-none absolute -right-10 top-10 rotate-6 opacity-[0.08] md:right-16"
+          color="var(--color-ink)"
+        />
+        <div className="wrap relative">
+          <p className="eyebrow">About · A letter from the office</p>
           <h1 className="display-xl mt-5 max-w-4xl text-balance">
             A moving company built on the{' '}
             <span className="serif-italic" style={{ color: 'var(--color-brand)' }}>boring details</span>{' '}
             that actually matter.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-graphite)]">
+          <p className="dropcap mt-8 max-w-2xl text-lg leading-[1.7] text-[var(--color-graphite)]">
             We started Quality Moving & Storage because too many Austin moves
             were being run like dispatch operations — pass the job, collect
             the card, move on. A move is one of the most physically chaotic
             days of a family's year. It deserves more care than that.
           </p>
+
+          <p className="mt-8 font-display text-[1.05rem] italic leading-relaxed text-[var(--color-stone)] max-w-2xl">
+            So we built the company we wished existed. Walkthroughs before
+            quotes. One coordinator per move. Floor runners on every job,
+            billed to nobody. The kind of mover you'd call again — and
+            actually want to refer to your neighbor.
+          </p>
+
+          <div className="mt-10 flex items-end gap-6">
+            <span className="sig" style={{ color: 'var(--color-brand-deep)' }}>— The crew</span>
+            <span className="mb-1 text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-stone)]">
+              Round Rock, TX
+            </span>
+          </div>
         </div>
       </section>
+
+      <div className="wrap mt-16">
+        <p className="ornament">· · ·</p>
+      </div>
 
       {/* Facts block */}
       <section className="section-tight">

@@ -248,14 +248,29 @@ export function HomePage() {
         <div className="wrap">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
             <div className="order-2 lg:order-1">
-              <figure className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-bone)] p-8 sm:p-10">
-                <blockquote className="font-display text-[1.375rem] italic leading-[1.35] text-[var(--color-ink)] sm:text-2xl">
-                  “The crew showed up 10 minutes early, walked the house
+              <figure
+                className="relative rounded-2xl border border-[var(--color-line)] bg-[var(--color-bone)] p-8 sm:p-10"
+                style={{ rotate: '-0.6deg' }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-3 -top-6 font-display text-[6rem] leading-none text-[var(--color-brand)]"
+                >
+                  “
+                </span>
+                <blockquote className="relative font-display text-[1.375rem] italic leading-[1.35] text-[var(--color-ink)] sm:text-2xl">
+                  The crew showed up ten minutes early, walked the house
                   before a single pad came off the truck, and knew exactly
-                  where the piano was going. That was worth every dollar.”
+                  where the piano was going. Worth every dollar.
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full border border-[var(--color-line-strong)]" style={{ background: 'var(--color-paper)' }} aria-hidden="true" />
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-line-strong)] font-display text-sm text-[var(--color-ink)]"
+                    style={{ background: 'var(--color-paper)' }}
+                    aria-hidden="true"
+                  >
+                    M.
+                  </div>
                   <div>
                     <p className="text-sm font-medium text-[var(--color-ink)]">A homeowner in Cedar Park</p>
                     <p className="text-xs text-[var(--color-stone)]">Local move · 3 bed / 2 bath</p>
