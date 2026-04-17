@@ -64,7 +64,7 @@ export function Hero() {
               done the boring, careful way.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <Link to="/quote" className="btn btn-primary">
                 Get a free estimate
                 <span aria-hidden="true" className="ml-0.5">→</span>
@@ -79,20 +79,15 @@ export function Hero() {
               )}
             </div>
 
-            <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.85rem] text-[var(--color-stone)]">
-              {trustLine.map((item, i) => (
+            <ul className="mt-10 grid gap-x-6 gap-y-2 text-[0.85rem] text-[var(--color-stone)] sm:flex sm:flex-wrap sm:items-center">
+              {trustLine.map((item) => (
                 <li key={item} className="inline-flex items-center gap-2">
-                  {i > 0 && (
-                    <span aria-hidden="true" className="inline-block h-1 w-1 rounded-full bg-[var(--color-line-strong)]" />
-                  )}
-                  <span className="inline-flex items-center gap-2">
-                    <span
-                      aria-hidden="true"
-                      className="inline-block h-1 w-1 rounded-full"
-                      style={{ background: 'var(--color-brand)' }}
-                    />
-                    {item}
-                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="inline-block h-1 w-1 rounded-full"
+                    style={{ background: 'var(--color-brand)' }}
+                  />
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

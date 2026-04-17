@@ -167,8 +167,8 @@ export const services = [
       'Disassembly and reassembly',
       'Apartment and house moves',
     ],
-    image: '/hero-image.png',
-    imageAlt: 'Moving crew loading furniture into a truck for a local Austin move.',
+    image: '/local-moving-service.jpg',
+    imageAlt: 'Two movers carrying a sofa through a bright room during a residential move.',
   },
   {
     id: 'commercial-moving',
@@ -183,8 +183,8 @@ export const services = [
       'After-hours scheduling',
       'Labeled inventory process',
     ],
-    image: '/austin-tx-moving-storage-warehouse.jpg',
-    imageAlt: 'Commercial relocation staging for an Austin office move.',
+    image: '/commercial-moving-service.jpg',
+    imageAlt: 'A team labeling office boxes during a commercial relocation.',
   },
   {
     id: 'packing',
@@ -199,8 +199,8 @@ export const services = [
       'Room-by-room labeling',
       'Custom crating when needed',
     ],
-    image: '/packing-service.png',
-    imageAlt: 'Packing supplies and labeled boxes for an Austin home move.',
+    image: '/packing-service-real.jpg',
+    imageAlt: 'Fragile dishes being wrapped with bubble wrap before a move.',
   },
   {
     id: 'long-distance',
@@ -231,14 +231,35 @@ export const services = [
       'Flexible retrieval',
       'Bridge storage for renovations',
     ],
-    image: '/storage-service.png',
-    imageAlt: 'Climate-conscious storage space for Austin-area moving clients.',
+    image: '/storage-service-real.jpg',
+    imageAlt: 'Two workers carrying labeled boxes through a warehouse storage aisle.',
   },
 ];
 
 export const featuredServices = services.filter((service) =>
   ['local-moving', 'packing', 'long-distance', 'storage'].includes(service.id),
 );
+
+export const homeGallery = [
+  {
+    title: 'Room-by-room handling',
+    text: 'Large furniture moved on planned paths with the final placement decided before unloading starts.',
+    image: '/room-by-room-handling.jpg',
+    imageAlt: 'A mover carrying a sofa through a narrow hallway during a residential move.',
+  },
+  {
+    title: 'Fragile packing',
+    text: 'Kitchens, dishes, and breakables wrapped correctly before they ever touch the truck.',
+    image: '/packing-service-real.jpg',
+    imageAlt: 'Fragile dishes being wrapped with bubble wrap before a move.',
+  },
+  {
+    title: 'Tracked storage',
+    text: 'Items labeled, carried, and handed into storage when the timeline between homes shifts.',
+    image: '/storage-service-real.jpg',
+    imageAlt: 'Two workers carrying labeled boxes through a warehouse storage aisle.',
+  },
+];
 
 export const serviceDetails = [
   {

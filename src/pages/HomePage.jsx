@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { featuredServices, howItWorks, publicContact, site, trustSignals } from '../data/site';
+import { featuredServices, homeGallery, howItWorks, publicContact, site, trustSignals } from '../data/site';
 
 const serviceIcons = {
   'local-moving': Home,
@@ -35,6 +35,48 @@ export function HomePage() {
       <LocalBusinessSchema />
 
       <Hero />
+
+      <section className="border-b border-[var(--color-line)] bg-white/60">
+        <div className="wrap py-6 md:py-8">
+          <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div className="max-w-md">
+              <p className="eyebrow">On move day</p>
+              <h2 className="display-md mt-4 text-balance">
+                Real moving, packing, and storage work.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-graphite)] sm:text-[0.95rem]">
+              The work should look calm before it looks impressive. Clear handling, careful wrapping,
+              and labeled storage handoffs are what keep move day from drifting off plan.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr_0.85fr]">
+            {homeGallery.map((item, idx) => (
+              <figure
+                key={item.title}
+                className={`group overflow-hidden rounded-[1.6rem] border border-[var(--color-line)] bg-[var(--color-bone)] ${
+                  idx === 0 ? 'lg:row-span-2' : ''
+                }`}
+              >
+                <div className={`overflow-hidden ${idx === 0 ? 'aspect-[4/4.6]' : 'aspect-[4/3]'}`}>
+                  <img
+                    alt={item.imageAlt}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    decoding="async"
+                    loading="lazy"
+                    src={item.image}
+                  />
+                </div>
+                <figcaption className="p-5 sm:p-6">
+                  <p className="font-display text-[1.35rem] leading-tight text-[var(--color-ink)]">{item.title}</p>
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{item.text}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Stat strip */}
       <section className="border-y border-[var(--color-line)] bg-[var(--color-bone)]">
