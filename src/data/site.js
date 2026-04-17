@@ -39,7 +39,9 @@ function getApprovedAddress() {
   };
 }
 
-const approvedSiteOrigin = getPublicEnv('VITE_PUBLIC_SITE_ORIGIN').replace(/\/+$/, '') || 'https://qualitymoving.com';
+const runtimeOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+const approvedSiteOrigin =
+  getPublicEnv('VITE_PUBLIC_SITE_ORIGIN').replace(/\/+$/, '') || runtimeOrigin || 'https://qualitymoving.com';
 const approvedPhone = getApprovedPhone();
 const approvedAddress = getApprovedAddress();
 const approvedYearFoundedValue = Number.parseInt(getPublicEnv('VITE_PUBLIC_YEAR_FOUNDED'), 10);
